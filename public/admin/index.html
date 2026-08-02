@@ -5,8 +5,182 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex" />
     <title>Write · Prabhash Jha</title>
+
+    <!-- Same self-hosted fonts as the site, so the admin doesn't feel like a different product. -->
+    <link rel="stylesheet" href="/fonts/fonts.css" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <style>
+      /* ============================================================
+         Dark theme for the admin.
+
+         Decap generates class names as `css-<hash>-<ComponentName>`.
+         The hash changes between releases but the component suffix does
+         not, so everything below hooks onto [class*="-ComponentName"].
+         That survives upgrades in a way that structural guessing does not.
+         ============================================================ */
+      :root {
+        --void: #06070a;  --surface: #0c0e14; --raised: #12151d; --hair: #1e222c;
+        --text: #edeff5;  --muted: #878da0;   --dim: #5a6072;
+        --blue: #4f7cff;  --violet: #a855f7;  --cyan: #22d3ee;
+        --grad: linear-gradient(100deg, var(--blue), var(--violet) 55%, var(--cyan));
+        --card: linear-gradient(160deg, rgba(255,255,255,.055), rgba(255,255,255,.018));
+      }
+
+      html, body, #nc-root { background: var(--void) !important; }
+      body {
+        color: var(--text) !important;
+        font-family: "Inter", ui-sans-serif, system-ui, sans-serif !important;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ---------- app chrome ---------- */
+      [class*="-AppHeader"] {
+        background: rgba(12,14,20,.92) !important;
+        border-bottom: 1px solid var(--hair) !important;
+        box-shadow: none !important;
+        backdrop-filter: blur(12px);
+      }
+      [class*="-AppHeaderNavLink"], [class*="-AppHeaderButton"], [class*="-AppHeaderSiteLink"] {
+        color: var(--muted) !important; background: transparent !important; border: 0 !important;
+      }
+      [class*="-AppHeaderNavLink"]:hover, [class*="-AppHeaderButton"]:hover { color: var(--text) !important; }
+      .header-link-active { color: var(--text) !important; background: rgba(255,255,255,.06) !important; }
+      [class*="-AppMainContainer"] { background: transparent !important; }
+      [class*="-AppHeaderContent"], [class*="-AppHeaderNavList"], [class*="-AppHeaderActions"] {
+        border-color: var(--hair) !important;
+      }
+      /* the avatar placeholder ships as a pale circle */
+      [class*="-AvatarPlaceholderIcon"] { background: var(--raised) !important; color: var(--muted) !important; }
+
+      /* ---------- sidebar + entry list ---------- */
+      #nc-root aside {
+        background: var(--card) !important; border: 1px solid var(--hair) !important;
+        border-radius: 14px !important; box-shadow: none !important; color: var(--text) !important;
+      }
+      #nc-root aside h2 {
+        font-family: "JetBrains Mono", ui-monospace, monospace !important;
+        font-size: .7rem !important; letter-spacing: .18em !important;
+        text-transform: uppercase; color: var(--dim) !important;
+      }
+      #nc-root aside a { color: var(--muted) !important; border-radius: 10px !important; }
+      #nc-root aside a:hover { color: var(--text) !important; background: rgba(255,255,255,.04) !important; }
+      #nc-root aside .sidebar-active {
+        color: var(--text) !important; background: rgba(79,124,255,.14) !important;
+        border-left: 2px solid var(--blue) !important;
+      }
+      #nc-root main ul > li {
+        background: var(--card) !important; border: 1px solid var(--hair) !important;
+        border-radius: 14px !important; box-shadow: none !important;
+      }
+      #nc-root main ul > li:hover { border-color: rgba(79,124,255,.5) !important; }
+      #nc-root main ul > li h2 { font-size: .98rem !important; font-weight: 500 !important; }
+      #nc-root main > div:first-of-type { background: transparent !important; border: 0 !important; box-shadow: none !important; }
+      #nc-root h1, #nc-root h2, #nc-root h3 {
+        font-family: "Space Grotesk", ui-sans-serif, sans-serif !important;
+        color: var(--text) !important; letter-spacing: -.02em;
+      }
+      #nc-root a { color: var(--text) !important; }
+      [class*="-ViewControls"] { background: transparent !important; }
+
+      /* ---------- editor shell ---------- */
+      [class*="-EditorContainer"], [class*="-Editor"], [class*="-StyledSplitPane"],
+      [class*="-ControlPaneContainer"], [class*="-PreviewPaneContainer"],
+      [class*="-ToolbarContainer"], [class*="-TopBarContainer"], [class*="-TopBar"] {
+        background: var(--void) !important; box-shadow: none !important; border-color: var(--hair) !important;
+      }
+      [class*="-ToolbarContainer"] { border-bottom: 1px solid var(--hair) !important; }
+      [class*="-PreviewPaneContainer"] { border-left: 1px solid var(--hair) !important; }
+      [class*="-PreviewPaneFrame"] { background: var(--void) !important; border: 0 !important; }
+      .Resizer { background: var(--hair) !important; opacity: 1 !important; }
+
+      /* ---------- fields ---------- */
+      /* Widget wrappers are unnamed emotion divs that default to white.
+         Blank them all, then the named rules below repaint what matters. */
+      [class*="-ControlPaneContainer"] div,
+      [class*="-ControlPaneContainer"] fieldset,
+      [class*="-ControlContainer"] div { background-color: transparent !important; }
+      [class*="-ControlContainer"] { background: transparent !important; border-color: var(--hair) !important; }
+      [class*="-FieldLabel"], #nc-root label {
+        color: var(--cyan) !important; background: transparent !important;
+        font-family: "JetBrains Mono", ui-monospace, monospace !important;
+        font-size: .68rem !important; letter-spacing: .12em !important; text-transform: uppercase;
+      }
+      [class*="-ControlHint"] { color: var(--muted) !important; }
+      [class*="-NestedObjectLabel"] {
+        background: rgba(255,255,255,.04) !important; color: var(--text) !important;
+        border: 1px solid var(--hair) !important; border-radius: 10px !important;
+      }
+      #nc-root input, #nc-root textarea, #nc-root select,
+      [class*="-TextControl"], #nc-root [contenteditable="true"] {
+        background: rgba(255,255,255,.04) !important; color: var(--text) !important;
+        border: 1px solid var(--hair) !important; border-radius: 10px !important;
+        font-family: "Inter", ui-sans-serif, sans-serif !important; caret-color: var(--cyan);
+      }
+      #nc-root input::placeholder, #nc-root textarea::placeholder { color: var(--dim) !important; }
+      #nc-root input:focus, #nc-root textarea:focus, #nc-root [contenteditable="true"]:focus {
+        outline: 0 !important; border-color: var(--cyan) !important;
+        box-shadow: 0 0 0 3px rgba(34,211,238,.12) !important;
+      }
+      [class*="-ToggleBackground"] { background: var(--hair) !important; }
+      [class*="-ToggleHandle"] { background: var(--text) !important; }
+
+      /* ---------- buttons ---------- */
+      #nc-root button { border-radius: 999px !important; font-family: "Inter", sans-serif !important; }
+      [class*="-ToolbarButton"], [class*="-ButtonRound"], [class*="-TopBarButton"],
+      [class*="-AddButton"], [class*="-ExpandButton"] {
+        background: rgba(255,255,255,.06) !important; color: var(--text) !important;
+        border: 1px solid var(--hair) !important;
+      }
+      [class*="-ToolbarButton"]:hover, [class*="-AddButton"]:hover { border-color: var(--blue) !important; }
+      [class*="PublishedButton"],
+      #nc-root main > div:first-of-type a[href*="/new"],
+      #nc-root main > div:first-of-type button {
+        background: var(--grad) !important; color: #fff !important; border: 0 !important; font-weight: 500;
+      }
+      [class*="-StyledDropdownButton"] {
+        background: rgba(255,255,255,.06) !important; color: var(--text) !important;
+        border: 1px solid var(--hair) !important;
+      }
+      /* inactive sidebar rows must not show the active accent bar */
+      #nc-root aside a { border-left: 2px solid transparent !important; }
+      #nc-root aside .sidebar-active { border-left-color: var(--blue) !important; }
+      [class*="-BackStatus"] { color: var(--cyan) !important; }
+      [class*="-BackArrow"], [class*="-BackCollection"] { color: var(--muted) !important; }
+
+      /* ---------- scrollbars + toasts ---------- */
+      #nc-root ::-webkit-scrollbar { width: 10px; height: 10px; }
+      #nc-root ::-webkit-scrollbar-track { background: var(--void); }
+      #nc-root ::-webkit-scrollbar-thumb { background: var(--hair); border-radius: 999px; }
+      .Toastify__toast { background: var(--raised) !important; color: var(--text) !important; border: 1px solid var(--hair); }
+    </style>
   </head>
   <body>
-    <script src="https://unpkg.com/decap-cms@^3.8.3/dist/decap-cms.js"></script>
+    <!-- Pinned exactly (no ^): a Decap upgrade would regenerate its class
+         names and break the theme above. Bump deliberately, then re-check. -->
+    <script src="https://unpkg.com/decap-cms@3.8.3/dist/decap-cms.js"></script>
+    <script>
+      /* The live preview renders inside an iframe, so page CSS cannot reach it.
+         registerPreviewStyle is the supported way in. */
+      window.CMS &&
+        window.CMS.registerPreviewStyle(
+          `@import url("/fonts/fonts.css");
+           html, body { background: #06070A !important; color: #EDEFF5 !important;
+             font-family: "Inter", ui-sans-serif, system-ui, sans-serif !important;
+             line-height: 1.65; padding: 1.6rem 1.8rem; }
+           h1, h2, h3, h4 { font-family: "Space Grotesk", sans-serif !important;
+             color: #EDEFF5 !important; letter-spacing: -0.02em; }
+           strong, b { color: #EDEFF5 !important; }
+           p, li, span, div, td { color: #C4C9D6 !important; }
+           a { color: #22D3EE !important; }
+           blockquote { border-left: 2px solid #4F7CFF; padding-left: 1rem;
+             color: #EDEFF5 !important; font-style: normal; }
+           code, pre { background: #12151D !important; color: #22D3EE !important;
+             border-radius: 6px; padding: 0.15em 0.4em; }
+           img { max-width: 100%; border-radius: 10px; }
+           hr { border: 0; border-top: 1px solid #1E222C; }`,
+          { raw: true }
+        );
+    </script>
   </body>
 </html>
