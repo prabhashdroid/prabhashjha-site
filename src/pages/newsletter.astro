@@ -1,0 +1,76 @@
+---
+import Base from "../layouts/Base.astro";
+import { NEWSLETTER_ACTION, LINKEDIN_URL } from "../site.config";
+import { getEntry } from "astro:content";
+const page = await getEntry("pages", "newsletter");
+const d = page!.data;
+---
+<Base title={d.title} description={d.description}>
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 grid-bg"></div>
+    <div class="orb orb-a w-[30rem] h-[30rem] bg-violet/25 -top-32 left-1/4"></div>
+    <div class="relative mx-auto max-w-3xl px-5 sm:px-8 pt-20 pb-24 md:pt-28 text-center">
+      <p class="reveal font-mono text-[0.7rem] tracking-[0.2em] uppercase text-dim mb-6">/ {d.eyebrow}</p>
+      <h1 data-words class="font-display font-bold text-[2.6rem] sm:text-[3.6rem] leading-[1.03]">
+        {d.heading} <span class="grad-text">{d.headingAccent}</span>
+      </h1>
+      <p class="reveal mt-7 text-muted text-[1.06rem] leading-relaxed max-w-xl mx-auto">
+        {d.intro}
+      </p>
+
+      {NEWSLETTER_ACTION ? (
+        <>
+          <form id="subForm" class="reveal mt-11 flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+            action={NEWSLETTER_ACTION} method="post" target="_blank">
+            <input id="subEmail" type="email" name="email" required placeholder="you@company.com"
+              aria-label="Email address"
+              class="flex-1 glass rounded-full px-6 py-4 text-text placeholder:text-dim outline-none focus:border-cyan transition-colors" />
+            <button type="submit"
+              class="group relative rounded-full px-8 py-4 font-medium text-white overflow-hidden transition-transform duration-500 hover:-translate-y-0.5">
+              <span class="absolute inset-0 bg-gradient-to-r from-blue via-violet to-cyan"></span>
+              <span class="relative">{d.ctaLabel}</span>
+            </button>
+          </form>
+          <p id="subMsg" class="reveal mt-4 font-mono text-[0.68rem] tracking-widest uppercase text-dim">
+            No spam · Unsubscribe anytime
+          </p>
+        </>
+      ) : (
+        <div class="reveal mt-11 max-w-md mx-auto">
+          <a href={LINKEDIN_URL}
+            class="group relative inline-flex items-center justify-center gap-2 w-full rounded-full px-8 py-4 font-medium text-white overflow-hidden transition-transform duration-500 hover:-translate-y-0.5">
+            <span class="absolute inset-0 bg-gradient-to-r from-blue via-violet to-cyan"></span>
+            <span class="relative">Follow on LinkedIn for now</span>
+          </a>
+          <p class="mt-4 font-mono text-[0.68rem] tracking-widest uppercase text-dim">
+            Email signup opening shortly
+          </p>
+        </div>
+      )}
+
+      <div class="reveal mt-16 glass rounded-2xl p-8 text-left">
+        <p class="font-mono text-[0.7rem] tracking-[0.2em] uppercase text-cyan mb-3">/ Start here instead</p>
+        <p class="text-muted">
+          Not ready to subscribe? Grab the
+          <a class="text-cyan hover:text-text transition-colors"
+            href="/post/your-marketing-either-makes-money-or-it-doesn-t-here-s-the-sheet-that-tells-you">free Unit Economics Sheet</a>
+          — no email required.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const f = document.getElementById("subForm") as HTMLFormElement | null;
+    if (f) {
+      f.addEventListener("submit", () => {
+        const msg = document.getElementById("subMsg");
+        const email = (document.getElementById("subEmail") as HTMLInputElement)?.value || "";
+        if (msg && email) {
+          msg.textContent = "Check your inbox to confirm · " + email;
+          msg.classList.add("text-cyan");
+        }
+      });
+    }
+  </script>
+</Base>

@@ -1,0 +1,220 @@
+# ============================================================
+# Fill in these two lines after you create the GitHub repo and
+# deploy the OAuth worker (see ADMIN-SETUP.md). Nothing else
+# needs to change, ever.
+# ============================================================
+backend:
+  name: github
+  repo: YOUR-GITHUB-USERNAME/prabhashjha-site   # <-- 1. your repo
+  branch: main
+  base_url: https://YOUR-WORKER.workers.dev      # <-- 2. your OAuth worker
+
+site_url: https://www.prabhashjha.com
+display_url: https://www.prabhashjha.com
+publish_mode: simple
+
+# Lets the SAME admin run on your own Mac (`npm run admin`) with no GitHub
+# login, writing straight to the files. Ignored once the site is deployed.
+local_backend: true
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: posts
+    label: Posts
+    label_singular: Post
+    folder: src/content/posts
+    create: true
+    extension: md
+    format: yaml-frontmatter
+    slug: "{{fields.slug}}"
+    summary: "{{title}}  —  {{pubDate}}"
+    sortable_fields: [pubDate, title]
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: URL slug
+        name: slug
+        widget: string
+        hint: "Becomes /post/<slug>. NEVER change this on a post that is already published — it breaks the link in Google."
+      - label: Description
+        name: description
+        widget: text
+        hint: "One line. Shows on cards and in Google search results. Aim for 140-160 characters."
+      - label: Publish date
+        name: pubDate
+        widget: datetime
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        format: "YYYY-MM-DD"
+      - label: Topic
+        name: category
+        widget: select
+        default: "Digital Marketing"
+        hint: "Decides which topic page the post appears on. Pick from the list — do not type a new one."
+        options:
+          - "Digital Marketing"
+          - "Performance & Affiliate"
+          - "Brand Building"
+          - "Business & Finance"
+          - "AI & Automation"
+          - "Founder Lessons"
+          - "Business"
+      - label: Cover image
+        name: cover
+        widget: image
+        required: false
+        media_library:
+          config:
+            multiple: false
+        hint: "Optional. Click to upload — the size is read automatically, you do not need to note it down."
+      - label: Content
+        name: body
+        widget: markdown
+
+  # ============================================================
+  # PAGES — the copy on About / Work With Me / Newsletter.
+  # The design stays fixed; you edit the words.
+  # ============================================================
+  - name: pages
+    label: Pages
+    label_singular: Page
+    folder: src/content/pages
+    create: false
+    delete: false
+    extension: md
+    format: yaml-frontmatter
+    identifier_field: title
+    summary: "{{title}}"
+    fields:
+      - { label: Browser + Google title, name: title, widget: string, hint: "Shows in the browser tab and as the blue link in Google. Keep under 60 characters." }
+      - { label: Google description, name: description, widget: text, hint: "The grey text under the link in Google. Aim for 140-160 characters." }
+      - { label: Small label above the heading, name: eyebrow, widget: string, required: false }
+      - { label: Heading, name: heading, widget: string, required: false }
+      - { label: Heading (coloured part), name: headingAccent, widget: string, required: false, hint: "This part is shown in the blue-violet gradient." }
+      - { label: Intro paragraph, name: intro, widget: text, required: false }
+      - { label: Photo, name: portrait, widget: image, required: false }
+      - { label: Photo description, name: portraitAlt, widget: string, required: false, hint: "Describes the photo for screen readers and Google Images." }
+      - label: Service cards
+        name: services
+        widget: list
+        required: false
+        summary: "{{fields.title}}"
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Description, name: blurb, widget: text }
+      - { label: Call-to-action heading, name: ctaHeading, widget: string, required: false }
+      - { label: Call-to-action text, name: ctaText, widget: text, required: false }
+      - { label: Button label, name: ctaLabel, widget: string, required: false }
+      - { label: Button link, name: ctaHref, widget: string, required: false }
+      - { label: Contact box heading, name: contactHeading, widget: string, required: false }
+      - { label: Contact box text, name: contactText, widget: text, required: false }
+      - { label: Page body, name: body, widget: markdown, required: false, hint: "Used on the About page. Leave empty on pages that do not have a long body." }
+
+  # ============================================================
+  # SETTINGS — one screen for everything that is not a page:
+  # your details, links, newsletter, analytics, homepage, topics.
+  # ============================================================
+  - name: settings
+    label: Settings
+    files:
+      - name: site
+        label: Site settings
+        file: src/data/site.json
+        fields:
+          - label: "Your details (used by Google + AI assistants)"
+            name: profile
+            widget: object
+            fields:
+              - { label: Name, name: name, widget: string }
+              - { label: Job title, name: jobTitle, widget: string, hint: "Keep this identical to your LinkedIn headline." }
+              - { label: Tagline, name: tagline, widget: string, required: false }
+              - { label: Bio, name: bio, widget: text, hint: "This is what AI assistants quote when asked who you are." }
+              - { label: City, name: locality, widget: string, required: false }
+              - { label: State, name: region, widget: string, required: false }
+              - { label: Country code, name: country, widget: string, required: false }
+              - { label: Topics you are known for, name: knowsAbout, widget: text, hint: "Comma separated." }
+          - label: Company
+            name: organisation
+            widget: object
+            fields:
+              - { label: Name, name: name, widget: string }
+              - { label: Description, name: description, widget: text }
+          - label: "Contact form (free — messages go to your email, no storage used)"
+            name: contact
+            widget: object
+            fields:
+              - { label: Your email, name: email, widget: string, required: false }
+              - { label: Show email on the site, name: showEmailOnSite, widget: boolean, default: false }
+              - { label: Web3Forms access key, name: formAccessKey, widget: string, required: false, hint: "Free + unlimited at web3forms.com — paste the key and the form goes live. Empty = the page shows an email/LinkedIn button instead." }
+              - { label: Form heading, name: formHeading, widget: string, required: false }
+              - { label: Form blurb, name: formBlurb, widget: text, required: false }
+              - { label: Button label, name: formButtonLabel, widget: string, required: false }
+          - label: "Comments (free — stored in your GitHub repo, no database)"
+            name: comments
+            widget: object
+            fields:
+              - { label: GitHub repo, name: giscusRepo, widget: string, required: false, hint: "e.g. yourname/prabhashjha-site. Set this up at giscus.app — it takes 2 minutes and costs nothing." }
+              - { label: Repo ID, name: giscusRepoId, widget: string, required: false }
+              - { label: Discussion category, name: giscusCategory, widget: string, required: false }
+              - { label: Category ID, name: giscusCategoryId, widget: string, required: false }
+          - label: "Social profiles (these link your identity together for Google)"
+            name: social
+            widget: object
+            fields:
+              - { label: LinkedIn, name: linkedin, widget: string, required: false }
+              - { label: Instagram, name: instagram, widget: string, required: false }
+              - { label: X / Twitter, name: twitter, widget: string, required: false }
+              - { label: Facebook, name: facebook, widget: string, required: false }
+          - label: Newsletter
+            name: newsletter
+            widget: object
+            fields:
+              - { label: Buttondown username, name: buttondownUsername, widget: string, required: false, hint: "Free at buttondown.com. Empty = the form points people to LinkedIn instead." }
+              - { label: Heading, name: heading, widget: string, required: false }
+              - { label: Blurb, name: blurb, widget: text, required: false }
+          - label: Analytics and verification
+            name: analytics
+            widget: object
+            fields:
+              - { label: Cloudflare Web Analytics token, name: cloudflareToken, widget: string, required: false, hint: "Free. Empty = no tracking script is shipped at all." }
+              - { label: Google Search Console code, name: googleSiteVerification, widget: string, required: false }
+          - label: Homepage
+            name: home
+            widget: object
+            fields:
+              - { label: Badge line, name: badge, widget: string }
+              - { label: Headline, name: headline, widget: string }
+              - { label: Headline (coloured part), name: headlineAccent, widget: string }
+              - { label: Intro paragraph, name: intro, widget: text }
+              - { label: Main button label, name: primaryCtaLabel, widget: string }
+              - { label: Main button link, name: primaryCtaHref, widget: string }
+              - { label: Second button label, name: secondaryCtaLabel, widget: string }
+              - { label: Second button link, name: secondaryCtaHref, widget: string }
+              - { label: Years in the field, name: yearsInField, widget: number, value_type: int }
+              - { label: Feature label, name: featureLabel, widget: string }
+              - { label: Feature heading, name: featureHeading, widget: string }
+              - { label: Feature blurb, name: featureBlurb, widget: text }
+              - { label: Feature button label, name: featureCtaLabel, widget: string }
+              - { label: Feature button link, name: featureCtaHref, widget: string }
+          - label: "Topics (the sections of your blog)"
+            name: topics
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { label: Name, name: name, widget: string }
+              - { label: Description, name: blurb, widget: text }
+              - { label: URL slug, name: slug, widget: string, hint: "NEVER change this on a topic that is already live — it breaks the link in Google. Renaming the Name is safe." }
+              - label: "SEO keywords for this topic (optional)"
+                name: keywords
+                widget: list
+                required: false
+                hint: "Every post in this topic inherits these automatically. The rest of each post's keywords are worked out from its own text at build time — you never have to write them."
+          - label: Footer
+            name: footer
+            widget: object
+            fields:
+              - { label: Blurb, name: blurb, widget: text }
+              - { label: Copyright suffix, name: copyrightSuffix, widget: string }

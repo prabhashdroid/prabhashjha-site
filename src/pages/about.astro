@@ -1,0 +1,39 @@
+---
+import Base from "../layouts/Base.astro";
+import ContactForm from "../components/ContactForm.astro";
+import { getEntry, render } from "astro:content";
+import { SOCIAL } from "../siteData";
+const page = await getEntry("pages", "about");
+const d = page!.data;
+const { Content } = await render(page!);
+---
+<Base title={d.title} description={d.description}>
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 grid-bg"></div>
+    <div class="orb orb-a w-[30rem] h-[30rem] bg-violet/20 -top-32 -right-24"></div>
+    <div class="relative mx-auto max-w-3xl px-5 sm:px-8 pt-20 pb-16 md:pt-28">
+      <p class="reveal font-mono text-[0.7rem] tracking-[0.2em] uppercase text-dim mb-6">/ {d.eyebrow}</p>
+      <div class="md:flex md:items-center md:gap-12">
+        <div class="flex-1">
+          <h1 data-words class="font-display font-bold text-[2.6rem] sm:text-[3.6rem] leading-[1.03]">
+            {d.heading} <span class="grad-text">{d.headingAccent}</span>
+          </h1>
+        </div>
+        <div class="reveal-scale mt-10 md:mt-0 shrink-0">
+          <div class="relative w-[190px] h-[190px] sm:w-[230px] sm:h-[230px]">
+            <div class="absolute -inset-2 rounded-full bg-gradient-to-br from-blue via-violet to-cyan opacity-30 blur-2xl"></div>
+            <img src={d.portrait} width="460" height="460"
+              alt={d.portraitAlt}
+              class="relative w-full h-full object-cover rounded-full border border-hair" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-5 sm:px-8 pb-24">
+    <div class="prose-pj reveal"><Content /></div>
+
+    <div class="mt-14"><ContactForm /></div>
+  </section>
+</Base>

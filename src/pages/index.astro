@@ -1,0 +1,178 @@
+---
+import { coverSize } from "../seo";
+import Base from "../layouts/Base.astro";
+import { getCollection } from "astro:content";
+import { catSlug, CATEGORY_BLURBS, CATEGORY_ORDER } from "../categories";
+import { HOME, PROFILE } from "../siteData";
+
+const posts = (await getCollection("posts"))
+  .filter((p) => !p.data.draft && (p.data.slug ?? p.id) !== "privacy-policy")
+  .sort((a, b) => +new Date(b.data.pubDate) - +new Date(a.data.pubDate));
+const latest = posts.slice(0, 4);
+
+const cats = [...new Set(posts.map((p) => p.data.category))];
+const order = CATEGORY_ORDER;
+const topics = order.filter((c) => cats.includes(c)).map((c, i) => ({
+  n: String(i + 1).padStart(2, "0"),
+  name: c,
+  href: `/blog/categories/${catSlug(c)}`,
+  blurb: CATEGORY_BLURBS[c] ?? "",
+  count: posts.filter((p) => p.data.category === c).length,
+}));
+
+const ticker = ["LTV : CAC", "PAYBACK PERIOD", "BREAK-EVEN ROAS", "CONTRIBUTION MARGIN",
+  "RETENTION", "PROGRAMMATIC", "ATTRIBUTION", "CREATIVE TESTING", "UNIT ECONOMICS"];
+
+const fmt = (d: string) =>
+  new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
+---
+
+<Base title="Prabhash Jha — Practical Marketing & Founder Playbooks">
+  <!-- ================= HERO ================= -->
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 grid-bg"></div>
+    <div class="orb orb-a w-[34rem] h-[34rem] bg-blue/25 -top-40 -left-32"></div>
+    <div class="orb orb-b w-[30rem] h-[30rem] bg-violet/25 top-10 right-[-8rem]"></div>
+    <div class="orb orb-a w-[22rem] h-[22rem] bg-cyan/20 bottom-[-6rem] left-1/3"></div>
+
+    <div class="relative mx-auto max-w-6xl px-5 sm:px-8 pt-24 pb-28 md:pt-36 md:pb-36">
+      <div class="reveal inline-flex items-center gap-2.5 glass rounded-full px-4 py-1.5 mb-9">
+        <span class="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse"></span>
+        <span class="font-mono text-[0.7rem] tracking-[0.15em] uppercase text-muted">
+          {HOME.badge}
+        </span>
+      </div>
+
+      <h1 data-words class="font-display font-bold text-[2.7rem] leading-[1.02] sm:text-6xl lg:text-[5rem] max-w-[17ch]">
+        {HOME.headline}
+        <span class="grad-text">{HOME.headlineAccent}</span>.
+      </h1>
+
+      <p class="reveal mt-9 max-w-xl text-[1.08rem] leading-relaxed text-muted">
+        {HOME.intro}
+      </p>
+
+      <div class="reveal mt-11 flex flex-wrap gap-3">
+        <a href={HOME.primaryCtaHref}
+          class="group relative inline-flex items-center gap-2 rounded-full px-8 py-4 font-medium text-white overflow-hidden transition-transform duration-500 hover:-translate-y-0.5">
+          <span class="absolute inset-0 bg-gradient-to-r from-blue via-violet to-cyan"></span>
+          <span class="absolute inset-0 bg-gradient-to-r from-cyan via-violet to-blue opacity-0 transition-opacity duration-500 group-hover:opacity-100"></span>
+          <span class="relative">{HOME.primaryCtaLabel}</span>
+          <span class="relative transition-transform duration-500 group-hover:translate-x-1">→</span>
+        </a>
+        <a href={HOME.secondaryCtaHref}
+          class="glass glow-hover rounded-full px-8 py-4 text-text/90 hover:text-text">{HOME.secondaryCtaLabel}</a>
+      </div>
+
+      <!-- stats -->
+      <div class="mt-20 grid grid-cols-3 gap-4 max-w-2xl">
+        {[
+          { v: posts.length, l: "Guides published" },
+          { v: Math.round(words / 1000), l: "Thousand words", suffix: "k" },
+          { v: HOME.yearsInField, l: "Years in the field", suffix: "+" },
+        ].map((s) => (
+          <div class="reveal glass rounded-xl p-5">
+            <p class="font-display font-bold text-3xl sm:text-4xl">
+              <span data-count={s.v}>0</span>{s.suffix}
+            </p>
+            <p class="font-mono text-[0.66rem] tracking-[0.12em] uppercase text-dim mt-1.5">{s.l}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- ticker -->
+    <div class="relative border-y border-hair bg-surface/60 py-4 overflow-hidden">
+      <div class="marquee font-mono text-[0.72rem] tracking-[0.2em] uppercase text-dim">
+        {[...ticker, ...ticker].map((t) => (
+          <span class="flex items-center gap-3 whitespace-nowrap">
+            <span class="w-1 h-1 rounded-full bg-blue"></span>{t}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TOPICS ================= -->
+  <section class="mx-auto max-w-6xl px-5 sm:px-8 py-28 md:py-36">
+    <p class="reveal font-mono text-[0.7rem] tracking-[0.2em] uppercase text-dim mb-5">/ Explore</p>
+    <h2 data-words class="font-display font-bold text-3xl sm:text-[3rem] max-w-[15ch]">
+      Pick a track and go deep.
+    </h2>
+    <p class="reveal mt-5 text-muted max-w-xl">
+      Each one is a growing library of practical guides, frameworks and templates — built from real
+      work, not theory.
+    </p>
+
+    <div class="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {topics.map((t) => (
+        <a href={t.href} class="reveal glass glow-hover group rounded-2xl p-7 block">
+          <span class="font-mono text-[0.7rem] text-dim">{t.n}</span>
+          <h3 class="font-display font-semibold text-[1.25rem] mt-4 mb-2.5 group-hover:grad-text transition-all">
+            {t.name}
+          </h3>
+          <p class="text-[0.93rem] text-muted leading-relaxed">{t.blurb}</p>
+          <p class="mt-3 font-mono text-[0.66rem] tracking-widest uppercase text-dim">{t.count} guides</p>
+          <span class="mt-6 inline-flex items-center gap-1.5 text-[0.87rem] text-cyan opacity-0 -translate-x-1 transition-all duration-500 group-hover:opacity-100 group-hover:translate-x-0">
+            Explore →
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- ================= FREE TOOL ================= -->
+  <section class="mx-auto max-w-6xl px-5 sm:px-8">
+    <div class="reveal relative overflow-hidden rounded-3xl glass p-9 md:p-16">
+      <div class="orb orb-b w-[26rem] h-[26rem] bg-violet/25 -bottom-32 -left-20"></div>
+      <div class="orb orb-a w-[20rem] h-[20rem] bg-cyan/20 -top-24 right-0"></div>
+      <div class="relative md:flex md:items-end md:justify-between gap-12">
+        <div class="max-w-xl">
+          <p class="font-mono text-[0.7rem] tracking-[0.2em] uppercase text-cyan mb-5">/ {HOME.featureLabel}</p>
+          <h2 class="font-display font-bold text-[2rem] sm:text-[2.7rem] leading-[1.06]">
+            <span class="grad-text">{HOME.featureHeading}</span>
+          </h2>
+          <p class="mt-6 text-muted leading-relaxed">
+            {HOME.featureBlurb}
+          </p>
+        </div>
+        <a href={HOME.featureCtaHref}
+          class="group relative mt-9 md:mt-0 shrink-0 inline-flex items-center gap-2 rounded-full px-8 py-4 font-medium text-white overflow-hidden transition-transform duration-500 hover:-translate-y-0.5">
+          <span class="absolute inset-0 bg-gradient-to-r from-blue via-violet to-cyan"></span>
+          <span class="relative">{HOME.featureCtaLabel}</span>
+          <span class="relative transition-transform duration-500 group-hover:translate-x-1">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LATEST ================= -->
+  <section class="mx-auto max-w-6xl px-5 sm:px-8 py-28 md:py-36">
+    <div class="reveal flex items-end justify-between gap-6 mb-14">
+      <div>
+        <p class="font-mono text-[0.7rem] tracking-[0.2em] uppercase text-dim mb-5">/ Latest</p>
+        <h2 class="font-display font-bold text-3xl sm:text-[3rem]">Fresh from the desk</h2>
+      </div>
+      <a href="/blog" class="shrink-0 text-[0.92rem] text-cyan hover:text-text transition-colors">All posts →</a>
+    </div>
+
+    <div class="grid gap-x-8 gap-y-14 sm:grid-cols-2">
+      {latest.map((p) => (
+        <a href={`/post/${p.data.slug ?? p.id}`} class="reveal group block">
+          {p.data.cover && (
+            <div class="overflow-hidden rounded-2xl mb-5 border border-hair">
+              <img src={p.data.cover} alt="" loading="lazy" width={coverSize(p.data).width} height={coverSize(p.data).height}
+                class="w-full aspect-[16/10] object-cover transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06] opacity-85 group-hover:opacity-100" />
+            </div>
+          )}
+          <p class="font-mono text-[0.68rem] tracking-widest uppercase text-dim mb-2.5">{fmt(p.data.pubDate)}</p>
+          <h3 class="font-display font-semibold text-[1.32rem] leading-snug mb-2.5 text-balance group-hover:grad-text transition-all">
+            {p.data.title}
+          </h3>
+          <p class="text-[0.94rem] text-muted leading-relaxed line-clamp-2">{p.data.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,40 @@
+---
+/* Blog comments, free and storage-free.
+
+   Uses giscus, which stores every comment in GitHub Discussions on your own
+   repo. No database, no monthly fee, nothing counted against your hosting —
+   and you own the data. Renders nothing at all until it is configured in
+   Settings, so an unconfigured site never shows a broken widget. */
+import { COMMENTS, commentsEnabled } from "../siteData";
+const on = commentsEnabled();
+---
+
+{on && (
+  <section class="mx-auto max-w-3xl px-5 sm:px-8 pb-24" data-pagefind-ignore>
+    <div class="border-t border-hair pt-12">
+      <p class="font-mono text-[0.7rem] tracking-[0.2em] uppercase text-dim mb-6">/ Comments</p>
+      <div id="giscus"></div>
+    </div>
+  </section>
+)}
+
+{on && (
+  <script
+    is:inline
+    src="https://giscus.app/client.js"
+    data-repo={COMMENTS.giscusRepo}
+    data-repo-id={COMMENTS.giscusRepoId}
+    data-category={COMMENTS.giscusCategory}
+    data-category-id={COMMENTS.giscusCategoryId}
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="dark_dimmed"
+    data-lang="en"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async
+  />
+)}

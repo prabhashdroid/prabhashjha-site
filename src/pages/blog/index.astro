@@ -1,0 +1,54 @@
+---
+import { coverSize } from "../../seo";
+import Base from "../../layouts/Base.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("posts"))
+  .filter((p) => !p.data.draft && (p.data.slug ?? p.id) !== "privacy-policy")
+  .sort((a, b) => +new Date(b.data.pubDate) - +new Date(a.data.pubDate));
+
+const fmt = (d: string) =>
+  new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+---
+
+<Base
+  title="Topics — Prabhash Jha"
+  description="Every practical guide, framework and playbook — marketing, performance, brand, business and AI."
+>
+  <section class="mx-auto max-w-6xl px-5 sm:px-8 pt-20 pb-10 md:pt-28">
+    <h1 class="reveal font-display font-bold text-[2.6rem] sm:text-6xl max-w-[14ch] leading-[1.03]">
+      Everything, in one place.
+    </h1>
+    <p class="reveal mt-5 text-muted max-w-xl">
+      {posts.length} practical guides on marketing, business and AI. No fluff, no theory for its own sake.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-5 sm:px-8 pb-24">
+    <div class="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        posts.map((p) => (
+          <a href={`/post/${p.data.slug ?? p.id}`} class="reveal group block">
+            {p.data.cover && (
+              <div class="overflow-hidden rounded-xl mb-4 bg-raised">
+                <img
+                  src={p.data.cover}
+                  alt=""
+                  loading="lazy"
+                  width={coverSize(p.data).width}
+                  height={coverSize(p.data).height}
+                  class="w-full aspect-[16/10] object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.045]"
+                />
+              </div>
+            )}
+            <p class="text-[0.78rem] text-muted mb-1.5">{fmt(p.data.pubDate)}</p>
+            <h2 class="font-display font-semibold text-[1.15rem] leading-snug mb-2 text-balance">
+              {p.data.title}
+            </h2>
+            <p class="text-[0.9rem] text-muted leading-relaxed line-clamp-2">{p.data.description}</p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</Base>

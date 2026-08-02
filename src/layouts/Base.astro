@@ -1,0 +1,315 @@
+---
+import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
+import { PROFILE, ORG, SITE, FOOTER, socialLinks, sameAs } from "../siteData";
+const CF_ANALYTICS_TOKEN = SITE.analytics.cloudflareToken;
+const GOOGLE_SITE_VERIFICATION = SITE.analytics.googleSiteVerification;
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  type?: "website" | "article";
+  publishedTime?: string;
+  article?: Record<string, unknown> | Record<string, unknown>[] | null;
+  noindex?: boolean;
+  keywords?: string[];
+}
+const {
+  title,
+  description = "Practical marketing frameworks and real lessons from Prabhash Jha — Co-Founder of ADVOLT, a performance marketing agency working with streaming, e-commerce, D2C and BFSI brands across India and South East Asia.",
+  image,
+  type = "website",
+  publishedTime,
+  article = null,
+  noindex = false,
+  keywords = [],
+} = Astro.props as Props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://www.prabhashjha.com").toString();
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://www.prabhashjha.com/#prabhash",
+      name: PROFILE.name, givenName: PROFILE.name.split(" ")[0], familyName: PROFILE.name.split(" ").slice(1).join(" "),
+      jobTitle: PROFILE.jobTitle,
+      description: PROFILE.bio,
+      url: "https://www.prabhashjha.com",
+      mainEntityOfPage: "https://www.prabhashjha.com/about",
+      worksFor: { "@id": "https://www.prabhashjha.com/#advolt" },
+      homeLocation: { "@type": "Place", address: { "@type": "PostalAddress", addressLocality: PROFILE.locality, addressRegion: PROFILE.region, addressCountry: PROFILE.country } },
+      knowsAbout: PROFILE.knowsAbout.split(",").map((k) => k.trim()).filter(Boolean),
+      sameAs: sameAs(),
+    },
+    { "@type": "Organization", "@id": "https://www.prabhashjha.com/#advolt", name: ORG.name,
+      description: ORG.description,
+      url: "https://www.prabhashjha.com", founder: { "@id": "https://www.prabhashjha.com/#prabhash" } },
+    { "@type": "WebSite", "@id": "https://www.prabhashjha.com/#website", name: PROFILE.name,
+      url: "https://www.prabhashjha.com", publisher: { "@id": "https://www.prabhashjha.com/#prabhash" },
+      inLanguage: "en",
+      potentialAction: { "@type": "SearchAction",
+        target: { "@type": "EntryPoint", urlTemplate: "https://www.prabhashjha.com/search?q={search_term_string}" },
+        "query-input": "required name=search_term_string" } },
+    ...(article ? (Array.isArray(article) ? article : [article]) : []),
+  ],
+};
+
+const nav = [
+  { href: "/blog", label: "Topics" },
+  { href: "/about", label: "About" },
+  { href: "/work-with-me", label: "Work With Me" },
+  { href: "/newsletter", label: "Newsletter" },
+];
+const path = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#06070A" />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    {image && <meta property="og:image" content={image} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    {keywords.length > 0 && <meta name="keywords" content={keywords.join(", ")} />}
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    {GOOGLE_SITE_VERIFICATION && <meta name="google-site-verification" content={GOOGLE_SITE_VERIFICATION} />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Prabhash Jha" href="/rss.xml" />
+    {/* Self-hosted fonts: no third-party render-blocking request, no font-CDN dependency. */}
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="/fonts/V8mDoQDjQSkFtoMM3T6r8E7mPbF4C_k3HqU.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2" />
+    <link rel="stylesheet" href="/fonts/fonts.css" />
+    <script is:inline>document.documentElement.classList.add("js");</script>
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <ClientRouter />
+  </head>
+
+  <body class="noise">
+    <div id="progress"></div>
+
+    <header data-pagefind-ignore id="siteHeader" class="fixed top-0 inset-x-0 z-50 transition-all duration-500" transition:persist>
+      <div id="headerInner" class="mx-auto max-w-6xl px-5 sm:px-8 flex items-center justify-between h-[74px] transition-all duration-500">
+        <a href="/" class="flex items-center gap-2.5 group shrink-0">
+          <span class="w-[20px] h-[20px] rounded-[6px] bg-gradient-to-br from-blue via-violet to-cyan transition-transform duration-500 group-hover:rotate-[135deg]"></span>
+          <span class="font-display font-bold tracking-tight text-[1.02rem]" set:html={PROFILE.name.replace(" ", "&nbsp;")} />
+        </a>
+        <nav class="hidden md:flex items-center gap-8 text-[0.88rem]">
+          {nav.map((n) => (
+            <a href={n.href} class:list={["relative transition-colors duration-300 hover:text-text",
+              path === n.href || (n.href !== "/" && path.startsWith(n.href)) ? "text-text" : "text-muted"]}>
+              {n.label}
+              {(path === n.href || (n.href !== "/" && path.startsWith(n.href))) && (
+                <span class="absolute -bottom-1.5 left-0 right-0 h-[2px] bg-gradient-to-r from-blue to-cyan rounded-full" />
+              )}
+            </a>
+          ))}
+          <a href="/search" aria-label="Search" title="Search"
+            class="grid place-items-center w-9 h-9 rounded-full border border-hair text-muted hover:text-text hover:border-cyan/50 transition-colors duration-300">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path>
+            </svg>
+          </a>
+        </nav>
+        <button id="navToggle" class="md:hidden w-10 h-10 -mr-2 grid place-items-center" aria-label="Menu" aria-expanded="false">
+          <span class="block w-6 h-[2px] bg-text relative before:content-[''] before:absolute before:w-6 before:h-[2px] before:bg-text before:-top-2 after:content-[''] after:absolute after:w-6 after:h-[2px] after:bg-text after:top-2"></span>
+        </button>
+      </div>
+      <div id="mobileNav" class="md:hidden hidden bg-surface/95 backdrop-blur-xl border-t border-hair">
+        <nav class="px-5 py-4 flex flex-col">
+          {nav.map((n) => <a href={n.href} class="py-3 text-[1.05rem] border-b border-hair last:border-0">{n.label}</a>)}
+          <a href="/search" class="py-3 text-[1.05rem]">Search</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="pt-[74px] relative z-[2]"><slot /></main>
+
+    <footer data-pagefind-ignore class="relative z-[2] mt-10 border-t border-hair bg-surface">
+      <div class="mx-auto max-w-6xl px-5 sm:px-8 py-16">
+        <div class="flex flex-col md:flex-row justify-between gap-12">
+          <div class="max-w-sm">
+            <div class="flex items-center gap-2.5 mb-4">
+              <span class="w-[20px] h-[20px] rounded-[6px] bg-gradient-to-br from-blue via-violet to-cyan"></span>
+              <span class="font-display font-bold tracking-tight">{PROFILE.name}</span>
+            </div>
+            <p class="text-[0.94rem] text-muted leading-relaxed">
+              {FOOTER.blurb}
+            </p>
+          </div>
+          <div class="flex gap-14 text-[0.9rem]">
+            <div>
+              <p class="font-mono text-[0.7rem] tracking-widest uppercase text-dim mb-4">Explore</p>
+              <ul class="space-y-1 text-muted">
+                <li><a class="inline-block py-1.5 hover:text-text transition-colors" href="/blog">Topics</a></li>
+                <li><a class="inline-block py-1.5 hover:text-text transition-colors" href="/about">About</a></li>
+                <li><a class="inline-block py-1.5 hover:text-text transition-colors" href="/work-with-me">Work With Me</a></li>
+                <li><a class="inline-block py-1.5 hover:text-text transition-colors" href="/newsletter">Newsletter</a></li>
+              </ul>
+            </div>
+            <div>
+              <p class="font-mono text-[0.7rem] tracking-widest uppercase text-dim mb-4">Elsewhere</p>
+              <ul class="space-y-1 text-muted">
+                {socialLinks().map((s) => (
+                  <li><a class="inline-block py-1.5 hover:text-text transition-colors" href={s.url} rel="me">{s.label}</a></li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+        <p class="mt-14 pt-6 border-t border-hair text-[0.82rem] text-dim font-mono">
+          © {new Date().getFullYear()} {PROFILE.name.toUpperCase()} · {FOOTER.copyrightSuffix}
+          <a class="ml-3 inline-block py-1.5 hover:text-text transition-colors" href="/privacy">PRIVACY</a>
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      function splitWords() {
+        document.querySelectorAll<HTMLElement>("[data-words]").forEach((el) => {
+          if (el.dataset.split === "1") return;
+          const html = el.innerHTML;
+          // only split plain-ish headings; keep inner tags intact by splitting on spaces outside tags
+          el.innerHTML = html.replace(/(>|^)([^<>]+)(?=<|$)/g, (_m, pre, text) => {
+            const parts = text.split(/(\s+)/).map((t: string) =>
+              t.trim() ? `<span class="word">${t}</span>` : t
+            );
+            return pre + parts.join("");
+          });
+          el.dataset.split = "1";
+          el.querySelectorAll<HTMLElement>(".word").forEach((w, i) =>
+            w.style.setProperty("--w-delay", `${i * 45}ms`)
+          );
+        });
+      }
+
+      function initReveal() {
+        const items = document.querySelectorAll<HTMLElement>(".reveal, .reveal-scale, .word");
+        if (!("IntersectionObserver" in window)) {
+          items.forEach((el) => el.classList.add("is-in"));
+          return;
+        }
+        const io = new IntersectionObserver(
+          (es) => es.forEach((e) => {
+            if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
+          }),
+          { rootMargin: "0px 0px -6% 0px", threshold: 0.06 }
+        );
+        const groups = new Map<Element, number>();
+        items.forEach((el) => {
+          if (!el.classList.contains("word")) {
+            const p = el.parentElement!;
+            const i = groups.get(p) ?? 0;
+            if (!el.style.getPropertyValue("--reveal-delay"))
+              el.style.setProperty("--reveal-delay", `${Math.min(i, 6) * 85}ms`);
+            groups.set(p, i + 1);
+          }
+          io.observe(el);
+        });
+
+        // Anything already inside the first viewport animates in on load, so the
+        // hero never sits invisible waiting for a scroll that may never come.
+        const revealAbove = () => {
+          items.forEach((el) => {
+            const r = el.getBoundingClientRect();
+            if (r.top < window.innerHeight * 1.15) {
+              el.classList.add("is-in");
+              io.unobserve(el);
+            }
+          });
+        };
+        requestAnimationFrame(revealAbove);
+
+        // Safety net: rAF is suspended in background tabs and IntersectionObserver
+        // can be starved on slow devices. setTimeout still fires, so content can
+        // never end up permanently invisible because an animation hook didn't run.
+        setTimeout(revealAbove, 1200);
+        setTimeout(() => items.forEach((el) => el.classList.add("is-in")), 6000);
+      }
+
+      function initHeader() {
+        const h = document.getElementById("siteHeader");
+        const inner = document.getElementById("headerInner");
+        const bar = document.getElementById("progress");
+        if (!h || !inner) return;
+        const onScroll = () => {
+          const y = window.scrollY;
+          if (bar) {
+            const max = document.body.scrollHeight - window.innerHeight;
+            bar.style.width = `${max > 0 ? (y / max) * 100 : 0}%`;
+          }
+          if (y > 10) {
+            h.classList.add("bg-void/75", "backdrop-blur-xl", "border-b", "border-hair");
+            inner.classList.replace("h-[74px]", "h-[60px]");
+          } else {
+            h.classList.remove("bg-void/75", "backdrop-blur-xl", "border-b", "border-hair");
+            inner.classList.replace("h-[60px]", "h-[74px]");
+          }
+        };
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+      }
+
+      function initNav() {
+        const b = document.getElementById("navToggle");
+        const p = document.getElementById("mobileNav");
+        if (!b || !p) return;
+        b.addEventListener("click", () => {
+          const closed = p.classList.toggle("hidden");
+          b.setAttribute("aria-expanded", String(!closed));
+        });
+      }
+
+      function initCounters() {
+        document.querySelectorAll<HTMLElement>("[data-count]").forEach((el) => {
+          const target = parseFloat(el.dataset.count || "0");
+          const io = new IntersectionObserver((es) => {
+            es.forEach((e) => {
+              if (!e.isIntersecting) return;
+              io.disconnect();
+              const t0 = performance.now(), dur = 1400;
+              const tick = (t: number) => {
+                const p = Math.min((t - t0) / dur, 1);
+                const eased = 1 - Math.pow(1 - p, 3);
+                el.textContent = Math.round(target * eased).toLocaleString();
+                if (p < 1) requestAnimationFrame(tick);
+              };
+              requestAnimationFrame(tick);
+            });
+          }, { threshold: 0.4 });
+          io.observe(el);
+          // if the observer never fires (background tab), still show the real number
+          setTimeout(() => {
+            if (el.textContent === "0") el.textContent = target.toLocaleString();
+          }, 6000);
+        });
+      }
+
+      function boot() { splitWords(); initReveal(); initHeader(); initNav(); initCounters(); }
+      boot();
+      document.addEventListener("astro:page-load", boot);
+    </script>
+    {CF_ANALYTICS_TOKEN && (
+      <script
+        is:inline
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={`{"token": "${CF_ANALYTICS_TOKEN}"}`}
+      />
+    )}
+  </body>
+</html>

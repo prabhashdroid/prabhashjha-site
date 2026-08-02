@@ -1,0 +1,86 @@
+---
+import { coverSize } from "../../../seo";
+import Base from "../../../layouts/Base.astro";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { catSlug, CATEGORY_BLURBS } from "../../../categories";
+import { TOPICS } from "../../../siteData";
+
+export async function getStaticPaths() {
+  const all = (await getCollection("posts")).filter(
+    (p) => !p.data.draft && (p.data.slug ?? p.id) !== "privacy-policy"
+  );
+  const cats = [...new Set(all.map((p) => p.data.category))] as string[];
+  return cats.map((c) => ({
+    params: { category: catSlug(c) },
+    props: {
+      category: c,
+      posts: all
+        .filter((p) => p.data.category === c)
+        .sort((a, b) => +new Date(b.data.pubDate) - +new Date(a.data.pubDate)),
+    },
+  }));
+}
+type Props = { category: string; posts: CollectionEntry<"posts">[] };
+const { category, posts } = Astro.props as Props;
+const fmt = (d: string) =>
+  new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+
+const url = `https://www.prabhashjha.com/blog/categories/${catSlug(category)}/`;
+const topicKeywords = ((TOPICS.find((t: any) => t.name === category) as any)?.keywords ?? []) as string[];
+const collectionSchema = {
+  "@type": "CollectionPage",
+  "@id": url + "#collection",
+  name: `${category} — Prabhash Jha`,
+  description: CATEGORY_BLURBS[category] ?? `Practical guides on ${category}.`,
+  url,
+  keywords: topicKeywords.join(", "),
+  isPartOf: { "@id": "https://www.prabhashjha.com/#website" },
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.prabhashjha.com/" },
+      { "@type": "ListItem", position: 2, name: "Topics", item: "https://www.prabhashjha.com/blog/" },
+      { "@type": "ListItem", position: 3, name: category, item: url },
+    ],
+  },
+  mainEntity: {
+    "@type": "ItemList",
+    numberOfItems: posts.length,
+    itemListElement: posts.map((p, i) => ({
+      "@type": "ListItem", position: i + 1, name: p.data.title,
+      url: `https://www.prabhashjha.com/post/${p.data.slug ?? p.id}/`,
+    })),
+  },
+};
+---
+<Base title={`${category} — Prabhash Jha`} description={CATEGORY_BLURBS[category] ?? `Practical guides on ${category}.`}
+  article={collectionSchema}
+  keywords={topicKeywords}>
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 grid-bg"></div>
+    <div class="orb orb-a w-[30rem] h-[30rem] bg-blue/20 -top-32 -left-20"></div>
+    <div class="relative mx-auto max-w-6xl px-5 sm:px-8 pt-20 pb-12 md:pt-28">
+      <a href="/blog" class="reveal inline-block font-mono text-[0.7rem] tracking-[0.2em] uppercase text-dim mb-6 hover:text-text">← All topics</a>
+      <h1 data-words class="font-display font-bold text-[2.6rem] sm:text-[3.6rem] leading-[1.03]">{category}</h1>
+      <p class="reveal mt-5 text-muted max-w-xl">{CATEGORY_BLURBS[category]} · {posts.length} guides</p>
+    </div>
+  </section>
+  <section class="mx-auto max-w-6xl px-5 sm:px-8 pb-24">
+    <div class="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+      {posts.map((p) => (
+        <a href={`/post/${p.data.slug ?? p.id}`} class="reveal group block">
+          {p.data.cover && (
+            <div class="overflow-hidden rounded-2xl mb-4 border border-hair">
+              <img src={p.data.cover} alt="" loading="lazy" width={coverSize(p.data).width} height={coverSize(p.data).height}
+                class="w-full aspect-[16/10] object-cover transition-all duration-[900ms] group-hover:scale-[1.06] opacity-85 group-hover:opacity-100" />
+            </div>
+          )}
+          <p class="font-mono text-[0.68rem] tracking-widest uppercase text-dim mb-2">{fmt(p.data.pubDate)}</p>
+          <h2 class="font-display font-semibold text-[1.14rem] leading-snug mb-2 text-balance group-hover:grad-text transition-all">{p.data.title}</h2>
+          <p class="text-[0.9rem] text-muted leading-relaxed line-clamp-2">{p.data.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>

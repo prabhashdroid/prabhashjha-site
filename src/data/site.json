@@ -1,0 +1,153 @@
+{
+  "profile": {
+    "name": "Prabhash Jha",
+    "jobTitle": "Co-Founder & Business Head",
+    "tagline": "Practical marketing and founder playbooks",
+    "bio": "Co-Founder and Business Head at ADVOLT, a performance marketing agency. 8+ years running performance, programmatic and affiliate marketing for streaming, e-commerce, D2C, insurance and BFSI brands across India and South East Asia.",
+    "locality": "Bengaluru",
+    "region": "Karnataka",
+    "country": "IN",
+    "knowsAbout": "Digital Marketing, Performance Marketing, Affiliate Marketing, Programmatic Advertising, SEO, Google Ads, Meta Ads, Brand Building, Entrepreneurship"
+  },
+  "organisation": {
+    "name": "ADVOLT",
+    "description": "Performance marketing agency working with streaming, e-commerce, D2C, insurance and BFSI brands across India and South East Asia."
+  },
+  "contact": {
+    "email": "prabhashjha@live.in",
+    "showEmailOnSite": false,
+    "formAccessKey": "",
+    "formHeading": "Tell me what you're working on.",
+    "formBlurb": "Audits, paid growth, or just a question about something I wrote. I read everything myself.",
+    "formButtonLabel": "Send message"
+  },
+  "social": {
+    "linkedin": "https://www.linkedin.com/in/prabhash-jha/",
+    "instagram": "https://www.instagram.com/itisprabhash/",
+    "twitter": "https://twitter.com/Prabhas03834893",
+    "facebook": "https://www.facebook.com/prabhash.jha.961"
+  },
+  "newsletter": {
+    "buttondownUsername": "",
+    "heading": "One useful thing a week.",
+    "blurb": "No spam, no funnels, no 'growth hacks'. Just the frameworks and numbers I'd want if I were starting again."
+  },
+  "analytics": {
+    "cloudflareToken": "",
+    "googleSiteVerification": ""
+  },
+  "home": {
+    "badge": "Co-Founder, ADVOLT · 8+ years in performance marketing",
+    "headline": "The marketing playbooks I wish someone gave me",
+    "headlineAccent": "8 years ago",
+    "intro": "No-fluff guides on marketing, business and AI — the frameworks, systems and real lessons I wish someone had handed me on day one. Free, always.",
+    "primaryCtaLabel": "Start reading",
+    "primaryCtaHref": "/blog",
+    "secondaryCtaLabel": "Read the newsletter",
+    "secondaryCtaHref": "/newsletter",
+    "yearsInField": 8,
+    "featureLabel": "Free template",
+    "featureHeading": "Does your marketing actually make money?",
+    "featureBlurb": "Fill in seven numbers you already roughly know. Get your LTV, CAC, break-even ROAS and payback period — with a plain-English verdict on whether you can afford to scale.",
+    "featureCtaLabel": "Get the sheet",
+    "featureCtaHref": "/post/your-marketing-either-makes-money-or-it-doesn-t-here-s-the-sheet-that-tells-you"
+  },
+  "topics": [
+    {
+      "name": "Digital Marketing",
+      "blurb": "SEO, Google Ads, Meta Ads, programmatic and analytics.",
+      "slug": "digital-marketing",
+      "keywords": [
+        "digital marketing",
+        "SEO",
+        "Google Ads",
+        "Meta Ads",
+        "programmatic advertising",
+        "marketing analytics"
+      ]
+    },
+    {
+      "name": "Performance & Affiliate",
+      "blurb": "Media buying, tracking, and scaling paid profitably.",
+      "slug": "performance-affiliate",
+      "keywords": [
+        "performance marketing",
+        "affiliate marketing",
+        "media buying",
+        "ROAS",
+        "conversion tracking",
+        "paid acquisition"
+      ]
+    },
+    {
+      "name": "Brand Building",
+      "blurb": "Positioning, trust, and demand that compounds.",
+      "slug": "brand-building",
+      "keywords": [
+        "brand building",
+        "brand positioning",
+        "personal branding",
+        "brand strategy",
+        "demand generation"
+      ]
+    },
+    {
+      "name": "Business & Finance",
+      "blurb": "Cash flow, pricing, margins — the engine room.",
+      "slug": "business-finance",
+      "keywords": [
+        "unit economics",
+        "cash flow",
+        "pricing strategy",
+        "profit margin",
+        "business finance",
+        "LTV CAC"
+      ]
+    },
+    {
+      "name": "AI & Automation",
+      "blurb": "Using AI as real leverage, not as a novelty.",
+      "slug": "ai-automation",
+      "keywords": [
+        "AI marketing",
+        "marketing automation",
+        "AI tools",
+        "workflow automation",
+        "generative AI"
+      ]
+    },
+    {
+      "name": "Founder Lessons",
+      "blurb": "Mistakes, mental models and hard-won frameworks.",
+      "slug": "founder-lessons",
+      "keywords": [
+        "founder lessons",
+        "startup mistakes",
+        "mental models",
+        "entrepreneurship",
+        "building a business"
+      ]
+    },
+    {
+      "name": "Business",
+      "blurb": "Broader business and marketing lessons.",
+      "slug": "business",
+      "keywords": [
+        "business strategy",
+        "small business",
+        "business growth",
+        "marketing lessons"
+      ]
+    }
+  ],
+  "footer": {
+    "blurb": "Practical marketing and business playbooks — the frameworks and real lessons I wish someone had handed me on day one.",
+    "copyrightSuffix": "CO-FOUNDER, ADVOLT"
+  },
+  "comments": {
+    "giscusRepo": "",
+    "giscusRepoId": "",
+    "giscusCategory": "Announcements",
+    "giscusCategoryId": ""
+  }
+}
