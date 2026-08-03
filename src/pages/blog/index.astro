@@ -15,11 +15,11 @@ const fmt = (d: string) =>
   title="Topics — Prabhash Jha"
   description="Every practical guide, framework and playbook — marketing, performance, brand, business and AI."
 >
-  <section class="mx-auto max-w-6xl px-5 sm:px-8 pt-20 pb-10 md:pt-28">
-    <h1 class="reveal font-display font-bold text-[2.6rem] sm:text-6xl max-w-[14ch] leading-[1.03]">
+  <section class="mx-auto max-w-6xl px-5 sm:px-8 pt-20 pb-10 md:pt-28" data-hero>
+    <h1 data-words class="font-display font-semibold text-[2.6rem] sm:text-6xl max-w-[14ch] leading-[1.03]">
       Everything, in one place.
     </h1>
-    <p class="reveal mt-5 text-muted max-w-xl">
+    <p class="reveal mt-5 text-muted max-w-[52ch] leading-relaxed">
       {posts.length} practical guides on marketing, business and AI. No fluff, no theory for its own sake.
     </p>
   </section>
@@ -33,7 +33,7 @@ const fmt = (d: string) =>
         posts.map((p) => (
           <a
             href={`/post/${p.data.slug ?? p.id}`}
-            class="reveal group grid grid-cols-[1fr] sm:grid-cols-[1fr_11rem] gap-5 sm:gap-8 items-start
+            class="reveal rule-draw group grid grid-cols-[1fr] sm:grid-cols-[1fr_11rem] gap-5 sm:gap-8 items-start
                    border-t border-hair py-7 transition-colors duration-200 hover:bg-surface"
           >
             <div>
@@ -42,7 +42,7 @@ const fmt = (d: string) =>
                 <span class="mx-2 opacity-40">/</span>
                 {p.data.category}
               </p>
-              <h2 class="font-display font-semibold text-[1.35rem] sm:text-[1.5rem] leading-[1.15] mb-2 text-balance group-hover:text-accent transition-colors duration-200">
+              <h2 class="shift font-display font-semibold text-[1.35rem] sm:text-[1.5rem] leading-[1.15] mb-2 text-balance group-hover:text-accent">
                 {p.data.title}
               </h2>
               <p class="text-[0.95rem] text-muted leading-relaxed max-w-[52ch] line-clamp-2">
@@ -50,14 +50,15 @@ const fmt = (d: string) =>
               </p>
             </div>
             {p.data.cover && (
-              <div class="order-first sm:order-none overflow-hidden border border-hair">
+              <div class="frame order-first sm:order-none border border-hair">
                 <img
                   src={p.data.cover}
                   alt=""
                   loading="lazy"
+                  transition:name={`cover-${p.data.slug ?? p.id}`}
                   width={coverSize(p.data).width}
                   height={coverSize(p.data).height}
-                  class="w-full aspect-[16/10] object-cover opacity-90 transition-opacity duration-200 group-hover:opacity-100"
+                  class="w-full aspect-[16/10] object-cover"
                 />
               </div>
             )}

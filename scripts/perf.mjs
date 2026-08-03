@@ -15,6 +15,7 @@ import { spawn } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import http from "node:http";
+import zlib from "node:zlib";
 
 const PORT = 4399;
 const ROOT = path.join(process.cwd(), "dist");
@@ -49,8 +50,23 @@ function serve() {
         res.writeHead(404, { "Content-Type": "text/html" });
         return res.end(fs.readFileSync(file));
       }
-      res.writeHead(200, { "Content-Type": MIME[path.extname(file)] ?? "application/octet-stream" });
-      res.end(fs.readFileSync(file));
+      /* Compress text the way Cloudflare Pages does. Without this the harness
+         measures the *uncompressed* transfer of every HTML, CSS and JS file,
+         which nothing in production ever sends — it was reading the blog index
+         as a 159 KB document instead of 15 KB, and scoring it 14 points lower
+         than the real site deserves. WebP and woff2 are already compressed and
+         are passed through untouched. */
+      const body = fs.readFileSync(file);
+      const ext = path.extname(file);
+      const headers = { "Content-Type": MIME[ext] ?? "application/octet-stream" };
+      const compressible = [".html", ".css", ".js", ".json", ".svg", ".xml", ".txt"].includes(ext);
+      if (compressible && /\bgzip\b/.test(req.headers["accept-encoding"] ?? "")) {
+        headers["Content-Encoding"] = "gzip";
+        res.writeHead(200, headers);
+        return res.end(zlib.gzipSync(body));
+      }
+      res.writeHead(200, headers);
+      res.end(body);
     });
     server.listen(PORT, () => resolve(server));
   });

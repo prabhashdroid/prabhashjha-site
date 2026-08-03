@@ -122,30 +122,94 @@
   .glow-hover:hover { border-color: var(--color-accent); background: var(--color-raised); transform: none; }
   .glow-hover::after { content: none !important; }
 
-  /* ---------- scroll reveal: shorter, quieter, no scaling ---------- */
+  /* ---------- scroll reveal ----------
+     CSS sets only the START state, with no transition of its own — GSAP owns
+     the animation and writes inline styles, which beat these rules. Without
+     JS (or before the chunk lands) nothing here applies, so the page is
+     readable either way; see the failsafe in Base.astro. */
   .reveal, .reveal-scale { opacity: 1; transform: none; }
   html.js .reveal, html.js .reveal-scale {
-    opacity: 0; transform: translate3d(0, 12px, 0);
-    transition: opacity .5s var(--ease-expo), transform .5s var(--ease-expo);
-    transition-delay: var(--reveal-delay, 0ms);
+    opacity: 0; transform: translate3d(0, 14px, 0);
   }
-  html.js .reveal.is-in, html.js .reveal-scale.is-in { opacity: 1; transform: none; }
-  html.js .word {
-    display: inline-block; opacity: 0; transform: translateY(0.22em);
-    transition: opacity .45s var(--ease-expo), transform .45s var(--ease-expo);
-    transition-delay: var(--w-delay, 0ms);
+
+  /* ---------- the hero entrance is CSS, deliberately ----------
+     Everything in the first viewport animates from a stylesheet, not from
+     GSAP. The hero headline is the Largest Contentful Paint on most pages
+     here; gating it on a 47 KB animation chunk downloading and parsing cost
+     roughly a second of LCP and eight Lighthouse points. A keyframe runs at
+     first paint instead, and GSAP is left to do the scroll work it is
+     actually needed for.
+
+     clip-path rather than overflow:hidden — the inset animates past 0 to a
+     negative value, so the mask clears the descenders of a heading set at a
+     line-height of 1.03 instead of shearing them off. */
+  html.js [data-hero] [data-words] {
+    animation: mask-rise .95s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
-  html.js .word.is-in { opacity: 1; transform: none; }
+  @keyframes mask-rise {
+    from { clip-path: inset(0 0 100% 0); transform: translate3d(0, 0.14em, 0); }
+    to   { clip-path: inset(0 0 -22% 0); transform: none; }
+  }
+
+  html.js [data-hero] .reveal {
+    animation: rise-in .7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  html.js [data-hero] .reveal:nth-of-type(1) { animation-delay: .28s; }
+  html.js [data-hero] .reveal:nth-of-type(2) { animation-delay: .36s; }
+  html.js [data-hero] .reveal:nth-of-type(3) { animation-delay: .44s; }
+  html.js [data-hero] .reveal:nth-of-type(n+4) { animation-delay: .52s; }
+  @keyframes rise-in {
+    from { opacity: 0; transform: translate3d(0, 14px, 0); }
+    to   { opacity: 1; transform: none; }
+  }
+  html.motion-failed .reveal,
+  html.motion-failed .reveal-scale { opacity: 1 !important; transform: none !important; }
 
   .marquee { display: flex; gap: 3rem; width: max-content; animation: slide 64s linear infinite; }
   @keyframes slide { from { transform: translateX(0) } to { transform: translateX(-50%) } }
 
+  /* Reading progress. Scaled, not resized — width animation would relayout
+     on every frame; scaleX stays on the compositor. */
   #progress {
-    position: fixed; top: 0; left: 0; height: 2px; z-index: 60; width: 0%;
+    position: fixed; top: 0; left: 0; height: 2px; z-index: 60; width: 100%;
     background: var(--color-accent);
-    transition: width .1s linear;
+    transform: scaleX(0); transform-origin: left center;
+    will-change: transform;
   }
   .noise::before { content: none !important; }
+
+  /* ---------- micro-interactions ----------
+     All of these are CSS: they respond to a pointer, they run for under
+     400ms, and handing them to JS would only cost bundle size. */
+
+  /* A hairline draws left to right under a row on hover. */
+  .rule-draw { position: relative; }
+  .rule-draw::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px;
+    background: var(--color-accent);
+    transform: scaleX(0); transform-origin: left center;
+    transition: transform .45s var(--ease-expo);
+  }
+  .group:hover .rule-draw::after,
+  .group:focus-visible .rule-draw::after { transform: scaleX(1); }
+
+  /* A title nudges toward its own link on hover. */
+  .shift { transition: transform .35s var(--ease-expo), color .2s ease; }
+  .group:hover .shift { transform: translateX(4px); }
+
+  /* Images breathe inside a fixed frame — the frame never moves, so no CLS. */
+  .frame { overflow: hidden; }
+  .frame img { transition: transform .6s var(--ease-expo), filter .4s ease; }
+  .group:hover .frame img { transform: scale(1.035); }
+
+  /* An underline sweeps in rather than switching on. */
+  .link-sweep {
+    background-image: linear-gradient(var(--color-accent), var(--color-accent));
+    background-size: 0% 1px; background-repeat: no-repeat;
+    background-position: 0 100%;
+    transition: background-size .4s var(--ease-expo), color .2s ease;
+  }
+  .link-sweep:hover { background-size: 100% 1px; color: var(--color-text); }
 
   /* ---------- editorial helpers ---------- */
   .rule { border-top: 1px solid var(--color-hair); }
@@ -155,12 +219,45 @@
   }
 }
 
+/* ============================================================
+   Sticky header. The one place on the site that uses a backdrop
+   blur: chrome floating over content is what the effect is for.
+   Everywhere else, depth comes from a hairline and a luminance
+   step — Linear's model, and it holds up on both themes.
+   ============================================================ */
+#siteHeader {
+  transition: background-color .3s ease, border-color .3s ease;
+  border-bottom: 1px solid transparent;
+}
+#siteHeader.is-stuck {
+  background: color-mix(in oklab, var(--color-void) 72%, transparent);
+  border-bottom-color: var(--color-hair);
+}
+@supports (backdrop-filter: blur(1px)) {
+  #siteHeader.is-stuck { backdrop-filter: saturate(160%) blur(18px); }
+}
+#mobileNav { background: var(--color-surface); }
+
+/* ============================================================
+   Page transitions. Astro's ClientRouter drives the real thing;
+   these keyframes just give it a direction — out fast, in slow.
+   ============================================================ */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: vt-out .16s ease-in both; }
+::view-transition-new(root) { animation: vt-in .34s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@keyframes vt-out { to { opacity: 0; transform: translateY(-5px); } }
+@keyframes vt-in { from { opacity: 0; transform: translateY(9px); } }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  html.js .reveal, html.js .reveal-scale, html.js .word {
+  html.js .reveal, html.js .reveal-scale {
     opacity: 1 !important; transform: none !important; transition: none !important;
   }
+  html.js [data-hero] [data-words],
+  html.js [data-hero] .reveal { animation: none !important; clip-path: none !important; }
   .marquee { animation: none !important; }
+  .rule-draw::after, .shift, .frame img, .link-sweep { transition: none !important; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none !important; }
 }
 
 /* ============================================================

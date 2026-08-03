@@ -32,7 +32,7 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
   <!-- ================= HERO =================
        A masthead, not a product hero: label, statement, standfirst, then a
        colophon row of figures. Hairline rules carry the structure. -->
-  <section class="relative">
+  <section class="relative" data-hero>
     <div class="absolute inset-0 grid-bg" aria-hidden="true"></div>
 
     <div class="relative mx-auto max-w-6xl px-5 sm:px-8 pt-20 pb-16 md:pt-28 md:pb-20">
@@ -50,13 +50,13 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
       </p>
 
       <div class="reveal mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
-        <a href={HOME.primaryCtaHref}
+        <a href={HOME.primaryCtaHref} data-magnetic
           class="group inline-flex items-center gap-2.5 px-7 py-3.5 font-medium bg-accent text-void border border-accent transition-colors duration-200 hover:bg-transparent hover:text-accent">
           {HOME.primaryCtaLabel}
           <span class="transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
         </a>
         <a href={HOME.secondaryCtaHref}
-          class="text-[0.95rem] text-muted underline decoration-hair hover:decoration-accent hover:text-text underline-offset-[5px] transition-colors duration-200">
+          class="link-sweep text-[0.95rem] text-muted pb-0.5">
           {HOME.secondaryCtaLabel}
         </a>
       </div>
@@ -98,13 +98,16 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
       <a href={`/post/${lead.data.slug ?? lead.id}`}
         class="reveal group grid lg:grid-cols-[1.05fr_1fr] gap-8 lg:gap-14 items-center">
         {lead.data.cover && (
-          <img src={lead.data.cover} alt="" width={coverSize(lead.data).width} height={coverSize(lead.data).height}
-            class="w-full aspect-[16/10] object-cover border border-hair order-1 lg:order-2" />
+          <div data-parallax data-tilt class="frame border border-hair order-1 lg:order-2">
+            <img src={lead.data.cover} alt="" loading="lazy" transition:name={`cover-${lead.data.slug ?? lead.id}`}
+              width={coverSize(lead.data).width} height={coverSize(lead.data).height}
+              class="w-full aspect-[16/10] object-cover" />
+          </div>
         )}
         <div class="order-2 lg:order-1">
           <p class="label mb-4">Latest &nbsp;/&nbsp; {lead.data.category}</p>
-          <h2 class="font-display font-semibold text-[1.9rem] sm:text-[2.5rem] leading-[1.08] text-balance
-                     transition-colors duration-200 group-hover:text-accent">
+          <h2 class="shift font-display font-semibold text-[1.9rem] sm:text-[2.5rem] leading-[1.08] text-balance
+                     group-hover:text-accent">
             {lead.data.title}
           </h2>
           <p class="mt-5 text-[1.02rem] text-muted leading-relaxed max-w-[52ch]">{lead.data.description}</p>
@@ -128,9 +131,9 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
     <div>
       {topics.map((t) => (
         <a href={t.href}
-          class="reveal group grid grid-cols-[1fr_auto] sm:grid-cols-[minmax(0,15rem)_1fr_auto] items-baseline
+          class="reveal rule-draw group grid grid-cols-[1fr_auto] sm:grid-cols-[minmax(0,15rem)_1fr_auto] items-baseline
                  gap-x-6 gap-y-1.5 border-b border-hair py-6 transition-colors duration-200 hover:bg-surface">
-          <h3 class="font-display font-semibold text-[1.22rem] leading-snug transition-colors duration-200 group-hover:text-accent">
+          <h3 class="shift font-display font-semibold text-[1.22rem] leading-snug group-hover:text-accent">
             {t.name}
           </h3>
           <p class="col-span-2 sm:col-span-1 text-[0.95rem] text-muted leading-relaxed max-w-[60ch] order-last sm:order-none">
@@ -154,7 +157,7 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
           {HOME.featureBlurb}
         </p>
       </div>
-      <a href={HOME.featureCtaHref}
+      <a href={HOME.featureCtaHref} data-magnetic
         class="group mt-9 md:mt-0 shrink-0 inline-flex items-center gap-2.5 px-7 py-3.5 font-medium bg-accent text-void border border-accent transition-colors duration-200 hover:bg-transparent hover:text-accent">
         {HOME.featureCtaLabel}
         <span class="transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
@@ -173,8 +176,11 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
       {latest.map((p) => (
         <a href={`/post/${p.data.slug ?? p.id}`} class="reveal group block">
           {p.data.cover && (
-            <img src={p.data.cover} alt="" loading="lazy" width={coverSize(p.data).width} height={coverSize(p.data).height}
-              class="w-full aspect-[4/3] object-cover border border-hair mb-4" />
+            <div class="frame border border-hair mb-4">
+              <img src={p.data.cover} alt="" loading="lazy" transition:name={`cover-${p.data.slug ?? p.id}`}
+                width={coverSize(p.data).width} height={coverSize(p.data).height}
+                class="w-full aspect-[4/3] object-cover" />
+            </div>
           )}
           <p class="label mb-2.5"><time datetime={String(p.data.pubDate)}>{fmt(p.data.pubDate)}</time></p>
           <h3 class="font-display font-semibold text-[1.14rem] leading-snug text-balance transition-colors duration-200 group-hover:text-accent">

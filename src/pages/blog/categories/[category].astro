@@ -59,7 +59,7 @@ const collectionSchema = {
   keywords={topicKeywords}>
   <section class="relative">
     <div class="absolute inset-0 grid-bg" aria-hidden="true"></div>
-    <div class="relative mx-auto max-w-6xl px-5 sm:px-8 pt-20 pb-10 md:pt-28">
+    <div class="relative mx-auto max-w-6xl px-5 sm:px-8 pt-20 pb-10 md:pt-28" data-hero>
       <nav aria-label="Breadcrumb" class="reveal label flex items-center gap-2 mb-6">
         <a href="/blog" class="hover:text-accent transition-colors duration-200">Topics</a>
         <span aria-hidden="true">/</span><span class="text-muted">{category}</span>
@@ -74,8 +74,11 @@ const collectionSchema = {
       {posts.map((p) => (
         <a href={`/post/${p.data.slug ?? p.id}`} class="reveal group block">
           {p.data.cover && (
-            <img src={p.data.cover} alt="" loading="lazy" width={coverSize(p.data).width} height={coverSize(p.data).height}
-              class="w-full aspect-[16/10] object-cover border border-hair mb-4" />
+            <div class="frame border border-hair mb-4">
+              <img src={p.data.cover} alt="" loading="lazy" transition:name={`cover-${p.data.slug ?? p.id}`}
+                width={coverSize(p.data).width} height={coverSize(p.data).height}
+                class="w-full aspect-[16/10] object-cover" />
+            </div>
           )}
           <p class="label mb-2"><time datetime={String(p.data.pubDate)}>{fmt(p.data.pubDate)}</time></p>
           <h2 class="font-display font-semibold text-[1.14rem] leading-snug mb-2 text-balance transition-colors duration-200 group-hover:text-accent">{p.data.title}</h2>

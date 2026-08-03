@@ -1,7 +1,12 @@
 ---
+import fs from "node:fs";
 import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
 import { PROFILE, ORG, SITE, FOOTER, socialLinks, sameAs } from "../siteData";
+
+/* Read at build time, inlined into <head> — see the note beside the <style>
+   tag below. Kept as a file so the admin/font tooling still has one source. */
+const FONT_CSS = fs.readFileSync("public/fonts/fonts.css", "utf8");
 const CF_ANALYTICS_TOKEN = SITE.analytics.cloudflareToken;
 const GOOGLE_SITE_VERIFICATION = SITE.analytics.googleSiteVerification;
 
@@ -88,12 +93,28 @@ const path = Astro.url.pathname;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="alternate" type="application/rss+xml" title="Prabhash Jha" href="/rss.xml" />
-    {/* Self-hosted: Newsreader + IBM Plex Mono, latin only. No CDN request,
-        nothing render-blocking from a third party. */}
+    {/* Self-hosted: Newsreader (display + body) and IBM Plex Mono (labels,
+        figures), latin subset only. No CDN request, nothing from a third party.
+
+        These rules are inlined rather than linked. As a separate stylesheet
+        they were a render-blocking request that had to be fetched before the
+        browser even learned which font files it needed — a whole round trip
+        in front of the Largest Contentful Paint, for 722 bytes. */}
     <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/cY9AfjOCX1hbuyalUrK4397yjIJFJpc.woff2" />
     <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/-F63fjptAgt5VM-kVkqdyU8n1i8q131nj-o.woff2" />
-    <link rel="stylesheet" href="/fonts/fonts.css" />
-    <script is:inline>document.documentElement.classList.add("js");</script>
+    <style is:inline set:html={FONT_CSS} />
+    {/* .reveal elements start hidden so there is no flash of unstyled content.
+        If the motion chunk never arrives — a bad deploy, a blocked request, a
+        browser that gives up — that hidden state would leave a blank page. This
+        timer is the guarantee that it can't: motion.ts stamps data-motion on
+        the root as its first act, and anything else forces the page visible. */}
+    <script is:inline>
+      document.documentElement.classList.add("js");
+      setTimeout(function () {
+        var r = document.documentElement;
+        if (!r.dataset.motion) r.classList.add("motion-failed");
+      }, 2500);
+    </script>
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     <ClientRouter />
   </head>
@@ -101,8 +122,8 @@ const path = Astro.url.pathname;
   <body class="noise">
     <div id="progress"></div>
 
-    <header data-pagefind-ignore id="siteHeader" class="fixed top-0 inset-x-0 z-50 transition-all duration-200" transition:persist>
-      <div id="headerInner" class="mx-auto max-w-6xl px-5 sm:px-8 flex items-center justify-between h-[74px] transition-all duration-200">
+    <header data-pagefind-ignore id="siteHeader" class="fixed top-0 inset-x-0 z-50" transition:persist>
+      <div id="headerInner" class="mx-auto max-w-6xl px-5 sm:px-8 flex items-center justify-between h-[74px] transition-[height] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]">
         <a href="/" class="flex items-center gap-2.5 group shrink-0">
           <span class="w-[20px] h-[20px] rounded-[6px] bg-accent transition-transform duration-200 group-hover:rotate-[135deg]"></span>
           <span class="font-display font-bold tracking-tight text-[1.02rem]" set:html={PROFILE.name.replace(" ", "&nbsp;")} />
@@ -118,7 +139,7 @@ const path = Astro.url.pathname;
             </a>
           ))}
           <a href="/search" aria-label="Search" title="Search"
-            class="grid place-items-center w-9 h-9 rounded-full border border-hair text-muted hover:text-text hover:border-cyan/50 transition-colors duration-200">
+            class="grid place-items-center w-9 h-9 border border-hair text-muted hover:text-text hover:border-accent transition-colors duration-200">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
               <circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path>
             </svg>
@@ -128,7 +149,7 @@ const path = Astro.url.pathname;
           <span class="block w-6 h-[2px] bg-text relative before:content-[''] before:absolute before:w-6 before:h-[2px] before:bg-text before:-top-2 after:content-[''] after:absolute after:w-6 after:h-[2px] after:bg-text after:top-2"></span>
         </button>
       </div>
-      <div id="mobileNav" class="md:hidden hidden bg-surface/95 backdrop-blur-xl border-t border-hair">
+      <div id="mobileNav" class="md:hidden hidden border-t border-hair">
         <nav class="px-5 py-4 flex flex-col">
           {nav.map((n) => <a href={n.href} class="py-3 text-[1.05rem] border-b border-hair last:border-0">{n.label}</a>)}
           <a href="/search" class="py-3 text-[1.05rem]">Search</a>
@@ -178,162 +199,7 @@ const path = Astro.url.pathname;
     </footer>
 
     <script>
-      function splitWords() {
-        document.querySelectorAll<HTMLElement>("[data-words]").forEach((el) => {
-          if (el.dataset.split === "1") return;
-          const html = el.innerHTML;
-          // only split plain-ish headings; keep inner tags intact by splitting on spaces outside tags
-          el.innerHTML = html.replace(/(>|^)([^<>]+)(?=<|$)/g, (_m, pre, text) => {
-            const parts = text.split(/(\s+)/).map((t: string) =>
-              t.trim() ? `<span class="word">${t}</span>` : t
-            );
-            return pre + parts.join("");
-          });
-          el.dataset.split = "1";
-          el.querySelectorAll<HTMLElement>(".word").forEach((w, i) =>
-            w.style.setProperty("--w-delay", `${i * 45}ms`)
-          );
-        });
-      }
-
-      function initReveal() {
-        const items = document.querySelectorAll<HTMLElement>(".reveal, .reveal-scale, .word");
-        if (!("IntersectionObserver" in window)) {
-          items.forEach((el) => el.classList.add("is-in"));
-          return;
-        }
-        const io = new IntersectionObserver(
-          (es) => es.forEach((e) => {
-            if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
-          }),
-          { rootMargin: "0px 0px -6% 0px", threshold: 0.06 }
-        );
-        const groups = new Map<Element, number>();
-        items.forEach((el) => {
-          if (!el.classList.contains("word")) {
-            const p = el.parentElement!;
-            const i = groups.get(p) ?? 0;
-            if (!el.style.getPropertyValue("--reveal-delay"))
-              el.style.setProperty("--reveal-delay", `${Math.min(i, 6) * 85}ms`);
-            groups.set(p, i + 1);
-          }
-          io.observe(el);
-        });
-
-        // Anything already inside the first viewport animates in on load, so the
-        // hero never sits invisible waiting for a scroll that may never come.
-        const revealAbove = () => {
-          items.forEach((el) => {
-            const r = el.getBoundingClientRect();
-            if (r.top < window.innerHeight * 1.15) {
-              el.classList.add("is-in");
-              io.unobserve(el);
-            }
-          });
-        };
-        requestAnimationFrame(revealAbove);
-
-        // Safety net: rAF is suspended in background tabs and IntersectionObserver
-        // can be starved on slow devices. setTimeout still fires, so content can
-        // never end up permanently invisible because an animation hook didn't run.
-        setTimeout(revealAbove, 1200);
-        setTimeout(() => items.forEach((el) => el.classList.add("is-in")), 6000);
-      }
-
-      function initHeader() {
-        const h = document.getElementById("siteHeader");
-        const inner = document.getElementById("headerInner");
-        const bar = document.getElementById("progress");
-        if (!h || !inner) return;
-        const onScroll = () => {
-          const y = window.scrollY;
-          if (bar) {
-            const max = document.body.scrollHeight - window.innerHeight;
-            bar.style.width = `${max > 0 ? (y / max) * 100 : 0}%`;
-          }
-          if (y > 10) {
-            h.classList.add("bg-void/75", "backdrop-blur-xl", "border-b", "border-hair");
-            inner.classList.replace("h-[74px]", "h-[60px]");
-          } else {
-            h.classList.remove("bg-void/75", "backdrop-blur-xl", "border-b", "border-hair");
-            inner.classList.replace("h-[60px]", "h-[74px]");
-          }
-        };
-        onScroll();
-        window.addEventListener("scroll", onScroll, { passive: true });
-      }
-
-      function initNav() {
-        const b = document.getElementById("navToggle");
-        const p = document.getElementById("mobileNav");
-        if (!b || !p) return;
-
-        const close = () => {
-          p.classList.add("hidden");
-          b.setAttribute("aria-expanded", "false");
-        };
-
-        // The header is transition:persist, so it survives client-side
-        // navigation — and so did the OPEN menu. Close it on every page load.
-        close();
-
-        // Same reason: this function runs on every navigation, but the button
-        // element persists. Without this guard we stack a new click listener
-        // each time, so after three navigations one tap toggles three times.
-        if (b.dataset.wired) return;
-        b.dataset.wired = "1";
-
-        b.addEventListener("click", () => {
-          const closed = p.classList.toggle("hidden");
-          b.setAttribute("aria-expanded", String(!closed));
-        });
-        // Close as soon as a link is tapped, so it doesn't sit open while the
-        // next page loads.
-        p.addEventListener("click", (e) => {
-          if ((e.target as HTMLElement).closest("a")) close();
-        });
-        document.addEventListener("keydown", (e) => {
-          if (e.key === "Escape") close();
-        });
-        // If the viewport grows past the mobile breakpoint, the panel would
-        // otherwise stay in the DOM flow behind the desktop nav.
-        window.addEventListener("resize", () => {
-          if (window.innerWidth >= 768) close();
-        });
-      }
-
-      function initCounters() {
-        const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
-        document.querySelectorAll<HTMLElement>("[data-count]").forEach((el) => {
-          const target = parseFloat(el.dataset.count || "0");
-          const final = () => { el.textContent = target.toLocaleString(); };
-          if (still) { final(); return; }
-
-          const io = new IntersectionObserver((es) => {
-            es.forEach((e) => {
-              if (!e.isIntersecting) return;
-              io.disconnect();
-              const t0 = performance.now(), dur = 1200;
-              const tick = (t: number) => {
-                const p = Math.min((t - t0) / dur, 1);
-                el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))).toLocaleString();
-                if (p < 1) requestAnimationFrame(tick);
-              };
-              requestAnimationFrame(tick);
-            });
-          }, { threshold: 0.4 });
-          io.observe(el);
-
-          // rAF is throttled in background/unfocused tabs, which used to leave the
-          // count frozen part-way (e.g. "4" instead of "40"). Land on the real
-          // number regardless of where the animation got to.
-          setTimeout(final, 4000);
-        });
-      }
-
-      function boot() { splitWords(); initReveal(); initHeader(); initNav(); initCounters(); }
-      boot();
-      document.addEventListener("astro:page-load", boot);
+      import "../motion";
     </script>
     {CF_ANALYTICS_TOKEN && (
       <script
