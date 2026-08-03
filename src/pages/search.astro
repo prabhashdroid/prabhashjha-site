@@ -61,18 +61,21 @@ import Base from "../layouts/Base.astro";
     --pagefind-ui-border: var(--color-hair);
     --pagefind-ui-tag: var(--color-raised);
     --pagefind-ui-border-width: 1px;
-    --pagefind-ui-border-radius: 14px;
+    --pagefind-ui-border-radius: 0;
     --pagefind-ui-font: var(--font-sans);
   }
   #search .pagefind-ui__search-input {
-    background: rgba(255, 255, 255, 0.04);
+    background: color-mix(in oklab, var(--color-text) 4%, transparent);
     color: var(--color-text);
     font-size: 1rem;
-    padding: 1rem 1.1rem;
+    /* The left pad has to clear Pagefind's own icon, which it draws as an
+       absolutely-positioned ::before sitting at left:16px, 14.4px wide. At the
+       previous 1.1rem (17.6px) the first character rendered underneath it. */
+    padding: 1rem 1.1rem 1rem 2.9rem;
   }
   #search .pagefind-ui__search-input::placeholder { color: var(--color-dim); }
   #search .pagefind-ui__search-input:focus-visible {
-    outline: 2px solid var(--color-cyan);
+    outline: 2px solid var(--color-accent);
     outline-offset: 2px;
   }
   #search .pagefind-ui__search-clear { background: transparent; color: var(--color-muted); }
@@ -87,11 +90,11 @@ import Base from "../layouts/Base.astro";
     color: var(--color-text);
     text-decoration: none;
   }
-  #search .pagefind-ui__result-title a:hover { color: var(--color-cyan); }
+  #search .pagefind-ui__result-title a:hover { color: var(--color-accent); }
   #search .pagefind-ui__result-excerpt { color: var(--color-muted); font-size: 0.94rem; }
   #search .pagefind-ui__result-excerpt mark {
     background: transparent;
-    color: var(--color-cyan);
+    color: var(--color-accent);
     font-weight: 600;
   }
   #search .pagefind-ui__message { color: var(--color-muted); font-size: 0.9rem; }
@@ -99,6 +102,5 @@ import Base from "../layouts/Base.astro";
     background: transparent;
     border: 1px solid var(--color-hair);
     color: var(--color-text);
-    border-radius: 9999px;
   }
 </style>

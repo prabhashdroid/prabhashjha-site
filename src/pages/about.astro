@@ -11,7 +11,7 @@ const { Content } = await render(page!);
   <section class="relative">
     <div class="absolute inset-0 grid-bg" aria-hidden="true"></div>
     <div class="relative mx-auto max-w-3xl px-5 sm:px-8 pt-20 pb-14 md:pt-28" data-hero>
-      <p class="reveal label mb-6">/ {d.eyebrow}</p>
+      <p class="reveal step-1 label mb-6">/ {d.eyebrow}</p>
       <div class="md:flex md:items-end md:gap-12">
         <div class="flex-1">
           <h1 data-words class="font-display font-semibold text-[2.6rem] sm:text-[3.6rem] leading-[1.03]">
@@ -21,7 +21,7 @@ const { Content } = await render(page!);
         {/* A plain rectangular portrait, ruled like every other image on the
             site — a headshot in a circle with a glow behind it belongs to a
             different, glossier kind of site than this one. */}
-        <div class="reveal mt-10 md:mt-0 shrink-0">
+        <div class="reveal step-2 mt-10 md:mt-0 shrink-0">
           <img src={d.portrait} width="460" height="460"
             alt={d.portraitAlt}
             class="w-[190px] h-[228px] sm:w-[230px] sm:h-[276px] object-cover object-top border border-hair" />

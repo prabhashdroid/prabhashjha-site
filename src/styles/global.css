@@ -48,14 +48,14 @@
   :root:not([data-theme="dark"]) {
     --color-void: #F4F3EF; --color-surface: #EDEBE5; --color-raised: #E6E3DB;
     --color-hair: #D4D0C6; --color-text: #17180F; --color-muted: #55564C;
-    --color-dim: #6B6C61;  --color-accent: #8A5A12;
+    --color-dim: #646559;  --color-accent: #8A5A12;
     --color-blue: #8A5A12; --color-violet: #8A5A12; --color-cyan: #8A5A12;
   }
 }
 :root[data-theme="light"] {
   --color-void: #F4F3EF; --color-surface: #EDEBE5; --color-raised: #E6E3DB;
   --color-hair: #D4D0C6; --color-text: #17180F; --color-muted: #55564C;
-  --color-dim: #6B6C61;  --color-accent: #8A5A12;
+  --color-dim: #646559;  --color-accent: #8A5A12;
   --color-blue: #8A5A12; --color-violet: #8A5A12; --color-cyan: #8A5A12;
 }
 
@@ -157,13 +157,17 @@
     to   { clip-path: inset(0 0 -22% 0); transform: none; }
   }
 
+  /* The step comes from an explicit class, not from :nth-of-type.
+     nth-of-type counts per element type, and a hero's children are a mix of
+     p / div / dl — so three of four elements resolved to the same delay and
+     the sequence fired all at once. Explicit is the only thing that survives
+     someone changing a <div> to a <section>. */
   html.js [data-hero] .reveal {
     animation: rise-in .7s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(.28s + (var(--step, 0) * .08s));
   }
-  html.js [data-hero] .reveal:nth-of-type(1) { animation-delay: .28s; }
-  html.js [data-hero] .reveal:nth-of-type(2) { animation-delay: .36s; }
-  html.js [data-hero] .reveal:nth-of-type(3) { animation-delay: .44s; }
-  html.js [data-hero] .reveal:nth-of-type(n+4) { animation-delay: .52s; }
+  .step-1 { --step: 1; } .step-2 { --step: 2; }
+  .step-3 { --step: 3; } .step-4 { --step: 4; }
   @keyframes rise-in {
     from { opacity: 0; transform: translate3d(0, 14px, 0); }
     to   { opacity: 1; transform: none; }
@@ -223,6 +227,21 @@
     font-family: var(--font-mono); font-size: .68rem; letter-spacing: .14em;
     text-transform: uppercase; color: var(--color-dim);
   }
+
+  /* Off-screen until focused, then a real, visible target in the top-left. */
+  .skip-link {
+    position: fixed; top: 0; left: 0; z-index: 100;
+    transform: translateY(-120%);
+    background: var(--color-accent); color: var(--color-void);
+    font-family: var(--font-mono); font-size: .78rem; letter-spacing: .08em;
+    padding: .85rem 1.4rem; text-transform: uppercase;
+    transition: transform .18s var(--ease-expo);
+  }
+  /* :focus, not :focus-visible. A skip link is only ever reachable by keyboard,
+     and :focus-visible does not match focus moved programmatically — by a
+     screen reader, or by a "skip to content" shortcut — which would leave the
+     link focused but still parked off-screen. */
+  .skip-link:focus { transform: translateY(0); outline-offset: -4px; }
 }
 
 /* ============================================================

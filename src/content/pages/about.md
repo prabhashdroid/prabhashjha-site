@@ -1,6 +1,6 @@
 ---
 title: "About Prabhash Jha — Co-Founder of ADVOLT"
-description: "An engineer turned marketer, co-founder of ADVOLT — a performance marketing agency working with streaming, e-commerce, D2C, insurance and BFSI brands across India and South East Asia."
+description: "An engineer turned marketer and co-founder of ADVOLT, running performance and affiliate growth across India and South East Asia."
 eyebrow: "About"
 heading: "Engineer by training."
 headingAccent: "Marketer by accident."

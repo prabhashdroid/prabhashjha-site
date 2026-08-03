@@ -60,13 +60,13 @@ const collectionSchema = {
   <section class="relative">
     <div class="absolute inset-0 grid-bg" aria-hidden="true"></div>
     <div class="relative mx-auto max-w-6xl px-5 sm:px-8 pt-20 pb-10 md:pt-28" data-hero>
-      <nav aria-label="Breadcrumb" class="reveal label flex items-center gap-2 mb-6">
+      <nav aria-label="Breadcrumb" class="reveal step-1 label flex items-center gap-2 mb-6">
         <a href="/blog" class="hover:text-accent transition-colors duration-200">Topics</a>
         <span aria-hidden="true">/</span><span class="text-muted">{category}</span>
       </nav>
       <h1 data-words class="font-display font-semibold text-[2.6rem] sm:text-[3.6rem] leading-[1.03]">{category}</h1>
-      <p class="reveal mt-5 text-[1.06rem] text-muted max-w-[50ch] leading-relaxed">{CATEGORY_BLURBS[category]}</p>
-      <p class="reveal label tabular mt-7 pt-4 border-t border-hair">{posts.length} guides</p>
+      <p class="reveal step-2 mt-5 text-[1.06rem] text-muted max-w-[50ch] leading-relaxed">{CATEGORY_BLURBS[category]}</p>
+      <p class="reveal step-3 label tabular mt-7 pt-4 border-t border-hair">{posts.length} guides</p>
     </div>
   </section>
   <section class="mx-auto max-w-6xl px-5 sm:px-8 pb-24">
