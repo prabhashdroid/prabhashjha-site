@@ -1,28 +1,62 @@
 @import "tailwindcss";
 
 /* ============================================================
-   PALETTE — deep space base, electric spectrum accent.
-   Dark-first, high contrast, engineered to feel like software.
+   PALETTE — warm ink and a single ledger accent.
+
+   The subject is the arithmetic of marketing: reconciliation,
+   attribution, unit economics. That world's vernacular is the
+   ledger and the instrument, so this borrows from print and
+   accounting — hairline rules, tabular figures, one marking
+   colour — rather than from software marketing.
+
+   Deliberately NOT: blue-black ground, multi-stop gradient,
+   glass panels, rounded cards. That combination is the default
+   look of AI-generated sites, and this site was previously
+   guilty of all four.
    ============================================================ */
 @theme {
-  --color-void:     #06070A;
-  --color-surface:  #0C0E14;
-  --color-raised:   #12151D;
-  --color-hair:     #1E222C;
-  --color-text:     #EDEFF5;
-  --color-muted:    #878DA0;
-  --color-dim:     #737B91;  /* was #5A6072 = 3.08:1 on surface; below the 4.5:1 minimum */
+  /* ground: near-black with a warm bias, not blue-black */
+  --color-void:     #0E0F0D;
+  --color-surface:  #141512;
+  --color-raised:   #1A1B17;
+  --color-hair:     #2A2C28;
 
-  --color-blue:     #4F7CFF;
-  --color-violet:   #A855F7;
-  --color-cyan:     #22D3EE;
+  --color-text:     #EDEDEA;
+  --color-muted:    #A6A79F;
+  --color-dim:      #85867E;
 
-  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --font-sans:    "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono:    "JetBrains Mono", ui-monospace, monospace;
+  /* ONE accent. Ledger amber — the colour of a highlighted cell. */
+  --color-accent:   #D9A441;
+
+  /* Aliases kept so existing markup keeps compiling. All three now
+     resolve to the single accent, which is what kills the gradient. */
+  --color-blue:     #D9A441;
+  --color-violet:   #D9A441;
+  --color-cyan:     #D9A441;
+
+  --font-display: "Newsreader", ui-serif, Georgia, serif;
+  --font-sans:    "Newsreader", ui-serif, Georgia, serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, monospace;
 
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* The light theme is a real design, not an inversion: warm paper,
+   ink text, and a darker amber that holds contrast on a light ground. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --color-void: #F4F3EF; --color-surface: #EDEBE5; --color-raised: #E6E3DB;
+    --color-hair: #D4D0C6; --color-text: #17180F; --color-muted: #55564C;
+    --color-dim: #6B6C61;  --color-accent: #8A5A12;
+    --color-blue: #8A5A12; --color-violet: #8A5A12; --color-cyan: #8A5A12;
+  }
+}
+:root[data-theme="light"] {
+  --color-void: #F4F3EF; --color-surface: #EDEBE5; --color-raised: #E6E3DB;
+  --color-hair: #D4D0C6; --color-text: #17180F; --color-muted: #55564C;
+  --color-dim: #6B6C61;  --color-accent: #8A5A12;
+  --color-blue: #8A5A12; --color-violet: #8A5A12; --color-cyan: #8A5A12;
 }
 
 @layer base {
@@ -31,139 +65,145 @@
     background: var(--color-void);
     color: var(--color-text);
     font-family: var(--font-sans);
-    font-size: 1.0625rem;
-    line-height: 1.7;
+    font-size: 1.075rem;
+    line-height: 1.65;
     overflow-x: hidden;
   }
-  h1,h2,h3,h4 {
+  h1, h2, h3, h4 {
     font-family: var(--font-display);
-    letter-spacing: -0.035em;
-    line-height: 1.02;
+    font-weight: 600;
+    /* a serif needs far less negative tracking than a grotesque */
+    letter-spacing: -0.012em;
+    line-height: 1.08;
     text-wrap: balance;
   }
-  ::selection { background: var(--color-blue); color: #fff; }
-  :focus-visible { outline: 2px solid var(--color-cyan); outline-offset: 3px; }
+  /* figures line up wherever they are counted or compared */
+  [data-count], time, .tabular { font-variant-numeric: tabular-nums lining-nums; }
+  ::selection { background: var(--color-accent); color: #17180F; }
+  :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
   img { max-width: 100%; }
+  /* Swiss: the grid and the rules carry the structure, so nothing is rounded */
+  *, *::before, *::after { border-radius: 0 !important; }
 }
 
 @layer utilities {
-  /* ---------- gradient text ---------- */
+  /* ---------- accent text (was a three-stop gradient) ---------- */
   .grad-text {
-    background: linear-gradient(100deg, var(--color-blue), var(--color-violet) 45%, var(--color-cyan));
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: gradShift 7s ease infinite;
+    color: var(--color-accent) !important;
+    background: none !important;
+    -webkit-text-fill-color: currentColor;
+    animation: none !important;
   }
-  @keyframes gradShift { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
 
-  /* ---------- ambient orbs ---------- */
-  .orb { position:absolute; border-radius:9999px; filter: blur(90px); pointer-events:none; will-change: transform; }
-  .orb-a { animation: float1 18s ease-in-out infinite; }
-  .orb-b { animation: float2 22s ease-in-out infinite; }
-  @keyframes float1 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(60px,-40px) scale(1.12)} }
-  @keyframes float2 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-70px,50px) scale(0.9)} }
+  /* ---------- the blurred colour blobs are gone ---------- */
+  .orb { display: none !important; }
 
-  /* ---------- grid backdrop ---------- */
+  /* ---------- a single ruled edge instead of a glowing grid ---------- */
   .grid-bg {
-    background-image:
-      linear-gradient(to right, rgba(255,255,255,0.035) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255,255,255,0.035) 1px, transparent 1px);
-    background-size: 62px 62px;
-    mask-image: radial-gradient(ellipse 75% 60% at 50% 0%, #000 55%, transparent 100%);
+    background-image: linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--color-hair) 70%, transparent) 1px,
+      transparent 1px
+    );
+    background-size: 100% 6.5rem;
+    mask-image: linear-gradient(to bottom, #000 0%, transparent 85%);
+    opacity: .55;
   }
 
-  /* ---------- glass card ---------- */
+  /* ---------- panel: hairline box, no blur, no shadow ---------- */
   .glass {
-    background: linear-gradient(160deg, rgba(255,255,255,0.055), rgba(255,255,255,0.018));
+    background: var(--color-surface);
     border: 1px solid var(--color-hair);
-    backdrop-filter: blur(10px);
+    backdrop-filter: none;
   }
-  .glow-hover { position: relative; transition: transform .45s var(--ease-expo), border-color .45s ease; }
-  .glow-hover::after {
-    content:""; position:absolute; inset:-1px; border-radius:inherit; padding:1px;
-    background: linear-gradient(130deg, var(--color-blue), var(--color-violet), var(--color-cyan));
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor; mask-composite: exclude;
-    opacity:0; transition: opacity .45s ease; pointer-events:none;
-  }
-  .glow-hover:hover { transform: translateY(-5px); }
-  .glow-hover:hover::after { opacity:1; }
+  .glow-hover { transition: border-color .3s ease, background-color .3s ease; }
+  .glow-hover:hover { border-color: var(--color-accent); background: var(--color-raised); transform: none; }
+  .glow-hover::after { content: none !important; }
 
-  /* ---------- scroll reveal (safe default: visible) ---------- */
-  .reveal, .reveal-scale { opacity:1; transform:none; }
-  html.js .reveal {
-    opacity:0; transform: translate3d(0,26px,0);
-    transition: opacity .8s var(--ease-expo), transform .8s var(--ease-expo);
+  /* ---------- scroll reveal: shorter, quieter, no scaling ---------- */
+  .reveal, .reveal-scale { opacity: 1; transform: none; }
+  html.js .reveal, html.js .reveal-scale {
+    opacity: 0; transform: translate3d(0, 12px, 0);
+    transition: opacity .5s var(--ease-expo), transform .5s var(--ease-expo);
     transition-delay: var(--reveal-delay, 0ms);
   }
-  html.js .reveal.is-in { opacity:1; transform:none; }
-  html.js .reveal-scale {
-    opacity:0; transform: scale(1.05) translateY(20px);
-    transition: opacity 1s var(--ease-expo), transform 1.15s var(--ease-expo);
-    transition-delay: var(--reveal-delay, 0ms);
-  }
-  html.js .reveal-scale.is-in { opacity:1; transform:none; }
-
-  /* ---------- word-by-word headline reveal ---------- */
+  html.js .reveal.is-in, html.js .reveal-scale.is-in { opacity: 1; transform: none; }
   html.js .word {
-    display:inline-block;
-    opacity:0; transform: translateY(0.5em) rotate(2deg);
-    transition: opacity .7s var(--ease-expo), transform .7s var(--ease-expo);
+    display: inline-block; opacity: 0; transform: translateY(0.22em);
+    transition: opacity .45s var(--ease-expo), transform .45s var(--ease-expo);
     transition-delay: var(--w-delay, 0ms);
   }
-  html.js .word.is-in { opacity:1; transform:none; }
+  html.js .word.is-in { opacity: 1; transform: none; }
 
-  /* ---------- marquee ---------- */
-  .marquee { display:flex; gap:3rem; width:max-content; animation: slide 38s linear infinite; }
-  @keyframes slide { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .marquee { display: flex; gap: 3rem; width: max-content; animation: slide 64s linear infinite; }
+  @keyframes slide { from { transform: translateX(0) } to { transform: translateX(-50%) } }
 
-  /* ---------- scroll progress ---------- */
   #progress {
-    position:fixed; top:0; left:0; height:2px; z-index:60; width:0%;
-    background: linear-gradient(90deg, var(--color-blue), var(--color-violet), var(--color-cyan));
+    position: fixed; top: 0; left: 0; height: 2px; z-index: 60; width: 0%;
+    background: var(--color-accent);
     transition: width .1s linear;
   }
+  .noise::before { content: none !important; }
 
-  .noise::before {
-    content:""; position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.028;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  /* ---------- editorial helpers ---------- */
+  .rule { border-top: 1px solid var(--color-hair); }
+  .label {
+    font-family: var(--font-mono); font-size: .68rem; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--color-dim);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior:auto; }
+  html { scroll-behavior: auto; }
   html.js .reveal, html.js .reveal-scale, html.js .word {
-    opacity:1 !important; transform:none !important; transition:none !important;
+    opacity: 1 !important; transform: none !important; transition: none !important;
   }
-  .orb-a, .orb-b, .marquee, .grad-text { animation: none !important; }
+  .marquee { animation: none !important; }
 }
 
 /* ============================================================
-   Article typography (dark)
+   Article typography — set for reading, not scanning.
+   Measure held near 68 characters; the serif carries the rest.
    ============================================================ */
-.prose-pj { max-width: 43rem; }
-.prose-pj > * + * { margin-top: 1.4em; }
-.prose-pj h2 { font-size: clamp(1.6rem,3vw,2.05rem); margin-top:2.7em; margin-bottom:.15em; }
-.prose-pj h3 { font-size: clamp(1.18rem,2vw,1.3rem); margin-top:2.1em; margin-bottom:.15em; }
-.prose-pj p, .prose-pj li { color:#C4C9D6; }
-.prose-pj strong { color: var(--color-text); font-weight:600; }
-.prose-pj a { color: var(--color-cyan); text-decoration:none; border-bottom:1px solid rgba(34,211,238,.35); }
-.prose-pj a:hover { border-bottom-color: var(--color-cyan); }
-.prose-pj ul, .prose-pj ol { padding-left:1.15rem; }
-.prose-pj li { margin-top:.6em; }
-.prose-pj ul > li { list-style:none; position:relative; }
+.prose-pj { max-width: 40rem; }
+.prose-pj > * + * { margin-top: 1.35em; }
+.prose-pj h2 {
+  font-size: clamp(1.5rem, 2.6vw, 1.95rem);
+  margin-top: 2.4em; margin-bottom: .2em;
+  padding-top: .85em; border-top: 1px solid var(--color-hair);
+}
+.prose-pj h3 { font-size: clamp(1.12rem, 1.8vw, 1.28rem); margin-top: 1.9em; margin-bottom: .1em; }
+.prose-pj p, .prose-pj li { color: color-mix(in oklab, var(--color-text) 88%, var(--color-void)); }
+.prose-pj strong { color: var(--color-text); font-weight: 600; }
+.prose-pj a {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
+  border-bottom: 0;
+}
+.prose-pj a:hover { color: var(--color-accent); }
+.prose-pj ul, .prose-pj ol { padding-left: 1.3rem; }
+.prose-pj li { margin-top: .5em; }
+.prose-pj ul > li { list-style: none; position: relative; }
 .prose-pj ul > li::before {
-  content:""; position:absolute; left:-1rem; top:.72em; width:6px; height:6px; border-radius:9999px;
-  background: linear-gradient(120deg, var(--color-blue), var(--color-cyan));
+  content: ""; position: absolute; left: -1.15rem; top: .78em;
+  width: .5rem; height: 1px; background: var(--color-accent);
 }
-.prose-pj ol { list-style:decimal; }
+.prose-pj ol { list-style: decimal; }
+.prose-pj li::marker { font-family: var(--font-mono); font-size: .85em; color: var(--color-dim); }
 .prose-pj blockquote {
-  border-left:2px solid transparent;
-  border-image: linear-gradient(180deg, var(--color-blue), var(--color-violet)) 1;
-  padding:.1em 0 .1em 1.5rem; font-family:var(--font-display);
-  font-size:1.2em; line-height:1.5; letter-spacing:-.02em; color:var(--color-text);
+  border-left: 2px solid var(--color-accent);
+  border-image: none;
+  padding: .1em 0 .1em 1.4rem; margin-left: 0;
+  font-family: var(--font-display); font-style: italic;
+  font-size: 1.12em; line-height: 1.5; letter-spacing: 0; color: var(--color-text);
 }
-.prose-pj img { border-radius:12px; }
-.prose-pj hr { border:0; border-top:1px solid var(--color-hair); margin:3em 0; }
+.prose-pj img { border: 1px solid var(--color-hair); }
+.prose-pj hr { border: 0; border-top: 1px solid var(--color-hair); margin: 3em 0; }
+.prose-pj code {
+  font-family: var(--font-mono); font-size: .88em;
+  background: var(--color-raised); border: 1px solid var(--color-hair);
+  padding: .1em .35em;
+}
