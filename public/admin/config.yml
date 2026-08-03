@@ -5,7 +5,7 @@
 # ============================================================
 backend:
   name: github
-  repo: YOUR-GITHUB-USERNAME/prabhashjha-site   # <-- 1. your repo
+  repo: prabhashdroid/prabhashjha-site
   branch: main
   base_url: https://YOUR-WORKER.workers.dev      # <-- 2. your OAuth worker
 
