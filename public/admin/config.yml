@@ -7,15 +7,15 @@ backend:
   name: github
   repo: prabhashdroid/prabhashjha-site
   branch: main
-  base_url: https://YOUR-WORKER.workers.dev      # <-- 2. your OAuth worker
+  base_url: https://prabhashjha-cms-auth.prabhash470.workers.dev
 
 site_url: https://www.prabhashjha.com
 display_url: https://www.prabhashjha.com
 publish_mode: simple
 
-# Lets the SAME admin run on your own Mac (`npm run admin`) with no GitHub
-# login, writing straight to the files. Ignored once the site is deployed.
-local_backend: true
+# local_backend is intentionally OFF: with it on, the LIVE admin tries to
+# reach localhost:8081 and fails. For local editing use `npm run admin`,
+# which starts decap-server and injects it at runtime.
 
 media_folder: "public/images"
 public_folder: "/images"

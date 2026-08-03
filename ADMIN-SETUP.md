@@ -1,82 +1,69 @@
-# Browser admin — one-time setup (~15 min, ₹0 forever)
+# Logging into the admin on the live site
 
-End result: you go to **prabhashjha.com/admin**, log in with GitHub, write,
-hit Publish. The site rebuilds itself. No terminal. No Cloudflare dashboard.
+Local editing already works with no setup: `npm run admin` → http://localhost:4321/admin/index.html
 
-Only YOU can do these steps — they need your accounts.
+This file is only about `https://www.prabhashjha.com/admin`, where you log in with GitHub.
 
---------------------------------------------------------------------
-STEP 1 — Put the code on GitHub (5 min)
---------------------------------------------------------------------
-  cd ~/ADVOLT/prabhashjha-site
-  git init && git add -A && git commit -m "Site"
+## Already done
 
-Create a NEW repo at github.com/new  — name it: prabhashjha-site
-Make it PRIVATE if you prefer; both work. Then:
+| Thing | Value |
+|---|---|
+| Cloudflare Worker | `prabhashjha-cms-auth` — **deployed** |
+| Worker URL | https://prabhashjha-cms-auth.prabhash470.workers.dev |
+| GitHub OAuth app | "prabhashjha.com CMS" — **created** |
+| **Client ID** (not secret) | `Ov23liWBzXpzaoa7Avjq` |
+| Callback URL | `https://prabhashjha-cms-auth.prabhash470.workers.dev/callback` |
+| `config.yml` `base_url` | **set to the worker** |
+| `local_backend` | removed from the deployed config, injected only by `npm run admin` |
 
-  git remote add origin https://github.com/<YOUR-USERNAME>/prabhashjha-site.git
-  git branch -M main && git push -u origin main
+The Worker is currently still the "Hello World" stub. Four steps left.
 
---------------------------------------------------------------------
-STEP 2 — Deploy the site on Cloudflare Pages (5 min)
---------------------------------------------------------------------
-dash.cloudflare.com -> Workers & Pages -> Create -> Pages -> Connect to Git
-  Framework preset : Astro
-  Build command    : npm run build
-  Output directory : dist
-Deploy. You get a free <something>.pages.dev URL.
+## Step 1 — generate the client secret (yours to do)
 
---------------------------------------------------------------------
-STEP 3 — GitHub OAuth app (3 min)
---------------------------------------------------------------------
-github.com/settings/developers -> OAuth Apps -> New OAuth App
-  Application name  : Prabhash CMS
-  Homepage URL      : https://www.prabhashjha.com
-  Authorization callback URL:
-        https://prabhashjha-cms-auth.<YOUR-CF-SUBDOMAIN>.workers.dev/callback
-        (you'll get this exact URL in step 4 — put a placeholder now, edit after)
+github.com/settings/applications/3769437 → **Generate a new client secret** → copy it.
 
-Click "Generate a new client secret".
-KEEP the Client ID and Client Secret on screen for the next step.
+GitHub shows it once. Claude does not handle this value — keep it out of chat.
 
---------------------------------------------------------------------
-STEP 4 — Deploy the OAuth worker (3 min)
---------------------------------------------------------------------
-  export NVM_DIR="$HOME/.nvm"; . "$NVM_DIR/nvm.sh"
-  cd ~/ADVOLT/prabhashjha-site/oauth-worker
-  npx wrangler login
-  npx wrangler deploy
-  npx wrangler secret put GITHUB_CLIENT_ID       # paste Client ID
-  npx wrangler secret put GITHUB_CLIENT_SECRET   # paste Client Secret
+## Step 2 — paste the Worker code
 
-wrangler prints your worker URL. Copy it.
-Go back to STEP 3 and set the callback URL to  <worker-url>/callback
+Cloudflare → Workers & Pages → `prabhashjha-cms-auth` → **Edit code**.
+Delete everything in the editor, paste the whole of `oauth-worker/worker.js`
+from this repo, then **Deploy**.
 
---------------------------------------------------------------------
-STEP 5 — Point the CMS at both (1 min)
---------------------------------------------------------------------
-Edit  public/admin/config.yml  and replace the two placeholders:
+## Step 3 — add the two variables
 
-  repo: <YOUR-GITHUB-USERNAME>/prabhashjha-site
-  base_url: <your worker URL, no trailing slash>
+Same Worker → **Settings** → **Variables and secrets** → Add:
 
-Then:
-  git add -A && git commit -m "Wire CMS" && git push
+| Name | Type | Value |
+|---|---|---|
+| `GITHUB_CLIENT_ID` | Text | `Ov23liWBzXpzaoa7Avjq` |
+| `GITHUB_CLIENT_SECRET` | **Secret** | the value from Step 1 |
 
---------------------------------------------------------------------
-DONE — how you publish from now on
---------------------------------------------------------------------
-1. Go to  https://www.prabhashjha.com/admin
-2. "Login with GitHub"
-3. Posts -> New Post. Fill Title, URL slug, Description, Date, Cover, Content.
-4. Publish.
-5. Cloudflare rebuilds automatically. Live in ~60 seconds.
+Type must be **Secret** for the second one — that encrypts it and hides it from the dashboard afterwards.
 
-RULES
-- NEVER change the URL slug of a post that is already published.
-  That breaks its Google ranking. Change the title freely; the slug is the address.
-- Description: 140-160 characters. It is what shows in Google results.
-- /admin is set to noindex, so Google will not list your admin page.
+Then **Deploy** again so the variables take effect.
 
-If you ever want to write without the browser:
-  npm run cms      -> localhost:4322/keystatic  (works offline, no GitHub needed)
+## Step 4 — check it
+
+Open https://www.prabhashjha.com/admin and click **Login with GitHub**.
+A popup asks you to authorise "prabhashjha.com CMS", then the admin loads with your posts.
+
+Quick sanity check that the Worker is running the real code, not the stub:
+
+```bash
+curl -s https://prabhashjha-cms-auth.prabhash470.workers.dev/
+```
+
+Should say `Decap OAuth worker is running.` — if it still says `Hello World!`, Step 2 didn't deploy.
+
+## If login fails
+
+- **Popup closes with nothing** → `GITHUB_CLIENT_SECRET` is wrong or missing.
+- **"redirect_uri mismatch"** → the callback in the GitHub app must be exactly
+  `https://prabhashjha-cms-auth.prabhash470.workers.dev/callback`.
+- **Admin loads but shows no posts** → check `repo:` in `public/admin/config.yml`
+  reads `prabhashdroid/prabhashjha-site`.
+
+## Cost
+
+£0. Workers free tier is 100,000 requests/day; a CMS login uses two.
