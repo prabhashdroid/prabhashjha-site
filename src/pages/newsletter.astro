@@ -6,53 +6,47 @@ const page = await getEntry("pages", "newsletter");
 const d = page!.data;
 ---
 <Base title={d.title} description={d.description}>
-  <section class="relative overflow-hidden">
-    <div class="absolute inset-0 grid-bg"></div>
-    <div class="orb orb-a w-[30rem] h-[30rem] bg-violet/25 -top-32 left-1/4"></div>
-    <div class="relative mx-auto max-w-3xl px-5 sm:px-8 pt-20 pb-24 md:pt-28 text-center">
-      <p class="reveal font-mono text-[0.7rem] tracking-[0.2em] uppercase text-dim mb-6">/ {d.eyebrow}</p>
-      <h1 data-words class="font-display font-bold text-[2.6rem] sm:text-[3.6rem] leading-[1.03]">
+  <section class="relative">
+    <div class="absolute inset-0 grid-bg" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-3xl px-5 sm:px-8 pt-20 pb-24 md:pt-28">
+      <p class="reveal label mb-6">/ {d.eyebrow}</p>
+      <h1 data-words class="font-display font-semibold text-[2.6rem] sm:text-[3.6rem] leading-[1.03]">
         {d.heading} <span class="grad-text">{d.headingAccent}</span>
       </h1>
-      <p class="reveal mt-7 text-muted text-[1.06rem] leading-relaxed max-w-xl mx-auto">
+      <p class="reveal mt-7 text-muted text-[1.06rem] leading-relaxed max-w-[52ch]">
         {d.intro}
       </p>
 
       {NEWSLETTER_ACTION ? (
         <>
-          <form id="subForm" class="reveal mt-11 flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+          <form id="subForm" class="reveal mt-11 flex flex-col sm:flex-row gap-3 max-w-lg"
             action={NEWSLETTER_ACTION} method="post" target="_blank">
             <input id="subEmail" type="email" name="email" required placeholder="you@company.com"
               aria-label="Email address"
-              class="flex-1 glass rounded-full px-6 py-4 text-text placeholder:text-dim outline-none focus:border-cyan transition-colors" />
+              class="flex-1 bg-surface border border-hair px-5 py-3.5 text-text placeholder:text-dim outline-none focus:border-accent transition-colors duration-200" />
             <button type="submit"
-              class="group relative rounded-full px-8 py-4 font-medium text-white overflow-hidden transition-transform duration-500 hover:-translate-y-0.5">
-              <span class="absolute inset-0 bg-gradient-to-r from-blue via-violet to-cyan"></span>
-              <span class="relative">{d.ctaLabel}</span>
+              class="px-7 py-3.5 font-medium bg-accent text-void border border-accent transition-colors duration-200 hover:bg-transparent hover:text-accent">
+              {d.ctaLabel}
             </button>
           </form>
-          <p id="subMsg" class="reveal mt-4 font-mono text-[0.68rem] tracking-widest uppercase text-dim">
-            No spam · Unsubscribe anytime
-          </p>
+          <p id="subMsg" class="reveal mt-4 label">No spam · Unsubscribe anytime</p>
         </>
       ) : (
-        <div class="reveal mt-11 max-w-md mx-auto">
-          <a href={LINKEDIN_URL}
-            class="group relative inline-flex items-center justify-center gap-2 w-full rounded-full px-8 py-4 font-medium text-white overflow-hidden transition-transform duration-500 hover:-translate-y-0.5">
-            <span class="absolute inset-0 bg-gradient-to-r from-blue via-violet to-cyan"></span>
-            <span class="relative">Follow on LinkedIn for now</span>
+        <div class="reveal mt-11">
+          <a href={LINKEDIN_URL} rel="me"
+            class="group inline-flex items-center gap-2.5 px-7 py-3.5 font-medium bg-accent text-void border border-accent transition-colors duration-200 hover:bg-transparent hover:text-accent">
+            Follow on LinkedIn for now
+            <span class="transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
           </a>
-          <p class="mt-4 font-mono text-[0.68rem] tracking-widest uppercase text-dim">
-            Email signup opening shortly
-          </p>
+          <p class="mt-4 label">Email signup opening shortly</p>
         </div>
       )}
 
-      <div class="reveal mt-16 glass rounded-2xl p-8 text-left">
-        <p class="font-mono text-[0.7rem] tracking-[0.2em] uppercase text-cyan mb-3">/ Start here instead</p>
-        <p class="text-muted">
+      <div class="reveal mt-16 border-t border-hair pt-8 max-w-[56ch]">
+        <p class="label mb-3">/ Start here instead</p>
+        <p class="text-muted leading-relaxed">
           Not ready to subscribe? Grab the
-          <a class="text-cyan hover:text-text transition-colors"
+          <a class="text-text underline decoration-accent underline-offset-[4px] hover:text-accent transition-colors duration-200"
             href="/post/your-marketing-either-makes-money-or-it-doesn-t-here-s-the-sheet-that-tells-you">free Unit Economics Sheet</a>
           — no email required.
         </p>
@@ -68,7 +62,7 @@ const d = page!.data;
         const email = (document.getElementById("subEmail") as HTMLInputElement)?.value || "";
         if (msg && email) {
           msg.textContent = "Check your inbox to confirm · " + email;
-          msg.classList.add("text-cyan");
+          msg.classList.add("text-accent");
         }
       });
     }

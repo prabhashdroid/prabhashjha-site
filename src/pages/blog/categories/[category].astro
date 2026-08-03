@@ -57,27 +57,28 @@ const collectionSchema = {
 <Base title={`${category} — Prabhash Jha`} description={CATEGORY_BLURBS[category] ?? `Practical guides on ${category}.`}
   article={collectionSchema}
   keywords={topicKeywords}>
-  <section class="relative overflow-hidden">
-    <div class="absolute inset-0 grid-bg"></div>
-    <div class="orb orb-a w-[30rem] h-[30rem] bg-blue/20 -top-32 -left-20"></div>
-    <div class="relative mx-auto max-w-6xl px-5 sm:px-8 pt-20 pb-12 md:pt-28">
-      <a href="/blog" class="reveal inline-block font-mono text-[0.7rem] tracking-[0.2em] uppercase text-dim mb-6 hover:text-text">← All topics</a>
-      <h1 data-words class="font-display font-bold text-[2.6rem] sm:text-[3.6rem] leading-[1.03]">{category}</h1>
-      <p class="reveal mt-5 text-muted max-w-xl">{CATEGORY_BLURBS[category]} · {posts.length} guides</p>
+  <section class="relative">
+    <div class="absolute inset-0 grid-bg" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-6xl px-5 sm:px-8 pt-20 pb-10 md:pt-28">
+      <nav aria-label="Breadcrumb" class="reveal label flex items-center gap-2 mb-6">
+        <a href="/blog" class="hover:text-accent transition-colors duration-200">Topics</a>
+        <span aria-hidden="true">/</span><span class="text-muted">{category}</span>
+      </nav>
+      <h1 data-words class="font-display font-semibold text-[2.6rem] sm:text-[3.6rem] leading-[1.03]">{category}</h1>
+      <p class="reveal mt-5 text-[1.06rem] text-muted max-w-[50ch] leading-relaxed">{CATEGORY_BLURBS[category]}</p>
+      <p class="reveal label tabular mt-7 pt-4 border-t border-hair">{posts.length} guides</p>
     </div>
   </section>
   <section class="mx-auto max-w-6xl px-5 sm:px-8 pb-24">
-    <div class="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
       {posts.map((p) => (
         <a href={`/post/${p.data.slug ?? p.id}`} class="reveal group block">
           {p.data.cover && (
-            <div class="overflow-hidden rounded-2xl mb-4 border border-hair">
-              <img src={p.data.cover} alt="" loading="lazy" width={coverSize(p.data).width} height={coverSize(p.data).height}
-                class="w-full aspect-[16/10] object-cover transition-all duration-[900ms] group-hover:scale-[1.06] opacity-85 group-hover:opacity-100" />
-            </div>
+            <img src={p.data.cover} alt="" loading="lazy" width={coverSize(p.data).width} height={coverSize(p.data).height}
+              class="w-full aspect-[16/10] object-cover border border-hair mb-4" />
           )}
-          <p class="font-mono text-[0.68rem] tracking-widest uppercase text-dim mb-2">{fmt(p.data.pubDate)}</p>
-          <h2 class="font-display font-semibold text-[1.14rem] leading-snug mb-2 text-balance group-hover:grad-text transition-all">{p.data.title}</h2>
+          <p class="label mb-2"><time datetime={String(p.data.pubDate)}>{fmt(p.data.pubDate)}</time></p>
+          <h2 class="font-display font-semibold text-[1.14rem] leading-snug mb-2 text-balance transition-colors duration-200 group-hover:text-accent">{p.data.title}</h2>
           <p class="text-[0.9rem] text-muted leading-relaxed line-clamp-2">{p.data.description}</p>
         </a>
       ))}

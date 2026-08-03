@@ -98,16 +98,18 @@
   /* ---------- the blurred colour blobs are gone ---------- */
   .orb { display: none !important; }
 
-  /* ---------- a single ruled edge instead of a glowing grid ---------- */
+  /* ---------- ruled paper instead of a glowing grid ----------
+     Texture you notice second, not first: the rules must never compete
+     with the headline sitting on top of them. */
   .grid-bg {
     background-image: linear-gradient(
       to bottom,
-      color-mix(in oklab, var(--color-hair) 70%, transparent) 1px,
+      color-mix(in oklab, var(--color-hair) 55%, transparent) 1px,
       transparent 1px
     );
     background-size: 100% 6.5rem;
-    mask-image: linear-gradient(to bottom, #000 0%, transparent 85%);
-    opacity: .55;
+    mask-image: linear-gradient(to bottom, #000 0%, transparent 78%);
+    opacity: .38;
   }
 
   /* ---------- panel: hairline box, no blur, no shadow ---------- */

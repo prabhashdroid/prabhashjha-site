@@ -25,27 +25,42 @@ const fmt = (d: string) =>
   </section>
 
   <section class="mx-auto max-w-6xl px-5 sm:px-8 pb-24">
-    <div class="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+    {/* Wired's story-row pattern: one column, hairline dividers, image kept
+        small and to the side. A grid of cards reads as a product listing;
+        a ruled stack reads as a publication — which is what this is. */}
+    <div class="max-w-4xl">
       {
         posts.map((p) => (
-          <a href={`/post/${p.data.slug ?? p.id}`} class="reveal group block">
+          <a
+            href={`/post/${p.data.slug ?? p.id}`}
+            class="reveal group grid grid-cols-[1fr] sm:grid-cols-[1fr_11rem] gap-5 sm:gap-8 items-start
+                   border-t border-hair py-7 transition-colors duration-200 hover:bg-surface"
+          >
+            <div>
+              <p class="label mb-2">
+                <time datetime={p.data.pubDate}>{fmt(p.data.pubDate)}</time>
+                <span class="mx-2 opacity-40">/</span>
+                {p.data.category}
+              </p>
+              <h2 class="font-display font-semibold text-[1.35rem] sm:text-[1.5rem] leading-[1.15] mb-2 text-balance group-hover:text-accent transition-colors duration-200">
+                {p.data.title}
+              </h2>
+              <p class="text-[0.95rem] text-muted leading-relaxed max-w-[52ch] line-clamp-2">
+                {p.data.description}
+              </p>
+            </div>
             {p.data.cover && (
-              <div class="overflow-hidden rounded-xl mb-4 bg-raised">
+              <div class="order-first sm:order-none overflow-hidden border border-hair">
                 <img
                   src={p.data.cover}
                   alt=""
                   loading="lazy"
                   width={coverSize(p.data).width}
                   height={coverSize(p.data).height}
-                  class="w-full aspect-[16/10] object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.045]"
+                  class="w-full aspect-[16/10] object-cover opacity-90 transition-opacity duration-200 group-hover:opacity-100"
                 />
               </div>
             )}
-            <p class="text-[0.78rem] text-muted mb-1.5">{fmt(p.data.pubDate)}</p>
-            <h2 class="font-display font-semibold text-[1.15rem] leading-snug mb-2 text-balance">
-              {p.data.title}
-            </h2>
-            <p class="text-[0.9rem] text-muted leading-relaxed line-clamp-2">{p.data.description}</p>
           </a>
         ))
       }

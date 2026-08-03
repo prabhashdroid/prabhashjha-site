@@ -2,56 +2,48 @@
 import Base from "../layouts/Base.astro";
 import ContactForm from "../components/ContactForm.astro";
 import { getEntry } from "astro:content";
-import { SOCIAL } from "../siteData";
 const page = await getEntry("pages", "work-with-me");
 const d = page!.data;
-const services = d.services.map((s, i) => ({ n: String(i + 1).padStart(2, "0"), t: s.title, d: s.blurb }));
 ---
 <Base title={d.title} description={d.description}>
-  <section class="relative overflow-hidden">
-    <div class="absolute inset-0 grid-bg"></div>
-    <div class="orb orb-b w-[32rem] h-[32rem] bg-blue/20 -top-32 -left-20"></div>
-    <div class="relative mx-auto max-w-5xl px-5 sm:px-8 pt-20 pb-16 md:pt-28">
-      <p class="reveal font-mono text-[0.7rem] tracking-[0.2em] uppercase text-dim mb-6">/ {d.eyebrow}</p>
-      <h1 data-words class="font-display font-bold text-[2.6rem] sm:text-[3.6rem] leading-[1.03] max-w-[16ch]">
+  <section class="relative">
+    <div class="absolute inset-0 grid-bg" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-5xl px-5 sm:px-8 pt-20 pb-14 md:pt-28">
+      <p class="reveal label mb-6">/ {d.eyebrow}</p>
+      <h1 data-words class="font-display font-semibold text-[2.6rem] sm:text-[3.6rem] leading-[1.03] max-w-[16ch]">
         {d.heading} <span class="grad-text">{d.headingAccent}</span>.
       </h1>
-      <p class="reveal mt-7 text-muted max-w-xl text-[1.05rem] leading-relaxed">
+      <p class="reveal mt-7 text-muted max-w-[50ch] text-[1.05rem] leading-relaxed">
         {d.intro}
       </p>
     </div>
   </section>
 
-  <section class="mx-auto max-w-5xl px-5 sm:px-8 pb-24">
-    <div class="grid gap-4 md:grid-cols-3">
-      {services.map((s) => (
-        <div class="reveal glass glow-hover rounded-2xl p-7">
-          <span class="font-mono text-[0.7rem] text-dim">{s.n}</span>
-          <h2 class="font-display font-semibold text-[1.22rem] mt-4 mb-2.5">{s.t}</h2>
-          <p class="text-[0.93rem] text-muted leading-relaxed">{s.d}</p>
+  <section class="mx-auto max-w-5xl px-5 sm:px-8 pb-20">
+    {/* A menu, not a process — so the rows are ruled, not numbered. */}
+    <div class="border-t border-hair">
+      {d.services.map((s: { title: string; blurb: string }) => (
+        <div class="reveal grid sm:grid-cols-[minmax(0,16rem)_1fr] gap-x-8 gap-y-2 border-b border-hair py-7">
+          <h2 class="font-display font-semibold text-[1.22rem] leading-snug">{s.title}</h2>
+          <p class="text-[0.96rem] text-muted leading-relaxed max-w-[60ch]">{s.blurb}</p>
         </div>
       ))}
     </div>
 
-    <div class="reveal mt-8 glass rounded-2xl p-9 md:p-12 relative overflow-hidden">
-      <div class="orb orb-a w-[22rem] h-[22rem] bg-cyan/20 -bottom-24 right-0"></div>
-      <div class="relative md:flex md:items-center md:justify-between gap-10">
-        <div class="max-w-lg">
-          <h2 class="font-display font-bold text-[1.7rem] sm:text-[2.2rem] leading-tight">
-            {d.ctaHeading}
-          </h2>
-          <p class="mt-4 text-muted leading-relaxed">
-            {d.ctaText}
-          </p>
-        </div>
-        <div class="mt-8 md:mt-0 shrink-0">
-          <a href={d.ctaHref}
-            class="group relative inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 font-medium text-white overflow-hidden transition-transform duration-500 hover:-translate-y-0.5">
-            <span class="absolute inset-0 bg-gradient-to-r from-blue via-violet to-cyan"></span>
-            <span class="relative">{d.ctaLabel}</span>
-          </a>
-        </div>
+    <div class="reveal mt-16 md:flex md:items-end md:justify-between gap-12">
+      <div class="max-w-[46ch]">
+        <h2 class="font-display font-semibold text-[1.7rem] sm:text-[2.2rem] leading-tight">
+          {d.ctaHeading}
+        </h2>
+        <p class="mt-4 text-muted leading-relaxed">
+          {d.ctaText}
+        </p>
       </div>
+      <a href={d.ctaHref}
+        class="group mt-8 md:mt-0 shrink-0 inline-flex items-center gap-2.5 px-7 py-3.5 font-medium bg-accent text-void border border-accent transition-colors duration-200 hover:bg-transparent hover:text-accent">
+        {d.ctaLabel}
+        <span class="transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
+      </a>
     </div>
   </section>
 

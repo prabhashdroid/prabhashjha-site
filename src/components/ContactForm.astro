@@ -12,11 +12,10 @@ const mailto = contactMailto();
 const subject = "Enquiry from prabhashjha.com";
 ---
 
-<div class="reveal glass rounded-2xl p-8 md:p-10 relative overflow-hidden" id="contact">
-  <div class="orb orb-a w-[20rem] h-[20rem] bg-cyan/15 -bottom-24 -right-16"></div>
-  <div class="relative">
-    <p class="font-mono text-[0.7rem] tracking-[0.2em] uppercase text-cyan mb-4">/ Get in touch</p>
-    <h2 class="font-display font-bold text-[1.6rem] sm:text-[2rem] leading-tight mb-3">
+<div class="reveal border-t border-hair pt-10" id="contact">
+  <div>
+    <p class="label mb-4">/ Get in touch</p>
+    <h2 class="font-display font-semibold text-[1.6rem] sm:text-[2rem] leading-tight mb-3">
       {CONTACT.formHeading}
     </h2>
     <p class="text-muted leading-relaxed mb-8 max-w-lg">{CONTACT.formBlurb}</p>
@@ -32,25 +31,24 @@ const subject = "Enquiry from prabhashjha.com";
         <label class="block">
           <span class="sr-only">Your name</span>
           <input name="name" type="text" required placeholder="Your name" autocomplete="name"
-            class="w-full glass rounded-xl px-5 py-3.5 text-text placeholder:text-dim outline-none focus:border-cyan transition-colors" />
+            class="w-full bg-surface border border-hair px-5 py-3.5 text-text placeholder:text-dim outline-none focus:border-accent transition-colors duration-200" />
         </label>
         <label class="block">
           <span class="sr-only">Your email</span>
           <input name="email" type="email" required placeholder="you@company.com" autocomplete="email"
-            class="w-full glass rounded-xl px-5 py-3.5 text-text placeholder:text-dim outline-none focus:border-cyan transition-colors" />
+            class="w-full bg-surface border border-hair px-5 py-3.5 text-text placeholder:text-dim outline-none focus:border-accent transition-colors duration-200" />
         </label>
         <label class="block sm:col-span-2">
           <span class="sr-only">Message</span>
           <textarea name="message" required rows="4" placeholder="What are you working on?"
-            class="w-full glass rounded-xl px-5 py-3.5 text-text placeholder:text-dim outline-none focus:border-cyan transition-colors resize-y"></textarea>
+            class="w-full bg-surface border border-hair px-5 py-3.5 text-text placeholder:text-dim outline-none focus:border-accent transition-colors duration-200 resize-y"></textarea>
         </label>
         <div class="sm:col-span-2 flex flex-wrap items-center gap-4">
           <button type="submit"
-            class="group relative inline-flex items-center gap-2 rounded-full px-8 py-3.5 font-medium text-white overflow-hidden transition-transform duration-500 hover:-translate-y-0.5">
-            <span class="absolute inset-0 bg-gradient-to-r from-blue via-violet to-cyan"></span>
+            class="group inline-flex items-center gap-2 px-7 py-3.5 font-medium bg-accent text-void border border-accent transition-colors duration-200 hover:bg-transparent hover:text-accent">
             <span class="relative">{CONTACT.formButtonLabel}</span>
           </button>
-          <p id="contactMsg" class="font-mono text-[0.68rem] tracking-widest uppercase text-dim" role="status" aria-live="polite">
+          <p id="contactMsg" class="label" role="status" aria-live="polite">
             Goes straight to my inbox
           </p>
         </div>
@@ -59,13 +57,12 @@ const subject = "Enquiry from prabhashjha.com";
       <div class="flex flex-wrap gap-3">
         {mailto && (
           <a href={`${mailto}?subject=${encodeURIComponent(subject)}`}
-            class="group relative inline-flex items-center gap-2 rounded-full px-8 py-3.5 font-medium text-white overflow-hidden transition-transform duration-500 hover:-translate-y-0.5">
-            <span class="absolute inset-0 bg-gradient-to-r from-blue via-violet to-cyan"></span>
+            class="group inline-flex items-center gap-2 px-7 py-3.5 font-medium bg-accent text-void border border-accent transition-colors duration-200 hover:bg-transparent hover:text-accent">
             <span class="relative">Email me</span>
           </a>
         )}
         <a href={SOCIAL.linkedin}
-          class="glass glow-hover rounded-full px-8 py-3.5 text-text/90 hover:text-text">{mailto ? "Or message me on LinkedIn" : "Message me on LinkedIn"}</a>
+          class="inline-flex items-center px-7 py-3.5 border border-hair text-muted hover:text-text hover:border-accent transition-colors duration-200">{mailto ? "Or message me on LinkedIn" : "Message me on LinkedIn"}</a>
       </div>
     )}
   </div>

@@ -106,18 +106,31 @@ const mins = Math.max(1, Math.round(words / 220));
 >
   <article data-pagefind-body>
     <header class="mx-auto max-w-3xl px-5 sm:px-8 pt-16 md:pt-24">
-      <a href="/blog" data-pagefind-ignore class="reveal inline-block py-1 text-[0.85rem] text-muted mb-8 hover:text-text transition-colors">
-        ← All topics
-      </a>
-      <h1 class="reveal font-display font-bold text-[2.1rem] sm:text-[3.1rem] leading-[1.05] text-balance">
+      <nav data-pagefind-ignore aria-label="Breadcrumb" class="reveal label flex flex-wrap items-center gap-2 mb-7">
+        <a href="/blog" class="hover:text-accent transition-colors duration-200">Topics</a>
+        <span aria-hidden="true">/</span>
+        <a href={`/blog/categories/${catSlug(post.data.category)}`} class="text-muted hover:text-accent transition-colors duration-200">
+          {post.data.category}
+        </a>
+      </nav>
+      <h1 class="reveal font-display font-semibold text-[2.1rem] sm:text-[3.1rem] leading-[1.04] text-balance">
         {post.data.title}
       </h1>
-      <div class="reveal mt-6 flex items-center gap-3 text-[0.88rem] text-muted">
-        <span class="w-[18px] h-[18px] rounded-[5px] bg-gradient-to-br from-blue via-violet to-cyan inline-block"></span>
-        <span>Prabhash Jha</span><span>·</span>
-        <time datetime={post.data.pubDate}>{fmt(post.data.pubDate)}</time>
-        <span>·</span><span>{mins} min read</span>
-      </div>
+      <p class="reveal mt-6 text-[1.08rem] leading-relaxed text-muted max-w-[52ch]">
+        {metaDescription(post.data.description, post.body)}
+      </p>
+      <dl class="reveal mt-8 pt-4 border-t border-hair flex flex-wrap items-baseline gap-x-8 gap-y-2 label">
+        <div class="flex items-baseline gap-2">
+          <dt class="sr-only">Author</dt><dd class="text-muted">Prabhash Jha</dd>
+        </div>
+        <div class="flex items-baseline gap-2">
+          <dt class="sr-only">Published</dt>
+          <dd><time datetime={post.data.pubDate}>{fmt(post.data.pubDate)}</time></dd>
+        </div>
+        <div class="flex items-baseline gap-2">
+          <dt class="sr-only">Reading time</dt><dd class="tabular">{mins} min read</dd>
+        </div>
+      </dl>
     </header>
 
     {post.data.cover && (
@@ -128,7 +141,7 @@ const mins = Math.max(1, Math.round(words / 220));
           width={coverSize(post.data).width}
           height={coverSize(post.data).height}
           fetchpriority="high"
-          class="reveal-scale w-full rounded-2xl aspect-[16/9] object-cover"
+          class="reveal-scale w-full aspect-[16/9] object-cover border border-hair"
         />
       </div>
     )}
@@ -140,24 +153,25 @@ const mins = Math.max(1, Math.round(words / 220));
 
   <Comments />
 
-  <section class="mx-auto max-w-6xl px-5 sm:px-8 mt-28">
-    <h2 class="reveal font-display font-bold text-2xl mb-10">Keep reading</h2>
-    <div class="grid gap-8 sm:grid-cols-3">
+  <section data-pagefind-ignore class="mx-auto max-w-6xl px-5 sm:px-8 mt-24 md:mt-28">
+    <h2 class="reveal font-display font-semibold text-[1.6rem] sm:text-[2rem] leading-none pb-5 border-b border-hair">
+      Keep reading
+    </h2>
+    <div class="grid gap-x-10 gap-y-10 sm:grid-cols-3 pt-8">
       {
         all.map((p) => (
           <a href={`/post/${p.data.slug ?? p.id}`} class="reveal group block">
             {p.data.cover && (
-              <div class="overflow-hidden rounded-lg mb-4 bg-raised">
-                <img
-                  src={p.data.cover}
-                  alt=""
-                  loading="lazy"
-                  width={coverSize(p.data).width} height={coverSize(p.data).height}
-                  class="w-full aspect-[16/10] object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-              </div>
+              <img
+                src={p.data.cover}
+                alt=""
+                loading="lazy"
+                width={coverSize(p.data).width} height={coverSize(p.data).height}
+                class="w-full aspect-[16/10] object-cover border border-hair mb-4"
+              />
             )}
-            <h3 class="font-display font-semibold leading-snug text-[1.02rem] text-balance">
+            <p class="label mb-2">{p.data.category}</p>
+            <h3 class="font-display font-semibold leading-snug text-[1.08rem] text-balance transition-colors duration-200 group-hover:text-accent">
               {p.data.title}
             </h3>
           </a>
