@@ -5,8 +5,13 @@ import { ClientRouter } from "astro:transitions";
 import { PROFILE, ORG, SITE, FOOTER, socialLinks, sameAs } from "../siteData";
 
 /* Read at build time, inlined into <head> — see the note beside the <style>
-   tag below. Kept as a file so the admin/font tooling still has one source. */
-const FONT_CSS = fs.readFileSync("public/fonts/fonts.css", "utf8");
+   tag below. Kept as a file so the admin/font tooling still has one source.
+
+   Resolved from this module's own URL, not from the working directory. A bare
+   relative path builds fine locally and then fails on any CI runner that
+   invokes the build from a different cwd — which is exactly the kind of thing
+   that takes a deploy down without touching anything on this machine. */
+const FONT_CSS = fs.readFileSync(new URL("../../public/fonts/fonts.css", import.meta.url), "utf8");
 const CF_ANALYTICS_TOKEN = SITE.analytics.cloudflareToken;
 const GOOGLE_SITE_VERIFICATION = SITE.analytics.googleSiteVerification;
 
