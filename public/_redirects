@@ -1,0 +1,15 @@
+# Real 301s for every URL that changed. Cloudflare Pages applies these
+# at the edge, before the static files are served.
+
+/post/grow-your-blog-community  /post/what-is-advertising-and-why-digital-marketing  301
+/post/grow-your-blog-community/  /post/what-is-advertising-and-why-digital-marketing  301
+/post/manage-your-blog-from-your-live-site  /post/networking-the-one-lesson-i-wish-i-had-learned-earlier  301
+/post/manage-your-blog-from-your-live-site/  /post/networking-the-one-lesson-i-wish-i-had-learned-earlier  301
+/post/design-a-stunning-blog  /post/how-to-grow-your-brand-using-digital-channels  301
+/post/design-a-stunning-blog/  /post/how-to-grow-your-brand-using-digital-channels  301
+/privacy  /post/privacy-policy  301
+/privacy/  /post/privacy-policy  301
+/blog/categories/ai-automation-1  /blog/categories/ai-automation  301
+/blog/categories/ai-automation-1/  /blog/categories/ai-automation  301
+/blog/categories/marketing  /blog/categories/business  301
+/blog/categories/marketing/  /blog/categories/business  301
