@@ -1,0 +1,23 @@
+---
+/* FTC affiliate disclosure.
+ *
+ * The rule is that it must be *clear and conspicuous* and near the links —
+ * not buried in a footer, not behind a "read more". So this renders above the
+ * article body, in normal reading colour rather than muted grey, and says
+ * plainly what the arrangement is.
+ *
+ * Amazon Associates terminates accounts over a missing disclosure, and that
+ * termination is usually permanent. Which is why check-posts.mjs fails the
+ * build rather than warning.
+ */
+---
+<aside
+  class="not-prose mb-10 border-l-2 border-accent pl-5 py-1 text-[0.95rem] leading-relaxed text-text/90"
+  role="note"
+  aria-label="Affiliate disclosure"
+>
+  <strong class="font-semibold">Heads up:</strong> some links in this post are
+  affiliate links. If you buy through one, I may earn a commission at no extra
+  cost to you. I only link to things I have actually used or would recommend
+  without the link.
+</aside>

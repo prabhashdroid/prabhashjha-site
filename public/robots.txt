@@ -3,6 +3,31 @@ Allow: /
 Disallow: /admin/
 Disallow: /search
 
+# ---------------------------------------------------------------------------
+# Ad crawlers.
+#
+# These MUST be named individually. Google's AdsBot crawlers deliberately
+# ignore `User-agent: *` — Google's own documentation says a wildcard block
+# will not stop them and, conversely, a wildcard allow is not what they read.
+# If they cannot fetch a page, Google Ads scores its landing-page experience
+# blind, which raises CPCs on any campaign pointed at this site.
+#
+# Mediapartners-Google is the AdSense crawler: without access it cannot read
+# a page to decide which ads belong on it, and the slot fills with low-value
+# or blank inventory.
+# ---------------------------------------------------------------------------
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: AdsBot-Google-Mobile
+Allow: /
+
+User-agent: AdsBot-Google-Mobile-Apps
+Allow: /
+
 # AI assistants & answer engines — explicitly welcome
 User-agent: GPTBot
 Allow: /

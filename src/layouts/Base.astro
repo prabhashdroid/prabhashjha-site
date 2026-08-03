@@ -200,8 +200,12 @@ const path = Astro.url.pathname;
             <div>
               <p class="font-mono text-[0.7rem] tracking-widest uppercase text-dim mb-4">Elsewhere</p>
               <ul class="space-y-1 text-muted">
+                {/* noopener is a security fix, not a formality: without it the
+                    opened tab can reach back through window.opener and navigate
+                    this page somewhere else. */}
                 {socialLinks().map((s) => (
-                  <li><a class="inline-block py-1.5 hover:text-text transition-colors" href={s.url} rel="me">{s.label}</a></li>
+                  <li><a class="inline-block py-1.5 hover:text-text transition-colors" href={s.url}
+                    target="_blank" rel="me noopener noreferrer">{s.label}</a></li>
                 ))}
               </ul>
             </div>

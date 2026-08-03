@@ -2,6 +2,7 @@
 import { coverSize, metaDescription, extractFaqs } from "../../seo";
 import Base from "../../layouts/Base.astro";
 import Comments from "../../components/Comments.astro";
+import Disclosure from "../../components/Disclosure.astro";
 import { catSlug } from "../../categories";
 import { keywordsFor, overlap } from "../../keywords";
 import { TOPICS } from "../../siteData";
@@ -151,6 +152,7 @@ const mins = Math.max(1, Math.round(words / 220));
     )}
 
     <div class="mx-auto max-w-3xl px-5 sm:px-8 mt-14">
+      {post.data.affiliate && <Disclosure />}
       <div class="prose-pj reveal"><Content /></div>
     </div>
   </article>

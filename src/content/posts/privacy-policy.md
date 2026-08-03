@@ -26,11 +26,23 @@ This Privacy Policy explains how prabhashjha.com (“the site”, “we”, “u
 
 ## Cookies
 
-The site uses cookies — small files stored on your device — to run essential features, measure traffic, remember preferences and personalise content. You can control or disable cookies through your browser settings, though some features may not work as intended if you do.
+**This site currently sets no advertising or tracking cookies of its own.** Traffic is measured with Cloudflare Web Analytics, which is cookieless and does not fingerprint or track you across sites. You can control or disable cookies through your browser settings.
+
+If advertising is introduced later, this section will be updated before any ad cookie is set, and visitors in regions that require consent will be asked first.
 
 ## Third-party services
 
-The site is hosted on Wix and may use third-party services such as Google Analytics and Google AdSense. These providers may set their own cookies and process data under their own privacy policies. Google AdSense may use cookies to serve ads based on your prior visits to this and other websites; you can opt out of personalised advertising through [Google's Ads Settings](https://www.google.com/settings/ads).
+The site is hosted on Cloudflare Pages. Source content is stored on GitHub. Newsletter subscriptions, when enabled, are handled by an email provider; contact form messages, when enabled, are delivered by a form provider. Each processes data under its own privacy policy.
+
+No advertising network is active on this site at present. If Google AdSense or a comparable network is added, it may use cookies to serve ads based on your prior visits to this and other sites, and you will be able to opt out of personalised advertising through [Google's Ads Settings](https://www.google.com/settings/ads).
+
+## Consent
+
+Where the law requires consent before non-essential cookies are set — including the EU and UK under GDPR and the ePrivacy Directive — that consent will be requested through a consent banner before any such cookie is used. Because the site sets no advertising cookies today, no banner is shown. You can withdraw consent at any time once one is in place.
+
+## Affiliate links
+
+Some posts may contain affiliate links. If you buy something through one, this site may earn a commission at no additional cost to you. Any post containing such links carries a clear disclosure at the top. Affiliate links never change what is recommended or what is written.
 
 ## Newsletter
 

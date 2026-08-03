@@ -12,6 +12,17 @@ import path from "node:path";
 const DIR = "src/content/posts";
 const PUB = "public";
 
+const AFFILIATE_DOMAINS = (() => {
+  try {
+    const site = JSON.parse(fs.readFileSync("src/data/site.json", "utf8"));
+    return (site?.monetisation?.affiliateDomains ?? []).map((d) =>
+      String(d).toLowerCase().replace(/^www\./, "")
+    );
+  } catch {
+    return [];
+  }
+})();
+
 const errors = [];
 const warnings = [];
 
@@ -39,6 +50,26 @@ for (const f of files) {
   } else if (cover && cover.startsWith("/")) {
     const onDisk = path.join(PUB, decodeURIComponent(cover).replace(/^\//, ""));
     if (!fs.existsSync(onDisk)) errors.push(`${label}: cover file missing on disk → ${cover}`);
+  }
+
+  // --- commercial links must be disclosed ---
+  // Amazon Associates and most networks terminate for a missing disclosure,
+  // and that termination is usually permanent. Too expensive to be a warning.
+  if (AFFILIATE_DOMAINS.length) {
+    const hits = new Set();
+    for (const m of body.matchAll(/\]\((https?:\/\/[^)\s]+)\)/g)) {
+      let host;
+      try { host = new URL(m[1]).hostname.toLowerCase().replace(/^www\./, ""); } catch { continue; }
+      if (AFFILIATE_DOMAINS.some((d) => host === d || host.endsWith("." + d))) hits.add(host);
+    }
+    const declared = /^affiliate:\s*true\s*$/m.test(front);
+    if (hits.size && !declared)
+      errors.push(
+        `${label}: links to ${[...hits].join(", ")} but has no \`affiliate: true\` — ` +
+          `the FTC disclosure will not render, which breaches affiliate terms.`
+      );
+    if (declared && !hits.size)
+      warnings.push(`${label}: affiliate: true but no link to a configured affiliate domain`);
   }
 
   // --- every local asset the body links to must exist ---

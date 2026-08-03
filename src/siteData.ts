@@ -17,6 +17,15 @@ export const HOME = site.home;
 export const FOOTER = site.footer;
 export const CONTACT = site.contact as Record<string, any>;
 export const COMMENTS = (site as any).comments ?? {};
+export const MONETISATION = ((site as any).monetisation ?? {}) as {
+  adsTxt?: string;
+  affiliateDomains?: string[];
+};
+
+/** Hosts whose outbound links are commercial, so they get rel="sponsored"
+ *  and trigger the disclosure guard at build time. */
+export const affiliateDomains = (): string[] =>
+  (MONETISATION.affiliateDomains ?? []).map((d) => d.toLowerCase().replace(/^www\./, ""));
 
 /** Where the contact form posts. Web3Forms is free and needs no server.
  *  With no key set the form degrades to a plain mailto: link, so the page

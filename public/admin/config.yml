@@ -68,6 +68,12 @@ collections:
           - "AI & Automation"
           - "Founder Lessons"
           - "Business"
+      - label: Contains affiliate links
+        name: affiliate
+        widget: boolean
+        default: false
+        required: false
+        hint: "Turn on for any post with paid/commission links. Adds the required disclosure above the article. The build will refuse to publish an affiliate link without it."
       - label: Cover image
         name: cover
         widget: image

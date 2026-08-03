@@ -36,6 +36,11 @@
     "cloudflareToken": "",
     "googleSiteVerification": ""
   },
+  "monetisation": {
+    "_comment": "Leave adsTxt empty until you actually have a publisher ID. An ads.txt that exists but lists no sellers tells every exchange your inventory is unauthorised — strictly worse than no file at all. The file is only generated when this has content.",
+    "adsTxt": "",
+    "affiliateDomains": []
+  },
   "home": {
     "badge": "Co-Founder, ADVOLT · 8+ years in performance marketing",
     "headline": "The marketing playbooks I wish someone gave me",

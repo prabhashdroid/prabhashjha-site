@@ -4,6 +4,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import rehypeImageDims from './scripts/rehype-image-dims.mjs';
+import rehypeOutboundLinks from './scripts/rehype-outbound-links.mjs';
 
 // Keystatic (the writing UI) needs a server, which would complicate hosting.
 // So it is loaded ONLY for `npm run cms` on your own machine.
@@ -30,7 +31,7 @@ export default defineConfig({
   ...(cmsBits.adapter ? { adapter: cmsBits.adapter } : {}),
   // Gives every in-article image real width/height so text never jumps as
   // images load (Cumulative Layout Shift).
-  markdown: { rehypePlugins: [rehypeImageDims] },
+  markdown: { rehypePlugins: [rehypeImageDims, rehypeOutboundLinks] },
   vite: { plugins: [tailwindcss()] },
   build: { inlineStylesheets: 'auto' },
   redirects: {

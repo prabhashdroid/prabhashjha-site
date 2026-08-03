@@ -59,6 +59,12 @@ const posts = defineCollection({
         return /^\d{4}-\d{2}-\d{2}$/.test(s) ? s : today;
       }),
 
+    // Set true on any post containing commercial links. Renders the FTC
+    // disclosure above the body; check-posts.mjs fails the build if a post
+    // links to a configured affiliate domain without it.
+    affiliate: z.union([z.boolean(), z.string(), z.null(), z.undefined()])
+      .transform((v) => v === true || v === 'true'),
+
     cover: text().transform((v) => v || undefined),
     coverW: num,
     coverH: num,
