@@ -49,6 +49,26 @@ product listing; a ruled stack reads as a publication.
 Built against the **official GreenSock skills** (`greensock/gsap-skills`, MIT,
 first-party), installed at `.claude/skills/gsap-*`.
 
+**Smooth scroll — Lenis, gated**
+
+Added after looking at what `farmminerals.com/products/croptab` actually runs
+(GSAP 3.15 + ScrollTrigger + SplitText + Lenis on Webflow). Lenis is most of
+what makes that site feel built. It is gated hard rather than switched on
+everywhere:
+
+- **Never** under `prefers-reduced-motion` — momentum scroll is a known
+  vestibular trigger, and this is a site people read for ten minutes.
+- **Never** on touch, where the OS already does inertial scrolling better than
+  any library and hijacking it only adds lag.
+- `lerp: 0.09`, not the demo-reel `0.05`. On a page of long articles scrolling
+  has to stay obedient: weighted, not slippery.
+
+One rAF loop drives everything — GSAP's ticker runs Lenis, Lenis tells
+ScrollTrigger where the page is. Two independent loops would fight and drop
+frames. It is destroyed before every view transition, because a scroll position
+belonging to a document that is about to be replaced lands the next page
+part-way down.
+
 **Scroll and pointer — GSAP + ScrollTrigger**
 
 - Scroll reveals via `ScrollTrigger.batch()`, so a row of four animates as one
@@ -60,6 +80,12 @@ first-party), installed at `.claude/skills/gsap-*`.
   force a relayout on every frame.
 - A 3° pointer tilt on the lead image, a 6px magnetic pull on the primary CTA.
   Both `(hover: hover) and (pointer: fine)` only.
+- **SplitText line reveals** on headings below the fold: a line at a time from
+  behind a mask, re-measured when the text rewraps at a new width. Free with
+  GSAP 3.13+. The hero is excluded — it is the LCP element and stays CSS-only.
+- The homepage contents list holds its section title in place while the topics
+  scroll past it. On a contents page that is information, not decoration: you
+  can always see which list you are inside.
 - Page transitions through Astro's ClientRouter, with covers carrying a shared
   `transition:name` so a thumbnail morphs into the article's hero image.
 
@@ -103,6 +129,18 @@ belong on the critical path.
   floating over content. Frosted cards would put the site straight back into
   the look this redesign existed to leave.
 - **A second accent, gradients, shadows, rounded corners.**
+- **Scrubbed colour transitions between sections.** Considered and dropped: the
+  design commits to one warm ground per theme, and shifting it mid-scroll would
+  fight that rather than support it.
+
+### On landonorris.com
+
+Worth naming what it is, since it was the other reference: GSAP 3.13 driving
+**Three.js**, 21 canvases and 25 pinned sections across ~11,400px. That is an
+agency WebGL scroll-story. It is the wrong tool here — megabytes of payload,
+nothing indexable, and it would take the current 98 Lighthouse well down —
+for a site whose job is holding someone's attention through 40 long guides.
+The craft worth borrowing from it is the *pacing*, not the renderer.
 
 ## Measured
 

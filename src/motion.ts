@@ -25,8 +25,10 @@
  */
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
+import Lenis from "lenis";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 /* One shared easing vocabulary. Two registers, deliberately:
    EASE_OUT for things arriving, EASE_SOFT for things responding to a pointer. */
@@ -36,6 +38,8 @@ const EASE_SOFT = "power2.out";
 const still = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 let ctx: gsap.Context | null = null;
+let lenis: Lenis | null = null;
+let tickerFn: ((t: number) => void) | null = null;
 
 /* ---------------------------------------------------------------- helpers */
 
@@ -51,6 +55,7 @@ function showEverything() {
 
 export function boot() {
   document.documentElement.dataset.motion = "on";
+  initSmoothScroll();
   initNav();
   initCounters();
 
@@ -83,6 +88,93 @@ export function boot() {
       return;
     }
     initReveals();
+    initLineReveals();
+  });
+}
+
+/* --------------------------------------------------------- smooth scroll */
+
+/**
+ * Lenis. This is the single thing that most separates an ordinary site from
+ * one that feels built — but it replaces native scrolling, so it is gated
+ * hard rather than switched on everywhere:
+ *
+ *   · never under prefers-reduced-motion — momentum scroll is a known
+ *     vestibular trigger, and this is a site people read for ten minutes
+ *   · never on touch, where the OS already does inertial scrolling far
+ *     better than any library, and hijacking it only adds lag
+ *
+ * lerp is 0.09 rather than the demo-reel 0.05: on a page of long articles,
+ * scrolling has to stay obedient. It should feel weighted, not slippery.
+ */
+function initSmoothScroll() {
+  const wanted =
+    !still() &&
+    matchMedia("(hover: hover) and (pointer: fine)").matches &&
+    matchMedia("(min-width: 768px)").matches;
+
+  if (!wanted) return destroySmoothScroll();
+  if (lenis) return;
+
+  lenis = new Lenis({
+    lerp: 0.09,
+    wheelMultiplier: 1,
+    // Anything inside a scrollable panel keeps its own native scrolling.
+    prevent: (node) => node.hasAttribute?.("data-lenis-prevent"),
+  });
+
+  // One rAF loop for the whole page: GSAP's ticker drives Lenis, and Lenis
+  // tells ScrollTrigger where the page actually is. Two independent loops
+  // would fight and drop frames.
+  lenis.on("scroll", ScrollTrigger.update);
+  tickerFn = (t: number) => lenis?.raf(t * 1000);
+  gsap.ticker.add(tickerFn);
+  gsap.ticker.lagSmoothing(0);
+
+  document.documentElement.classList.add("has-lenis");
+}
+
+function destroySmoothScroll() {
+  if (tickerFn) gsap.ticker.remove(tickerFn);
+  tickerFn = null;
+  lenis?.destroy();
+  lenis = null;
+  document.documentElement.classList.remove("has-lenis");
+}
+
+// A viewport that crosses the breakpoint, or a pointer that changes (a tablet
+// gaining a mouse), should gain or lose smooth scrolling accordingly.
+["(hover: hover) and (pointer: fine)", "(min-width: 768px)", "(prefers-reduced-motion: reduce)"]
+  .forEach((q) => matchMedia(q).addEventListener("change", () => initSmoothScroll()));
+
+/* ---------------------------------------------------------- line reveals */
+
+/**
+ * Headings reveal a line at a time from behind a mask. SplitText's own
+ * mask option builds the clipping wrapper, which is what keeps descenders
+ * intact; autoSplit re-measures when the text rewraps at a new width.
+ *
+ * Only below the fold. The hero is the Largest Contentful Paint and is
+ * animated from CSS — see the note at the top of this file.
+ */
+function initLineReveals() {
+  document.querySelectorAll<HTMLElement>("[data-lines]").forEach((el) => {
+    if (el.closest("[data-hero]")) return;
+
+    SplitText.create(el, {
+      type: "lines",
+      mask: "lines",
+      autoSplit: true,
+      linesClass: "line",
+      onSplit: (self) =>
+        gsap.from(self.lines, {
+          yPercent: 105,
+          duration: 0.8,
+          ease: EASE_OUT,
+          stagger: 0.09,
+          scrollTrigger: { trigger: el, start: "clamp(top 88%)", once: true },
+        }),
+    });
   });
 }
 
@@ -291,4 +383,8 @@ document.addEventListener("astro:before-swap", () => {
   ctx?.revert();
   ctx = null;
   ScrollTrigger.getAll().forEach((t) => t.kill());
+  // Lenis holds a scroll position for a document that is about to be replaced;
+  // carrying it across a navigation lands the next page part-way down.
+  destroySmoothScroll();
+  window.scrollTo(0, 0);
 });

@@ -106,7 +106,7 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
         )}
         <div class="order-2 lg:order-1">
           <p class="label mb-4">Latest &nbsp;/&nbsp; {lead.data.category}</p>
-          <h2 class="shift font-display font-semibold text-[1.9rem] sm:text-[2.5rem] leading-[1.08] text-balance
+          <h2 data-lines class="shift font-display font-semibold text-[1.9rem] sm:text-[2.5rem] leading-[1.08] text-balance
                      group-hover:text-accent">
             {lead.data.title}
           </h2>
@@ -121,27 +121,34 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
        A contents page. The count is the only figure that carries meaning,
        so it is the only thing set as a figure. -->
   <section class="mx-auto max-w-6xl px-5 sm:px-8 pt-20 md:pt-28">
-    <div class="reveal flex items-end justify-between gap-6 mb-10 pb-5 border-b border-hair">
-      <h2 data-words class="font-display font-semibold text-[1.9rem] sm:text-[2.5rem] leading-none">
-        Pick a track and go deep.
-      </h2>
-      <p class="label hidden sm:block shrink-0 pb-1">{topics.length} tracks</p>
-    </div>
+    <div class="lg:grid lg:grid-cols-[20rem_1fr] lg:gap-16">
+      {/* The section title holds its place while the contents scroll past it.
+          On a contents page that is not decoration: it means you can always
+          see which list you are inside. */}
+      <div class="lg:sticky lg:top-28 lg:self-start">
+        <h2 data-lines class="font-display font-semibold text-[1.9rem] sm:text-[2.5rem] leading-[1.06]">
+          Pick a track and go deep.
+        </h2>
+        <p class="reveal label tabular mt-5 pt-4 border-t border-hair lg:border-t-0 lg:pt-0">
+          {topics.length} tracks &nbsp;·&nbsp; {posts.length} guides
+        </p>
+      </div>
 
-    <div>
-      {topics.map((t) => (
-        <a href={t.href}
-          class="reveal rule-draw group grid grid-cols-[1fr_auto] sm:grid-cols-[minmax(0,15rem)_1fr_auto] items-baseline
-                 gap-x-6 gap-y-1.5 border-b border-hair py-6 transition-colors duration-200 hover:bg-surface">
-          <h3 class="shift font-display font-semibold text-[1.22rem] leading-snug group-hover:text-accent">
-            {t.name}
-          </h3>
-          <p class="col-span-2 sm:col-span-1 text-[0.95rem] text-muted leading-relaxed max-w-[60ch] order-last sm:order-none">
-            {t.blurb}
-          </p>
-          <p class="label tabular self-baseline text-right">{t.count}</p>
-        </a>
-      ))}
+      <div class="mt-10 lg:mt-0 border-t border-hair">
+        {topics.map((t) => (
+          <a href={t.href}
+            class="reveal rule-draw group grid grid-cols-[1fr_auto] items-baseline
+                   gap-x-6 gap-y-1.5 border-b border-hair py-6 transition-colors duration-200 hover:bg-surface">
+            <h3 class="shift font-display font-semibold text-[1.22rem] leading-snug group-hover:text-accent">
+              {t.name}
+            </h3>
+            <p class="label tabular self-baseline text-right">{t.count}</p>
+            <p class="col-span-2 text-[0.95rem] text-muted leading-relaxed max-w-[62ch]">
+              {t.blurb}
+            </p>
+          </a>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -150,7 +157,7 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
     <div class="reveal border-b border-hair py-16 md:py-24 md:flex md:items-end md:justify-between gap-14">
       <div class="max-w-[46ch]">
         <p class="label mb-5">/ {HOME.featureLabel}</p>
-        <h2 class="font-display font-semibold text-[1.9rem] sm:text-[2.5rem] leading-[1.08]">
+        <h2 data-lines class="font-display font-semibold text-[1.9rem] sm:text-[2.5rem] leading-[1.08]">
           {HOME.featureHeading}
         </h2>
         <p class="mt-5 text-muted leading-relaxed">
@@ -168,7 +175,7 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
   <!-- ================= LATEST ================= -->
   <section class="mx-auto max-w-6xl px-5 sm:px-8 py-20 md:py-28">
     <div class="reveal flex flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-6 mb-10 pb-5 border-b border-hair">
-      <h2 class="font-display font-semibold text-[1.9rem] sm:text-[2.5rem] leading-none">More from the desk</h2>
+      <h2 data-lines class="font-display font-semibold text-[1.9rem] sm:text-[2.5rem] leading-none">More from the desk</h2>
       <a href="/blog" class="shrink-0 label sm:pb-1 hover:text-accent transition-colors duration-200">All posts &rarr;</a>
     </div>
 

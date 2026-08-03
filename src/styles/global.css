@@ -61,6 +61,12 @@
 
 @layer base {
   html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  /* Lenis drives scrolling itself; leaving the native smooth behaviour on
+     means two easings fighting over the same anchor jump. */
+  html.has-lenis { scroll-behavior: auto; }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-stopped { overflow: hidden; }
   body {
     background: var(--color-void);
     color: var(--color-text);
