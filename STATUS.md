@@ -30,30 +30,38 @@ Cloudflare Web Analytics enabled and verified. Real 301s for all old Wix URLs.
 - AI crawl policy: Search = Allow, Agent = Allow, "block training in robots.txt" turned OFF
   (so the robots.txt welcoming GPTBot/ClaudeBot/PerplexityBot stays authoritative)
 
-## THE ONE REMAINING STEP — change nameservers at Wix
+## DOMAIN: transfer to Cloudflare Registrar — IN PROGRESS
 
-Cloudflare has issued these two nameservers for prabhashjha.com:
+**Correction to an earlier note:** the nameserver change was not blocked by browser
+automation. Wix simply does not permit it — their DNS page states plainly
+*"NS records are not editable"* for a Wix-registered domain. A and CNAME records
+are editable; nameservers are not. So the chosen route was impossible, and after
+reviewing the options Prabhash chose to move the registration.
 
-```
-gloria.ns.cloudflare.com
-kyle.ns.cloudflare.com
-```
+**Done (3 Aug 2026):** "Transfer away from Wix" started. Wix emailed the transfer
+authorization code to **prabhash470@gmail.com**. Auto-renewal at Wix is now OFF
+(expected — the transfer must be completed or the domain eventually lapses).
 
-Replace Wix's (`ns0.wixdns.net`, `ns1.wixdns.net`) with those.
+**Next, needs Prabhash:**
+1. Get the transfer authorization code from that Gmail inbox.
+2. Cloudflare → Domain Registration → Transfer Domains → `prabhashjha.com` → paste the code.
+3. **Pay ~$10 for one year.** Claude does not make purchases or enter card details —
+   this step is Prabhash's. By ICANN rules the transfer ADDS a year, so the prepaid
+   term to Jul 2030 is not lost; it becomes 2031.
+4. Approve the confirmation email that follows. Completion takes up to 7 days.
 
-**Claude could not do this step**: the Wix DNS page does not scroll under browser
-automation — same limitation hit with the Wix Editor previously. Prabhash must do it.
+**Once the transfer completes:**
+1. Cloudflare zone `prabhashjha.com` (already created, currently pending) goes active
+   automatically, since Cloudflare will be the registrar.
+2. Pages → prabhashjha-site → Custom domains → add `www.prabhashjha.com` **and** `prabhashjha.com`.
+3. Delete the 4 leftover Wix records (3 A + 1 CNAME) from the Cloudflare DNS zone.
+4. Re-verify Google Search Console on the new host; submit the sitemap.
+5. Fill `base_url` in `public/admin/config.yml` with the OAuth worker URL (see ADMIN-SETUP.md)
+   so `/admin` logs in via GitHub in production.
 
-Wix path: manage.wix.com/account/domains → `...` next to prabhashjha.com →
-Manage DNS records → scroll to the bottom → Name Servers → change to custom.
-If Wix refuses while the domain is attached to the site, use "Unassign from this
-site" first — that is expected, and is what takes the Wix site off the domain.
-
-**After the nameservers propagate** (10 min – 24 hrs), the last actions are:
-1. Cloudflare → Pages → prabhashjha-site → Custom domains → add `www.prabhashjha.com` and `prabhashjha.com`
-2. Delete the 4 leftover Wix records (3 A + 1 CNAME) from the Cloudflare DNS zone
-3. Re-verify Google Search Console on the new host
-4. Fill `base_url` in `public/admin/config.yml` with the OAuth worker URL (ADMIN-SETUP.md) so `/admin` logs in via GitHub in production
+**Meanwhile nothing is broken:** prabhashjha.com still serves the Wix site until the
+transfer completes and DNS moves. The new site remains live at
+https://prabhashjha-site.pages.dev.
 
 ## Remaining accounts, in this order
 
