@@ -79,7 +79,10 @@ const path = Astro.url.pathname;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#06070A" />
+    {/* Matches --color-void in each theme, so the browser chrome on mobile
+        continues the page rather than framing it in a leftover blue-black. */}
+    <meta name="theme-color" content="#F4F3EF" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0E0F0D" media="(prefers-color-scheme: dark)" />
     <meta property="og:type" content={type} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />

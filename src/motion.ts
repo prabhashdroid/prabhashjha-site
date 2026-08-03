@@ -59,26 +59,30 @@ export function boot() {
     initHeader();
     initProgress();
 
-    /* A page that loads in a background tab gets no requestAnimationFrame, so
-       a scroll reveal would sit frozen half-played until the tab is focused.
-       Skip straight to the finished state instead. */
+    /* Parallax and tilt are desktop-and-mouse only. On a phone the scroll is
+       already the interaction, and a scrubbed transform there costs frames
+       without adding anything.
+
+       These are set up regardless of tab visibility — unlike an entrance
+       animation, they are driven by scroll and pointer, so they simply do not
+       run until someone is actually looking at the page. Gating them on
+       visibility at load meant a page opened in a background tab lost them
+       permanently, because boot() only runs once. */
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => initParallax());
+    mm.add("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)", () => {
+      initTilt();
+      initMagnetic();
+    });
+
+    /* Reveals are the exception: a page that loads in a background tab gets no
+       requestAnimationFrame, so a reveal would sit frozen half-played until the
+       tab is focused. Skip straight to the finished state instead. */
     if (still() || document.visibilityState !== "visible") {
       showEverything();
       return;
     }
-
     initReveals();
-
-    const mm = gsap.matchMedia();
-
-    /* Parallax and tilt are desktop-and-mouse only. On a phone the scroll is
-       already the interaction, and a scrubbed transform there costs frames
-       without adding anything. */
-    mm.add("(min-width: 768px)", () => initParallax());
-    mm.add("(hover: hover) and (pointer: fine)", () => {
-      initTilt();
-      initMagnetic();
-    });
   });
 }
 
@@ -237,8 +241,10 @@ function initNav() {
     const closed = p.classList.toggle("hidden");
     b.setAttribute("aria-expanded", String(!closed));
     if (!closed && !still()) {
+      // overwrite, so opening twice in quick succession can't leave a link
+      // stranded between two competing tweens.
       gsap.from(p.querySelectorAll("a"), {
-        opacity: 0, y: 10, duration: 0.35, stagger: 0.045, ease: EASE_OUT,
+        opacity: 0, y: 10, duration: 0.35, stagger: 0.045, ease: EASE_OUT, overwrite: true,
       });
     }
   });

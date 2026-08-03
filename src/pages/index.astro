@@ -167,9 +167,9 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
 
   <!-- ================= LATEST ================= -->
   <section class="mx-auto max-w-6xl px-5 sm:px-8 py-20 md:py-28">
-    <div class="reveal flex items-end justify-between gap-6 mb-10 pb-5 border-b border-hair">
+    <div class="reveal flex flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-6 mb-10 pb-5 border-b border-hair">
       <h2 class="font-display font-semibold text-[1.9rem] sm:text-[2.5rem] leading-none">More from the desk</h2>
-      <a href="/blog" class="shrink-0 label pb-1 hover:text-accent transition-colors duration-200">All posts &rarr;</a>
+      <a href="/blog" class="shrink-0 label sm:pb-1 hover:text-accent transition-colors duration-200">All posts &rarr;</a>
     </div>
 
     <div class="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
