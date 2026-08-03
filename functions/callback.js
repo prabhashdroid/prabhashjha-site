@@ -42,16 +42,31 @@ export async function onRequest({ request, env }) {
   const msg = `authorization:github:${ok ? "success" : "error"}:${JSON.stringify(payload)}`;
 
   // Escaped through JSON.stringify so quotes in the payload cannot break out.
+  /* Decap's popup handshake, in order:
+   *   1. popup  -> opener : "authorizing:github"
+   *   2. opener -> popup  : any message (Decap is now listening)
+   *   3. popup  -> opener : "authorization:github:success:{...}"
+   *
+   * Sending step 3 immediately does NOT work — Decap has not attached its
+   * listener yet and the message is lost, so the admin sits on the login
+   * screen forever. That was the bug. Reply to e.origin, not "*", so the
+   * token is never broadcast to an arbitrary window.
+   */
   const body = `<!doctype html><meta charset="utf-8"><title>Signing in…</title><body>
 <script>
 (function () {
   var msg = ${JSON.stringify(msg)};
-  function send() { window.opener && window.opener.postMessage(msg, "*"); }
-  window.addEventListener("message", send, false);
-  send();
+  function receive(e) {
+    if (!window.opener) return;
+    window.opener.postMessage(msg, e.origin);
+  }
+  window.addEventListener("message", receive, false);
+  if (window.opener) window.opener.postMessage("authorizing:github", "*");
+  else document.body.insertAdjacentHTML("beforeend",
+    "<p style='font:14px system-ui;padding:2rem'>Open the admin and click Login with GitHub — this page cannot sign you in on its own.</p>");
 })();
 </script>
-<p style="font:14px system-ui;padding:2rem">${ok ? "Signed in. You can close this window." : "Sign-in failed — check GITHUB_CLIENT_SECRET."}</p>
+<p style="font:14px system-ui;padding:2rem">${ok ? "Signed in. This window will close." : "Sign-in failed."}</p>
 </body>`;
 
   return new Response(body, { headers: { "Content-Type": "text/html; charset=utf-8" } });
