@@ -30,7 +30,34 @@ Cloudflare Web Analytics enabled and verified. Real 301s for all old Wix URLs.
 - AI crawl policy: Search = Allow, Agent = Allow, "block training in robots.txt" turned OFF
   (so the robots.txt welcoming GPTBot/ClaudeBot/PerplexityBot stays authoritative)
 
-## DOMAIN: transfer to Cloudflare Registrar — IN PROGRESS
+## DOMAIN: www CNAME changed — NOT YET SERVING (3 Aug 2026)
+
+`www.prabhashjha.com` CNAME at Wix now points to `prabhashjha-site.pages.dev`,
+and Cloudflare Pages shows the custom domain **Active, SSL enabled**.
+
+**But www is still being served by WIX, not Cloudflare.** Proof:
+`server: Pepyaka` + `x-wix-request-id` + Fastly `x-served-by` headers.
+
+Do not be fooled by pages that return 200 — Wix has its own copies of `/`, `/blog/`,
+`/about` and every `/post/...` URL, and their SEO titles were deliberately made
+identical in an earlier session. The tell is that `/search`, `/rss.xml`,
+`/sitemap-0.xml`, `/admin/`, `/pagefind/*` and `/downloads/*.xlsx` all 404 — those
+exist only on the new site.
+
+**Likely cause:** the old record had a 1-hour TTL, and the domain is still *assigned
+to the Wix site*, so Wix's edge keeps answering.
+
+**Next steps, in order:**
+1. Wait out the 1-hour TTL, then re-check `curl -sI https://www.prabhashjha.com/ | grep -i server`
+   — it must say `cloudflare`, not `Pepyaka`.
+2. If it still says Pepyaka: Wix → Domains → `...` → **Unassign from this site**.
+   That detaches the domain from the Wix site so Wix stops answering for it.
+3. Re-verify with the checklist below. All of these must be 200:
+   `/search` `/rss.xml` `/sitemap-0.xml` `/admin/` `/pagefind/pagefind.js`
+   `/downloads/unit-economics-sheet.xlsx`, and `/post/design-a-stunning-blog` must 301.
+
+## DOMAIN TRANSFER (separate, still open)
+
 
 **Correction to an earlier note:** the nameserver change was not blocked by browser
 automation. Wix simply does not permit it — their DNS page states plainly
