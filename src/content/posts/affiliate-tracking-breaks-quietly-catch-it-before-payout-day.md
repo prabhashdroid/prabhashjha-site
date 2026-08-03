@@ -1,9 +1,10 @@
 ---
-title: "Affiliate Tracking Breaks Quietly. Here's How to Catch It Before Payout Day"
+title: "Affiliate Tracking Breaks Quietly — Catch It Before Payout Day"
 slug: "affiliate-tracking-breaks-quietly-catch-it-before-payout-day"
-description: "Tracking rarely fails loudly. It fails silently, and you find out at reconciliation. Here's where the click ID actually gets lost, and the ten-minute test to run before a campaign goes live."
+description: "Tracking rarely fails loudly — you find out at reconciliation. Where the click ID actually gets lost, and the ten-minute test to run before launch."
 pubDate: 2026-08-03
 category: "Performance & Affiliate"
+cover: "/images/posts/affiliate-tracking-cover.webp"
 ---
 
 Most tracking problems do not announce themselves. Nothing errors. No alert fires. The campaign runs, the dashboard fills with clicks, and everything looks normal — right up until the end of the month, when the network's conversion count and yours disagree and somebody has to decide who is right.
@@ -21,6 +22,8 @@ Strip away the vocabulary — postback, S2S, pixel, macro, subid — and affilia
 That is the whole mechanism. Which means there is really only one failure: **the ID does not survive the round trip.** Everything else is a variation on that.
 
 When the ID is missing, the conversion still happens. The customer still buys. The advertiser still books the revenue. The only thing that disappears is your ability to prove the sale was yours — and unprovable sales do not get paid.
+
+![Network switches and patch cables in a data centre — every hop between the click and the conversion is somewhere the ID can be dropped.](/images/posts/affiliate-tracking-cover.webp)
 
 ## The six places the ID actually gets lost
 
@@ -53,6 +56,8 @@ Before a campaign takes real budget, run one conversion through the entire syste
 If all five line up, your tracking works. If step 2 fails, it is a link problem. If step 4 fails but the advertiser recorded the sale, it is a postback problem. That single distinction tells you which half of the system to look at, which is most of the diagnosis.
 
 Ten minutes before launch. Compare that to a month of disputed conversions.
+
+**[Download the pre-launch tracking check](/downloads/affiliate-tracking-check.xlsx)** — the five steps above, the six failure points, and the discrepancy table, on one sheet. Free, no signup. Works in Excel, Google Sheets and Numbers.
 
 ## When the numbers disagree anyway
 

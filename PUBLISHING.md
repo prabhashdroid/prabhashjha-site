@@ -51,7 +51,31 @@ Also handled without you thinking about it:
 
 Tested: a post with nothing but a title and a body still builds, gets a description, a date, a topic, breadcrumbs, full schema, and appears in the sitemap, RSS, search, homepage and topic page.
 
-## 4. The only two things you must get right
+## 4. Every post gets an image — enforced, not remembered
+
+**A cover image is mandatory on every post.** It is the thumbnail on the homepage,
+the card on the topic page, and the preview image when the post is shared to
+LinkedIn or WhatsApp. Without it the post looks broken everywhere it appears.
+
+This is no longer a thing anyone has to remember. `npm run build` runs
+`scripts/check-posts.mjs` first and **fails the build** if:
+
+- a post has no `cover`
+- a `cover` points at a file that isn't on disk
+- the body links to a local file that doesn't exist (broken download links)
+
+It also warns — without blocking — about long titles, long descriptions, a missing
+FAQ section, and a cover with no image inside the article body.
+
+The guard found a real one on its first run: `startups-team-building` had shipped
+from the original Wix migration with no cover at all. Nobody had noticed.
+
+**Default for every new post from now on:**
+1. Cover image in frontmatter (Adobe Stock free tier, converted to WebP, ~1600px)
+2. The same or a related image placed inside the article
+3. A downloadable takeaway where the post supports one
+
+## 5. The only two things you must get right
 
 Everything else self-corrects. These two can't:
 
