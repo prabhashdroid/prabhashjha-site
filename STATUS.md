@@ -19,7 +19,43 @@ npm run admin
 - Admin → http://localhost:4321/admin/index.html (click Login, no password)
 - Site → http://localhost:4321
 
-## Next task: deploy — 5 accounts, in this order
+## LIVE NOW ✅
+
+**https://prabhashjha-site.pages.dev** — deployed from GitHub, auto-deploys on every push.
+Cloudflare Web Analytics enabled and verified. Real 301s for all old Wix URLs.
+
+- GitHub: `prabhashdroid/prabhashjha-site` (public), SSH key on this Mac
+- Cloudflare account: Prabhash470@gmail.com, Free plan
+- Cloudflare zone `prabhashjha.com` created, **pending nameserver change**
+- AI crawl policy: Search = Allow, Agent = Allow, "block training in robots.txt" turned OFF
+  (so the robots.txt welcoming GPTBot/ClaudeBot/PerplexityBot stays authoritative)
+
+## THE ONE REMAINING STEP — change nameservers at Wix
+
+Cloudflare has issued these two nameservers for prabhashjha.com:
+
+```
+gloria.ns.cloudflare.com
+kyle.ns.cloudflare.com
+```
+
+Replace Wix's (`ns0.wixdns.net`, `ns1.wixdns.net`) with those.
+
+**Claude could not do this step**: the Wix DNS page does not scroll under browser
+automation — same limitation hit with the Wix Editor previously. Prabhash must do it.
+
+Wix path: manage.wix.com/account/domains → `...` next to prabhashjha.com →
+Manage DNS records → scroll to the bottom → Name Servers → change to custom.
+If Wix refuses while the domain is attached to the site, use "Unassign from this
+site" first — that is expected, and is what takes the Wix site off the domain.
+
+**After the nameservers propagate** (10 min – 24 hrs), the last actions are:
+1. Cloudflare → Pages → prabhashjha-site → Custom domains → add `www.prabhashjha.com` and `prabhashjha.com`
+2. Delete the 4 leftover Wix records (3 A + 1 CNAME) from the Cloudflare DNS zone
+3. Re-verify Google Search Console on the new host
+4. Fill `base_url` in `public/admin/config.yml` with the OAuth worker URL (ADMIN-SETUP.md) so `/admin` logs in via GitHub in production
+
+## Remaining accounts, in this order
 
 | # | Service | Why it's needed | Blocked by |
 |---|---|---|---|
