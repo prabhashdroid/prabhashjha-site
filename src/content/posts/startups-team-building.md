@@ -3,7 +3,6 @@ title: "Startups & Team Building"
 description: "It's very important to start a new venture with right set of mindset, passion, execution skills and people."
 pubDate: "2021-02-11"
 cover: "/images/posts/startups-team-building-cover.webp"
-cover: ""
 category: "Founder Lessons"
 slug: "startups-team-building"
 ---

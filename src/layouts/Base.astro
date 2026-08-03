@@ -268,9 +268,38 @@ const path = Astro.url.pathname;
         const b = document.getElementById("navToggle");
         const p = document.getElementById("mobileNav");
         if (!b || !p) return;
+
+        const close = () => {
+          p.classList.add("hidden");
+          b.setAttribute("aria-expanded", "false");
+        };
+
+        // The header is transition:persist, so it survives client-side
+        // navigation — and so did the OPEN menu. Close it on every page load.
+        close();
+
+        // Same reason: this function runs on every navigation, but the button
+        // element persists. Without this guard we stack a new click listener
+        // each time, so after three navigations one tap toggles three times.
+        if (b.dataset.wired) return;
+        b.dataset.wired = "1";
+
         b.addEventListener("click", () => {
           const closed = p.classList.toggle("hidden");
           b.setAttribute("aria-expanded", String(!closed));
+        });
+        // Close as soon as a link is tapped, so it doesn't sit open while the
+        // next page loads.
+        p.addEventListener("click", (e) => {
+          if ((e.target as HTMLElement).closest("a")) close();
+        });
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") close();
+        });
+        // If the viewport grows past the mobile breakpoint, the panel would
+        // otherwise stay in the DOM flow behind the desktop nav.
+        window.addEventListener("resize", () => {
+          if (window.innerWidth >= 768) close();
         });
       }
 
