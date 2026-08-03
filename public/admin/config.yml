@@ -7,7 +7,7 @@ backend:
   name: github
   repo: prabhashdroid/prabhashjha-site
   branch: main
-  base_url: https://prabhashjha-cms-auth.prabhash470.workers.dev
+  base_url: https://www.prabhashjha.com
 
 site_url: https://www.prabhashjha.com
 display_url: https://www.prabhashjha.com
