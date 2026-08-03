@@ -36,6 +36,14 @@ const posts = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/posts' }),
   schema: z.object({
     title: text('Untitled'),
+
+    // Optional. When set, this is what goes in <title> — the blue link in a
+    // Google result, which truncates near 60 characters. The headline on the
+    // page, the share card and the schema all keep the full `title`, so a
+    // headline can stay as long as it needs to be without losing the tail of
+    // the search listing. Blank falls back to `title`.
+    seoTitle: text().transform((v) => v || undefined),
+
     description: text(),
 
     // A CMS writes dates unquoted (YAML parses them into a Date object);

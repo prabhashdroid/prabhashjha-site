@@ -96,7 +96,8 @@ const mins = Math.max(1, Math.round(words / 220));
 ---
 
 <Base
-  title={post.data.title}
+  title={post.data.seoTitle ?? post.data.title}
+  ogTitle={post.data.title}
   description={metaDescription(post.data.description, post.body)}
   image={post.data.cover}
   type="article"

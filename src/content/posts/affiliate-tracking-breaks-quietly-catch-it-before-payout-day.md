@@ -1,5 +1,6 @@
 ---
 title: "Affiliate Tracking Breaks Quietly — Catch It Before Payout Day"
+seoTitle: "Affiliate Tracking Breaks Quietly — Catch It Early"
 slug: "affiliate-tracking-breaks-quietly-catch-it-before-payout-day"
 description: "Tracking rarely fails loudly — you find out at reconciliation. Where the click ID actually gets lost, and the ten-minute test to run before launch."
 pubDate: 2026-08-03

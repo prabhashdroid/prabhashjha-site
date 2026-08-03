@@ -1,5 +1,6 @@
 ---
 title: "The Problems Every Millennial and Gen Z Hits — and What Actually Fixed Them"
+seoTitle: "Problems Every Millennial and Gen Z Hits — and Real Fixes"
 description: "The common problems millennials and Gen Z quietly share — comparison, burnout, money stress — and the life lessons that actually sorted them out."
 pubDate: "2026-07-23"
 cover: "/images/posts/dadacea3cc864ca4.webp"

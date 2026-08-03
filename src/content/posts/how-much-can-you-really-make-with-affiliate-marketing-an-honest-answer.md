@@ -1,5 +1,6 @@
 ---
 title: "How Much Can You Really Make With Affiliate Marketing? An Honest Answer"
+seoTitle: "How Much Can You Really Make With Affiliate Marketing?"
 description: "No hype, no fake screenshots. An honest answer to how much you can make with affiliate marketing, what actually decides your earnings, and a realistic path."
 pubDate: "2026-07-30"
 cover: "/images/posts/f0b80346720ff19a.webp"

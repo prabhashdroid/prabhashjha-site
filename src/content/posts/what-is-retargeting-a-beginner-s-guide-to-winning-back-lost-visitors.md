@@ -1,5 +1,6 @@
 ---
 title: "What Is Retargeting? A Beginner's Guide to Winning Back Lost Visitors"
+seoTitle: "What Is Retargeting? A Beginner's Guide"
 description: "Most visitors leave without buying. Retargeting brings the interested ones back. Here's what it is, why it works, and how to use it without being creepy."
 pubDate: "2026-07-30"
 cover: "/images/posts/f927eddaf059a161.webp"

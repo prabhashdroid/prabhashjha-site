@@ -17,6 +17,10 @@ const GOOGLE_SITE_VERIFICATION = SITE.analytics.googleSiteVerification;
 
 interface Props {
   title: string;
+  /* The share-card headline. Defaults to `title`, but a post overrides it so
+     the search listing can run short while LinkedIn and WhatsApp — which do
+     not truncate at 60 characters — still get the full headline. */
+  ogTitle?: string;
   description?: string;
   image?: string;
   type?: "website" | "article";
@@ -27,6 +31,7 @@ interface Props {
 }
 const {
   title,
+  ogTitle,
   description = "Practical marketing frameworks and hard-won lessons from Prabhash Jha, Co-Founder of ADVOLT — performance, programmatic and affiliate.",
   image,
   type = "website",
@@ -89,7 +94,7 @@ const path = Astro.url.pathname;
     <meta name="theme-color" content="#F4F3EF" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0E0F0D" media="(prefers-color-scheme: dark)" />
     <meta property="og:type" content={type} />
-    <meta property="og:title" content={title} />
+    <meta property="og:title" content={ogTitle ?? title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     {image && <meta property="og:image" content={image} />}

@@ -1,5 +1,6 @@
 ---
 title: "How to Choose the Right Affiliate Program: A Beginner's Checklist"
+seoTitle: "How to Choose the Right Affiliate Program"
 description: "Not all affiliate programs are worth promoting. The checklist I use to pick programs that pay well, convert, and are worth your time."
 pubDate: "2026-07-24"
 cover: "/images/posts/d05aab4ba79ea889.webp"

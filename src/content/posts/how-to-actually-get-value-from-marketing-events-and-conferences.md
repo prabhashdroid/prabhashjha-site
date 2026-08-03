@@ -1,5 +1,6 @@
 ---
 title: "How to Actually Get Value From Marketing Events and Conferences"
+seoTitle: "How to Get Real Value From Marketing Events"
 description: "Most people waste marketing events. Here's how to get real value from conferences — before, during and after — from goals to the follow-up that pays."
 pubDate: "2026-07-23"
 cover: "/images/posts/114624b98720bd79.webp"

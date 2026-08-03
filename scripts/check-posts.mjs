@@ -50,7 +50,14 @@ for (const f of files) {
 
   // --- quality warnings, not blockers ---
   if (!title) errors.push(`${label}: no title`);
-  if (title && title.length > 62) warnings.push(`${label}: title ${title.length} chars (Google truncates ~62)`);
+  // The headline may run as long as it needs to. What Google truncates is the
+  // <title>, which is `seoTitle` when one is set — so that is what gets checked.
+  const seo = get("seoTitle") || title;
+  if (seo && seo.length > 62)
+    warnings.push(
+      `${label}: Google title ${seo.length} chars (truncates ~60)` +
+        (get("seoTitle") ? "" : " — add a shorter `seoTitle:` to fix without changing the headline")
+    );
   const desc = get("description");
   if (!desc) warnings.push(`${label}: no description — one will be auto-generated from the opening`);
   else if (desc.length > 165) warnings.push(`${label}: description ${desc.length} chars (Google truncates ~160)`);

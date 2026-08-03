@@ -1,5 +1,6 @@
 ---
 title: "Cash Flow vs Profit: The Difference That Sinks Most Small Businesses"
+seoTitle: "Cash Flow vs Profit: The Difference That Sinks Businesses"
 description: "A business can be profitable and still go broke. Here's the difference between cash flow and profit — and how to protect the cash that keeps you alive."
 pubDate: "2026-07-24"
 cover: "/images/posts/573722ddf1a47a46.webp"

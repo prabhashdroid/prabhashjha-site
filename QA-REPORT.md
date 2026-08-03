@@ -56,9 +56,26 @@ unlabelled element conveying nothing.
 ### 8 · Two meta descriptions exceed the truncation limit — LOW-MEDIUM (SEO)
 Homepage **210 chars**, `/about/` **183**. Google truncates near 160.
 
-### 9 · 18 post titles exceed 65 characters — LOW (content, pre-existing)
-Longest is 82. `scripts/check-posts.mjs` already warns on these at build time;
-they are editorial decisions, not defects, so they are listed but not changed.
+### 9 · 22 post titles exceed 60 characters — LOW-MEDIUM (SEO)
+Longest is 96. Google truncates the blue link near 60, so the tail of each was
+being cut off in results.
+
+**Fixed by separating the two jobs a title does.** A new optional `seoTitle`
+frontmatter field feeds `<title>` only. The on-page `<h1>`, the `og:title` on
+share cards, and the `headline` in BlogPosting schema all keep the full title —
+LinkedIn and WhatsApp do not truncate at 60, so there was no reason to shorten
+what they show. Blank falls back to `title`, so nothing changes for the 19
+posts that were already short enough.
+
+All 22 rewritten; every `<title>` is now under 60 characters and 0 of 41 posts
+exceed 62. The field is exposed in the Decap admin (required: false) — without
+that it would have been silently stripped the next time a post was saved, since
+Decap rewrites the whole frontmatter block. `check-posts.mjs` now measures
+`seoTitle ?? title` and tells you to add a `seoTitle` rather than to cut the
+headline.
+
+*(The earlier count of 18 came from the static scan, which was also counting
+redirect stubs. The real figure among published posts is 22.)*
 
 ## Checked and found correct
 

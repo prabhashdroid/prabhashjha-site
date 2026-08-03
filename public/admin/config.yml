@@ -35,6 +35,12 @@ collections:
       - label: Title
         name: title
         widget: string
+        hint: "The headline shown on the page and on share cards. Any length."
+      - label: Google title (optional)
+        name: seoTitle
+        widget: string
+        required: false
+        hint: "Only needed if the Title above is longer than ~60 characters — Google cuts it off there. Leave blank to use the Title."
       - label: URL slug
         name: slug
         widget: string

@@ -1,5 +1,6 @@
 ---
 title: "SEO Basics: How to Get Found on Google Without Paying for Ads"
+seoTitle: "SEO Basics: How to Get Found on Google"
 description: "A plain-language guide to SEO basics — how to rank on Google without paying for ads, what actually moves the needle, and why it compounds."
 pubDate: "2026-07-24"
 cover: "/images/posts/8b13b7fae1b4d4dc.webp"

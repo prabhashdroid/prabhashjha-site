@@ -1,5 +1,6 @@
 ---
 title: "What Is a Marketing Funnel? A Simple Guide With Real Examples"
+seoTitle: "What Is a Marketing Funnel? A Simple Guide"
 description: "A marketing funnel is just the journey from stranger to customer. Here's what each stage means, why it matters, and a simple funnel you can build this week."
 pubDate: "2026-07-24"
 cover: "/images/posts/e2916da7f7e3e371.webp"

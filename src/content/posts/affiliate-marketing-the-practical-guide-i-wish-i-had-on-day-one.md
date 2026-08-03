@@ -1,5 +1,6 @@
 ---
 title: "Affiliate Marketing: The Practical Guide I Wish I Had on Day One"
+seoTitle: "Affiliate Marketing: The Guide I Wish I Had on Day One"
 description: "A no-fluff affiliate marketing guide from years of real campaigns — how it works, how to start, the frameworks, and the mistakes that cost me money."
 pubDate: "2026-07-22"
 cover: "/images/posts/95841b3c662d307e.webp"
