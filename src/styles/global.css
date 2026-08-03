@@ -11,7 +11,7 @@
   --color-hair:     #1E222C;
   --color-text:     #EDEFF5;
   --color-muted:    #878DA0;
-  --color-dim:      #5A6072;
+  --color-dim:     #737B91;  /* was #5A6072 = 3.08:1 on surface; below the 4.5:1 minimum */
 
   --color-blue:     #4F7CFF;
   --color-violet:   #A855F7;

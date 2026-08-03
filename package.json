@@ -8,7 +8,8 @@
     "preview": "astro preview",
     "cms": "KEYSTATIC=1 astro dev --port 4322   # (broken upstream - use `npm run admin`)",
     "check": "astro check",
-    "admin": "npx --yes concurrently -k -n cms,site -c magenta,cyan \"npx --yes decap-server\" \"astro dev --port 4321\""
+    "admin": "npx --yes concurrently -k -n cms,site -c magenta,cyan \"npx --yes decap-server\" \"astro dev --port 4321\"",
+    "perf": "node scripts/perf.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.2.3",
@@ -29,6 +30,7 @@
     "@astrojs/check": "^0.9.10",
     "concurrently": "^10.0.4",
     "decap-server": "^3.10.0",
+    "lighthouse": "^13.4.1",
     "typescript": "^5.9.3",
     "unist-util-visit": "^5.1.0"
   }
