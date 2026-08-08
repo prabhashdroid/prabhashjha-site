@@ -360,22 +360,51 @@
 }
 
 /* ============================================================
-   Sticky header. The one place on the site that uses a backdrop
-   blur: chrome floating over content is what the effect is for.
-   Everywhere else, depth comes from a hairline and a luminance
-   step — Linear's model, and it holds up on both themes.
+   Sticky header.
+
+   The background is CSS-only and FAILS SOLID. It used to be applied by a
+   ScrollTrigger `onToggle`, which fires only on a state *change* and so never
+   set the initial state — the header stayed fully transparent and the page
+   scrolled underneath the navigation, straight through the links.
+
+   Legibility of the primary navigation must not depend on JavaScript running
+   correctly. So: scroll-driven where supported, permanently solid where not.
+   Either way the header always has a real background once you have scrolled.
    ============================================================ */
 #siteHeader {
-  transition: background-color .3s ease, border-color .3s ease;
-  border-bottom: 1px solid transparent;
+  background-color: var(--color-void);
+  border-bottom: 1px solid var(--color-hair);
 }
-#siteHeader.is-stuck {
-  background: color-mix(in oklab, var(--color-void) 72%, transparent);
-  border-bottom-color: var(--color-hair);
+
+@supports (animation-timeline: scroll()) {
+  /* Transparent at the very top, resolving to solid within 80px of scroll. */
+  #siteHeader {
+    animation-name: header-settle;
+    animation-duration: auto;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: scroll();
+    animation-range: 0 80px;
+  }
+  @keyframes header-settle {
+    from { background-color: transparent;        border-bottom-color: transparent; }
+    to   { background-color: var(--color-void);  border-bottom-color: var(--color-hair); }
+  }
 }
-@supports (backdrop-filter: blur(1px)) {
-  #siteHeader.is-stuck { backdrop-filter: saturate(160%) blur(18px); }
+
+#headerInner { height: 74px; }
+@supports (animation-timeline: scroll()) {
+  #headerInner {
+    animation-name: header-shrink;
+    animation-duration: auto;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: scroll();
+    animation-range: 0 80px;
+  }
+  @keyframes header-shrink { from { height: 74px; } to { height: 58px; } }
 }
+
 #mobileNav { background: var(--color-surface); }
 
 /* ============================================================

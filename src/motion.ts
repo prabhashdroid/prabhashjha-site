@@ -62,7 +62,6 @@ export function boot() {
 
   ctx?.revert();
   ctx = gsap.context(() => {
-    initHeader();
     initProgress();
 
     /* Parallax and tilt are desktop-and-mouse only. On a phone the scroll is
@@ -292,26 +291,6 @@ function initProgress() {
     start: 0,
     end: "max",
     onUpdate: (self) => gsap.set(bar, { scaleX: self.progress }),
-  });
-}
-
-/**
- * The sticky header goes to glass once the page has moved. This is the one
- * place on the site that uses a backdrop blur — Apple's own rule, and the
- * reason it reads as chrome floating over content rather than as decoration.
- */
-function initHeader() {
-  const h = document.getElementById("siteHeader");
-  const inner = document.getElementById("headerInner");
-  if (!h || !inner) return;
-  ScrollTrigger.create({
-    start: 8,
-    end: "max",
-    onToggle: (self) => {
-      h.classList.toggle("is-stuck", self.isActive);
-      inner.classList.toggle("h-[74px]", !self.isActive);
-      inner.classList.toggle("h-[58px]", self.isActive);
-    },
   });
 }
 
