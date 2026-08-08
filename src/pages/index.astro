@@ -2,7 +2,7 @@
 import { coverSize } from "../seo";
 import Base from "../layouts/Base.astro";
 import { getCollection } from "astro:content";
-import { catSlug, CATEGORY_BLURBS, CATEGORY_ORDER } from "../categories";
+import { catSlug, catTint, CATEGORY_BLURBS, CATEGORY_ORDER } from "../categories";
 import { HOME } from "../siteData";
 import HeroFigure from "../components/HeroFigure.astro";
 
@@ -91,11 +91,11 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
     </div>
 
     <!-- ticker: the vocabulary of the work -->
-    <div class="relative border-y border-hair py-3.5 overflow-hidden">
-      <div class="marquee label">
+    <div class="relative border-y border-hair py-6 md:py-8 overflow-hidden" aria-hidden="true">
+      <div class="marquee marquee-lg">
         {[...ticker, ...ticker].map((t) => (
-          <span class="flex items-center gap-3 whitespace-nowrap">
-            <span class="w-1 h-1 bg-accent" aria-hidden="true"></span>{t}
+          <span class="flex items-center gap-[4.5rem] whitespace-nowrap">
+            {t}<span class="dot">&bull;</span>
           </span>
         ))}
       </div>
@@ -130,34 +130,32 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
        A contents page. The count is the only figure that carries meaning,
        so it is the only thing set as a figure. -->
   <section class="mx-auto max-w-6xl px-5 sm:px-8 pt-20 md:pt-28">
-    <div class="lg:grid lg:grid-cols-[20rem_1fr] lg:gap-16">
-      {/* The section title holds its place while the contents scroll past it.
-          On a contents page that is not decoration: it means you can always
-          see which list you are inside. */}
-      <div class="lg:sticky lg:top-28 lg:self-start">
-        <h2 data-lines class="t-h1 font-display font-semibold">
-          Pick a track and go deep.
-        </h2>
-        <p class="reveal label tabular mt-5 pt-4 border-t border-hair lg:border-t-0 lg:pt-0">
-          {topics.length} tracks &nbsp;·&nbsp; {posts.length} guides
-        </p>
-      </div>
+    {/* Full width, not a sticky rail beside a narrow column. The rail left the
+        left third of the screen empty and squeezed the cards into ~355px at
+        1440 — the section read as a sidebar note rather than as the main
+        contents of the site. */}
+    <div class="reveal flex flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-6 mb-9 pb-5 border-b border-hair">
+      <h2 data-lines class="t-h1 font-display font-semibold">Pick a track and go deep.</h2>
+      <p class="label tabular shrink-0">{topics.length} tracks &nbsp;·&nbsp; {posts.length} guides</p>
+    </div>
 
-      <div class="mt-10 lg:mt-0 border-t border-hair">
-        {topics.map((t) => (
-          <a href={t.href}
-            class="reveal rule-draw group grid grid-cols-[1fr_auto] items-baseline
-                   gap-x-6 gap-y-1.5 border-b border-hair py-6 transition-colors duration-200 hover:bg-surface">
-            <h3 class="shift t-h2 font-display font-semibold group-hover:text-accent">
-              {t.name}
-            </h3>
-            <p class="label tabular self-baseline text-right text-[var(--color-accent-2)]">{t.count}</p>
-            <p class="col-span-2 text-[0.95rem] text-muted leading-relaxed max-w-[46ch]">
-              {t.blurb}
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {topics.map((t) => (
+        <a href={t.href} style={`--tint:${catTint(t.name)}`}
+          class="reveal topic-card group flex flex-col justify-between gap-7 p-6 sm:p-7">
+          <div class="flex items-start justify-between gap-5">
+            <h3 class="t-name t-h2 font-display font-semibold text-balance">{t.name}</h3>
+            <p class="t-num font-display font-semibold tabular text-[2rem] leading-none shrink-0">{t.count}</p>
+          </div>
+          <div>
+            <p class="text-[0.95rem] text-muted leading-relaxed">{t.blurb}</p>
+            <p class="mt-5 label inline-flex items-center gap-2">
+              Read
+              <span aria-hidden="true" class="transition-transform duration-200 group-hover:translate-x-1">&rarr;</span>
             </p>
-          </a>
-        ))}
-      </div>
+          </div>
+        </a>
+      ))}
     </div>
   </section>
 

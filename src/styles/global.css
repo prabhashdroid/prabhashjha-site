@@ -190,8 +190,15 @@
      p / div / dl — so three of four elements resolved to the same delay and
      the sequence fired all at once. Explicit is the only thing that survives
      someone changing a <div> to a <section>. */
+  /* FAILS VISIBLE. `both` kept the from-state (opacity 0) applied whenever the
+     animation had not run — a page whose document timeline never advances left
+     the eyebrow and standfirst permanently invisible. `backwards` hides them
+     only during their own delay and hands back to the element's own visible
+     state afterwards. Last instance of a pattern that caused three separate
+     bugs this session. */
   html.js [data-hero] .reveal {
-    animation: rise-in .7s cubic-bezier(0.16, 1, 0.3, 1) both;
+    opacity: 1;
+    animation: rise-in .7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
     animation-delay: calc(.28s + (var(--step, 0) * .08s));
   }
   .step-1 { --step: 1; } .step-2 { --step: 2; }
@@ -289,7 +296,57 @@
     }
   }
 
-  .marquee { display: flex; gap: 3rem; width: max-content; animation: slide 64s linear infinite; }
+  /* The one technique worth taking from bhavikarora.com: large type in motion.
+   Their other two devices — a percentage preloader and a WebGL canvas — both
+   trade away load speed, which is the thing this site is built around. This
+   costs nothing: it is the same marquee, set much larger. */
+/* Topic cards.
+     The homepage was rows of text on one flat ground, which read as a
+     directory rather than as something worth clicking. Each topic now sits on
+     a card tinted with its own hue.
+
+     The tint is MIXED DOWN against the page ground rather than used at full
+     strength — 9% in light, 16% in dark. That keeps body text at its normal
+     contrast ratio on every card regardless of which hue landed there, so the
+     colour is decoration and never load-bearing for legibility. */
+  .topic-card {
+    background-color: color-mix(in oklab, var(--tint) 9%, var(--color-void));
+    border: 1px solid color-mix(in oklab, var(--tint) 20%, var(--color-hair));
+    transition: background-color .22s ease, border-color .22s ease, transform .22s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .topic-card .t-num { color: var(--tint); }
+  .topic-card .t-name { transition: color .2s ease; }
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .topic-card:hover { transform: translateY(-3px); }
+  }
+  @media (hover: hover) {
+    .topic-card:hover {
+      background-color: color-mix(in oklab, var(--tint) 17%, var(--color-void));
+      border-color: color-mix(in oklab, var(--tint) 45%, var(--color-hair));
+    }
+    .topic-card:hover .t-name { color: var(--tint); }
+  }
+  :root[data-theme="dark"] .topic-card {
+    background-color: color-mix(in oklab, var(--tint) 16%, var(--color-void));
+    border-color: color-mix(in oklab, var(--tint) 30%, var(--color-hair));
+  }
+  :root[data-theme="dark"] .topic-card .t-num { color: color-mix(in oklab, var(--tint) 55%, #FFFFFF); }
+  @media (hover: hover) {
+    :root[data-theme="dark"] .topic-card:hover { background-color: color-mix(in oklab, var(--tint) 26%, var(--color-void)); }
+    :root[data-theme="dark"] .topic-card:hover .t-name { color: color-mix(in oklab, var(--tint) 55%, #FFFFFF); }
+  }
+
+  .marquee { display: flex; gap: clamp(2rem, 4vw, 4.5rem); width: max-content; animation: slide 48s linear infinite; }
+  .marquee-lg {
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 3.4vw, 3.2rem);
+    font-weight: 600;
+    letter-spacing: -.02em;
+    text-transform: none;
+    color: var(--color-text);
+  }
+  .marquee-lg .dot { color: var(--color-accent-2); }
+  .marquee:hover { animation-play-state: paused; }
   @keyframes slide { from { transform: translateX(0) } to { transform: translateX(-50%) } }
 
   /* Reading progress. Scaled, not resized — width animation would relayout

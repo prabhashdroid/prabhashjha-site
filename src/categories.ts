@@ -20,3 +20,26 @@ export const CATEGORY_BLURBS: Record<string, string> = Object.fromEntries(
 );
 export const CATEGORY_ORDER: string[] = topics.map((t) => t.name);
 export const catSlug = (c: string) => CATEGORY_SLUGS[c] ?? fallbackSlug(c);
+
+/* ---- topic colour --------------------------------------------------------
+   The homepage sets each topic on a tinted card. The tint is keyed to the
+   topic's POSITION in the list, not its name, because topics are editable in
+   the admin — a rename would otherwise silently drop the colour, and there is
+   no way for the person editing to know that happened.
+
+   The family is deliberately narrow: five blues either side of the site accent
+   plus the two warm accents, so the grid reads as one palette rather than as a
+   set of unrelated swatches. Every value is a hue only — the card mixes it
+   down against the page ground, so contrast is governed by that mix, not by
+   the hue itself, and stays legible in both themes. */
+const TINTS = [
+  "#1A5FD0", // the site accent
+  "#0E7C86", // teal
+  "#B23A08", // burnt orange
+  "#3B4CC0", // indigo
+  "#0A6B3F", // green
+  "#8A2E67", // plum
+  "#1E6FA8", // steel blue
+];
+export const catTint = (c: string) =>
+  TINTS[Math.max(0, CATEGORY_ORDER.indexOf(c)) % TINTS.length];
