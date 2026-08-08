@@ -165,9 +165,17 @@ const M = {
   },
 };
 
+const FAMILIES = Object.keys(M);
+
 const cover = (topic, slug) => {
   const r = rng(slug);
-  const draw = M[topic] ?? M.Business;
+  /* Family comes from the SLUG, not the topic. Keying it to the topic meant
+     the nine Performance & Affiliate posts every drew the same node chain, so
+     the archive read as one repeated picture. The topic only nudges the
+     starting point, so a topic page still has some family resemblance without
+     nine identical marks. */
+  const bias = Math.max(0, FAMILIES.indexOf(topic));
+  const draw = M[FAMILIES[(bias + Math.floor(r() * FAMILIES.length)) % FAMILIES.length]];
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img">
 <rect width="${W}" height="${H}" fill="${PAPER}"/>
 ${draw(r)}

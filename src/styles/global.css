@@ -468,6 +468,14 @@
   .art-rail { border-top: 1px solid var(--color-hair); padding-top: 1.25rem; }
 }
 
+/* The article cover is an IDENTIFIER, not an illustration. Rendered as a hero
+   it came out 862x485 — 54% of the viewport — for a mark with six shapes in
+   it. It now sits in a band and is contained rather than cropped, so the mark
+   keeps its proportions and the headline stays the loudest thing on the page.
+   In listings, where the mark actually does its job of telling posts apart, it
+   is still shown full-bleed. */
+[data-parallax] { background: var(--color-void); }
+
 /* Anchors must clear the fixed header when a TOC link is followed. */
 .prose-pj :is(h2, h3) { scroll-margin-top: 6.5rem; }
 

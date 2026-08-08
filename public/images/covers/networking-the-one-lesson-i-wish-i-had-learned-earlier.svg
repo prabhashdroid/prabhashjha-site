@@ -1,9 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img">
 <rect width="1200" height="750" fill="#F4F3EF"/>
-<line x1="130" y1="580" x2="365" y2="580"
-stroke="#8A5A12" stroke-width="22" stroke-linecap="square"/><line x1="365" y1="580" x2="365" y2="500.908693484962" stroke="#17180F" stroke-width="11"/><line x1="365" y1="500.908693484962" x2="600" y2="500.908693484962"
-stroke="#17180F" stroke-width="11" stroke-linecap="square"/><line x1="600" y1="500.908693484962" x2="600" y2="429.87931214272976" stroke="#17180F" stroke-width="11"/><line x1="600" y1="429.87931214272976" x2="835" y2="429.87931214272976"
-stroke="#17180F" stroke-width="11" stroke-linecap="square"/><line x1="835" y1="429.87931214272976" x2="835" y2="491.14279291778803" stroke="#17180F" stroke-width="11"/><line x1="835" y1="491.14279291778803" x2="1070" y2="491.14279291778803"
-stroke="#17180F" stroke-width="11" stroke-linecap="square"/>
+<rect x="505" y="306.6" width="190" height="136.79999999999998"
+fill="none" stroke="#8A5A12"
+stroke-width="22"
+transform="rotate(0 600 375)"/><rect x="392.4528066406492" y="225.56602078126744" width="415.09438671870157" height="298.8679584374651"
+fill="none" stroke="#17180F"
+stroke-width="11"
+transform="rotate(-2.598041243851185 600 375)"/><rect x="279.90561328129843" y="144.53204156253489" width="640.1887734374031" height="460.93591687493023"
+fill="none" stroke="#17180F"
+stroke-width="11"
+transform="rotate(-5.19608248770237 600 375)"/>
 <line x1="0" y1="749" x2="1200" y2="749" stroke="#17180F" stroke-width="10"/>
 </svg>

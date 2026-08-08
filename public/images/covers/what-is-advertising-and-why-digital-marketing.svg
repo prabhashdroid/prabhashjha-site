@@ -1,5 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img">
 <rect width="1200" height="750" fill="#F4F3EF"/>
-<line x1="110" y1="253.22009108960629" x2="1090" y2="253.22009108960629" stroke="#17180F" stroke-width="11"/><line x1="110" y1="342.53599325194955" x2="1090" y2="342.53599325194955" stroke="#17180F" stroke-width="11"/><line x1="110" y1="535.2357280626893" x2="1090" y2="535.2357280626893" stroke="#17180F" stroke-width="11"/><line x1="551.7105880659074" y1="100" x2="551.7105880659074" y2="650" stroke="#8A5A12" stroke-width="22"/>
+<rect x="117.02180177136324" y="359.9343258810695" width="65.95639645727351" height="65.95639645727351"
+fill="none" stroke="#17180F" stroke-width="11"/><line x1="182.97819822863676" y1="392.9125241097063" x2="297.02180177136324" y2="392.9125241097063"
+stroke="#17180F" stroke-width="11" stroke-linecap="round"/><rect x="297.02180177136324" y="359.9343258810695" width="65.95639645727351" height="65.95639645727351"
+fill="none" stroke="#17180F" stroke-width="11"/><line x1="362.97819822863676" y1="392.9125241097063" x2="405.6" y2="392.9125241097063"
+stroke="#17180F" stroke-width="11" stroke-linecap="round"/><rect x="477.02180177136324" y="359.9343258810695" width="65.95639645727351" height="65.95639645727351"
+fill="#8A5A12" stroke="#8A5A12" stroke-width="11"/><line x1="542.9781982286368" y1="392.9125241097063" x2="657.0218017713632" y2="392.9125241097063"
+stroke="#17180F" stroke-width="11" stroke-linecap="round"/><rect x="657.0218017713632" y="359.9343258810695" width="65.95639645727351" height="65.95639645727351"
+fill="none" stroke="#17180F" stroke-width="11"/><line x1="722.9781982286368" y1="392.9125241097063" x2="837.0218017713632" y2="392.9125241097063"
+stroke="#17180F" stroke-width="11" stroke-linecap="round"/><rect x="837.0218017713632" y="359.9343258810695" width="65.95639645727351" height="65.95639645727351"
+fill="none" stroke="#17180F" stroke-width="11"/><line x1="902.9781982286368" y1="392.9125241097063" x2="1017.0218017713632" y2="392.9125241097063"
+stroke="#17180F" stroke-width="11" stroke-linecap="round"/><rect x="1017.0218017713632" y="359.9343258810695" width="65.95639645727351" height="65.95639645727351"
+fill="none" stroke="#17180F" stroke-width="11"/>
 <line x1="0" y1="749" x2="1200" y2="749" stroke="#17180F" stroke-width="10"/>
 </svg>

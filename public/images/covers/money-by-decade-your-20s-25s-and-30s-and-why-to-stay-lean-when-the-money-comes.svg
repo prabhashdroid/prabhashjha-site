@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img">
 <rect width="1200" height="750" fill="#F4F3EF"/>
-<line x1="110" y1="600" x2="1090" y2="600" stroke="#17180F" stroke-width="11"/><rect x="145.95507507897648" y="295.12558057904243" width="58.08984984204705" height="304.87441942095757"
-fill="#8A5A12" stroke="#8A5A12" stroke-width="11"/><rect x="274.526503650405" y="412.0484485477209" width="58.08984984204705" height="187.9515514522791"
-fill="none" stroke="#17180F" stroke-width="11"/><rect x="403.0979322218336" y="388.5016728937626" width="58.08984984204705" height="211.4983271062374"
-fill="none" stroke="#17180F" stroke-width="11"/><rect x="531.6693607932623" y="428.37602093815804" width="58.08984984204705" height="171.62397906184196"
-fill="none" stroke="#17180F" stroke-width="11"/><rect x="660.2407893646908" y="367.8519519418478" width="58.08984984204705" height="232.1480480581522"
-fill="none" stroke="#17180F" stroke-width="11"/><rect x="788.8122179361194" y="452.65875294804573" width="58.08984984204705" height="147.34124705195427"
-fill="none" stroke="#17180F" stroke-width="11"/><rect x="917.3836465075481" y="315.36309354007244" width="58.08984984204705" height="284.63690645992756"
+<rect x="116.29238525847904" y="356.549943755148" width="67.41522948304191" height="67.41522948304191"
+fill="none" stroke="#17180F" stroke-width="11"/><line x1="183.70761474152096" y1="390.25755849666893" x2="276" y2="390.25755849666893"
+stroke="#17180F" stroke-width="11" stroke-linecap="round"/><rect x="416.29238525847904" y="356.549943755148" width="67.41522948304191" height="67.41522948304191"
+fill="#8A5A12" stroke="#8A5A12" stroke-width="11"/><line x1="483.70761474152096" y1="390.25755849666893" x2="716.292385258479" y2="390.25755849666893"
+stroke="#17180F" stroke-width="11" stroke-linecap="round"/><rect x="716.292385258479" y="356.549943755148" width="67.41522948304191" height="67.41522948304191"
+fill="none" stroke="#17180F" stroke-width="11"/><line x1="783.707614741521" y1="390.25755849666893" x2="1016.292385258479" y2="390.25755849666893"
+stroke="#17180F" stroke-width="11" stroke-linecap="round"/><rect x="1016.292385258479" y="356.549943755148" width="67.41522948304191" height="67.41522948304191"
 fill="none" stroke="#17180F" stroke-width="11"/>
 <line x1="0" y1="749" x2="1200" y2="749" stroke="#17180F" stroke-width="10"/>
 </svg>

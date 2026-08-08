@@ -1,14 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img">
 <rect width="1200" height="750" fill="#F4F3EF"/>
 <rect x="505" y="306.6" width="190" height="136.79999999999998"
-fill="none" stroke="#17180F"
-stroke-width="11"
-transform="rotate(0 600 375)"/><rect x="419.66352678020485" y="245.1577392817475" width="360.6729464395903" height="259.684521436505"
 fill="none" stroke="#8A5A12"
 stroke-width="22"
-transform="rotate(-1.758140940219164 600 375)"/><rect x="334.3270535604097" y="183.715478563495" width="531.3458928791806" height="382.56904287301"
+transform="rotate(0 600 375)"/><rect x="419.03779992018826" y="244.70721594253556" width="361.9244001596235" height="260.5855681149289"
 fill="none" stroke="#17180F"
 stroke-width="11"
-transform="rotate(-3.516281880438328 600 375)"/>
+transform="rotate(1.038982137106359 600 375)"/><rect x="333.0755998403765" y="182.81443188507112" width="533.848800319247" height="384.37113622985777"
+fill="none" stroke="#17180F"
+stroke-width="11"
+transform="rotate(2.077964274212718 600 375)"/><rect x="247.1133997605648" y="120.92164782760665" width="705.7732004788704" height="508.1567043447867"
+fill="none" stroke="#17180F"
+stroke-width="11"
+transform="rotate(3.116946411319077 600 375)"/>
 <line x1="0" y1="749" x2="1200" y2="749" stroke="#17180F" stroke-width="10"/>
 </svg>

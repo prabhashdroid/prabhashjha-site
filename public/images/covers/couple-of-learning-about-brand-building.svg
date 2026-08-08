@@ -1,17 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img">
 <rect width="1200" height="750" fill="#F4F3EF"/>
-<rect x="505" y="306.6" width="190" height="136.79999999999998"
-fill="none" stroke="#8A5A12"
-stroke-width="22"
-transform="rotate(0 600 375)"/><rect x="409.9656643776689" y="238.1752783519216" width="380.06867124466226" height="273.6494432961568"
-fill="none" stroke="#17180F"
-stroke-width="11"
-transform="rotate(0.6148261427879333 600 375)"/><rect x="314.93132875533774" y="169.7505567038432" width="570.1373424893245" height="410.4988865923136"
-fill="none" stroke="#17180F"
-stroke-width="11"
-transform="rotate(1.2296522855758667 600 375)"/><rect x="219.89699313300662" y="101.3258350557648" width="760.2060137339868" height="547.3483298884704"
-fill="none" stroke="#17180F"
-stroke-width="11"
-transform="rotate(1.8444784283638 600 375)"/>
+<line x1="110" y1="256.86419570818543" x2="1090" y2="256.86419570818543" stroke="#17180F" stroke-width="11"/><line x1="110" y1="499.79652285575867" x2="1090" y2="499.79652285575867" stroke="#17180F" stroke-width="11"/><line x1="632.177208038047" y1="100" x2="632.177208038047" y2="650" stroke="#8A5A12" stroke-width="22"/>
 <line x1="0" y1="749" x2="1200" y2="749" stroke="#17180F" stroke-width="10"/>
 </svg>

@@ -3,12 +3,15 @@
 <rect x="505" y="306.6" width="190" height="136.79999999999998"
 fill="none" stroke="#17180F"
 stroke-width="11"
-transform="rotate(0 600 375)"/><rect x="413.3875493274536" y="240.6390355157666" width="373.2249013450928" height="268.7219289684668"
+transform="rotate(0 600 375)"/><rect x="413.2747329236008" y="240.5578077049926" width="373.45053415279835" height="268.8843845900148"
 fill="none" stroke="#8A5A12"
 stroke-width="22"
-transform="rotate(-0.8799593026439348 600 375)"/><rect x="321.7750986549072" y="174.6780710315332" width="556.4498026901856" height="400.6438579369336"
+transform="rotate(-1.382473073899746 600 375)"/><rect x="321.54946584720165" y="174.5156154099852" width="556.9010683055967" height="400.9687691800296"
 fill="none" stroke="#17180F"
 stroke-width="11"
-transform="rotate(-1.7599186052878697 600 375)"/>
+transform="rotate(-2.764946147799492 600 375)"/><rect x="229.82419877080247" y="108.47342311497778" width="740.3516024583951" height="533.0531537700444"
+fill="none" stroke="#17180F"
+stroke-width="11"
+transform="rotate(-4.147419221699238 600 375)"/>
 <line x1="0" y1="749" x2="1200" y2="749" stroke="#17180F" stroke-width="10"/>
 </svg>

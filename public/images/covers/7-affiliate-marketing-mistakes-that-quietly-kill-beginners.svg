@@ -1,14 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img">
 <rect width="1200" height="750" fill="#F4F3EF"/>
-<rect x="117.37375110806897" y="350.3252543597482" width="65.25249778386205" height="65.25249778386205"
-fill="none" stroke="#17180F" stroke-width="11"/><line x1="182.62624889193103" y1="382.95150325167924" x2="342.373751108069" y2="382.95150325167924"
-stroke="#17180F" stroke-width="11" stroke-linecap="round"/><rect x="342.373751108069" y="350.3252543597482" width="65.25249778386205" height="65.25249778386205"
-fill="none" stroke="#17180F" stroke-width="11"/><line x1="407.626248891931" y1="382.95150325167924" x2="469.5" y2="382.95150325167924"
-stroke="#17180F" stroke-width="11" stroke-linecap="round"/><rect x="567.373751108069" y="350.3252543597482" width="65.25249778386205" height="65.25249778386205"
-fill="#8A5A12" stroke="#8A5A12" stroke-width="11"/><line x1="632.626248891931" y1="382.95150325167924" x2="792.373751108069" y2="382.95150325167924"
-stroke="#17180F" stroke-width="11" stroke-linecap="round"/><rect x="792.373751108069" y="350.3252543597482" width="65.25249778386205" height="65.25249778386205"
-fill="none" stroke="#17180F" stroke-width="11"/><line x1="857.626248891931" y1="382.95150325167924" x2="1017.373751108069" y2="382.95150325167924"
-stroke="#17180F" stroke-width="11" stroke-linecap="round"/><rect x="1017.373751108069" y="350.3252543597482" width="65.25249778386205" height="65.25249778386205"
+<line x1="110" y1="600" x2="1090" y2="600" stroke="#17180F" stroke-width="11"/><rect x="115.22207983455155" y="307.4971627444029" width="119.5558403308969" height="292.5028372555971"
+fill="none" stroke="#17180F" stroke-width="11"/><rect x="340.22207983455155" y="268.0367638170719" width="119.5558403308969" height="331.9632361829281"
+fill="#8A5A12" stroke="#8A5A12" stroke-width="11"/><rect x="565.2220798345516" y="416.6419852524996" width="119.5558403308969" height="183.35801474750042"
+fill="none" stroke="#17180F" stroke-width="11"/><rect x="790.2220798345516" y="476.15662544965744" width="119.5558403308969" height="123.84337455034256"
 fill="none" stroke="#17180F" stroke-width="11"/>
 <line x1="0" y1="749" x2="1200" y2="749" stroke="#17180F" stroke-width="10"/>
 </svg>
