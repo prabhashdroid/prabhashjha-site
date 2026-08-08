@@ -10,10 +10,10 @@ const d = page!.data;
     <div class="absolute inset-0 grid-bg" aria-hidden="true"></div>
     <div class="relative mx-auto max-w-5xl px-5 sm:px-8 pt-20 pb-14 md:pt-28" data-hero>
       <p class="reveal step-1 label mb-6">/ {d.eyebrow}</p>
-      <h1 data-words class="font-display font-semibold text-[2.6rem] sm:text-[3.6rem] leading-[1.03] max-w-[16ch]">
+      <h1 data-words class="font-display font-semibold text-[2.6rem] sm:text-[3.6rem] leading-[1.03] max-w-[12ch]">
         {d.heading} <span class="grad-text">{d.headingAccent}</span>.
       </h1>
-      <p class="reveal step-2 mt-7 text-muted max-w-[50ch] text-[1.05rem] leading-relaxed">
+      <p class="reveal step-2 mt-7 text-muted max-w-[37ch] text-[1.05rem] leading-relaxed">
         {d.intro}
       </p>
     </div>
@@ -25,13 +25,13 @@ const d = page!.data;
       {d.services.map((s: { title: string; blurb: string }) => (
         <div class="reveal grid sm:grid-cols-[minmax(0,16rem)_1fr] gap-x-8 gap-y-2 border-b border-hair py-7">
           <h2 class="font-display font-semibold text-[1.22rem] leading-snug">{s.title}</h2>
-          <p class="text-[0.96rem] text-muted leading-relaxed max-w-[60ch]">{s.blurb}</p>
+          <p class="text-[0.96rem] text-muted leading-relaxed max-w-[45ch]">{s.blurb}</p>
         </div>
       ))}
     </div>
 
     <div class="reveal mt-16 md:flex md:items-end md:justify-between gap-12">
-      <div class="max-w-[46ch]">
+      <div class="max-w-[34ch]">
         <h2 data-lines class="font-display font-semibold text-[1.7rem] sm:text-[2.2rem] leading-tight">
           {d.ctaHeading}
         </h2>

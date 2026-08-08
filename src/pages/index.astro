@@ -40,12 +40,12 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
         <span class="w-8 h-px bg-accent" aria-hidden="true"></span>{HOME.badge}
       </p>
 
-      <h1 data-words class="font-display font-semibold text-[2.6rem] leading-[1.03] sm:text-6xl lg:text-[4.6rem] max-w-[16ch]">
+      <h1 data-words class="font-display font-semibold text-[2.6rem] leading-[1.03] sm:text-6xl lg:text-[4.6rem] max-w-[12ch]">
         {HOME.headline}
         <span class="grad-text">{HOME.headlineAccent}</span>.
       </h1>
 
-      <p class="reveal step-2 mt-8 max-w-[46ch] text-[1.12rem] leading-relaxed text-muted">
+      <p class="reveal step-2 mt-8 max-w-[34ch] text-[1.12rem] leading-relaxed text-muted">
         {HOME.intro}
       </p>
 
@@ -110,7 +110,7 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
                      group-hover:text-accent">
             {lead.data.title}
           </h2>
-          <p class="mt-5 text-[1.02rem] text-muted leading-relaxed max-w-[52ch]">{lead.data.description}</p>
+          <p class="mt-5 text-[1.02rem] text-muted leading-relaxed max-w-[39ch]">{lead.data.description}</p>
           <p class="mt-6 label"><time datetime={String(lead.data.pubDate)}>{fmt(lead.data.pubDate)}</time></p>
         </div>
       </a>
@@ -143,7 +143,7 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
               {t.name}
             </h3>
             <p class="label tabular self-baseline text-right">{t.count}</p>
-            <p class="col-span-2 text-[0.95rem] text-muted leading-relaxed max-w-[62ch]">
+            <p class="col-span-2 text-[0.95rem] text-muted leading-relaxed max-w-[46ch]">
               {t.blurb}
             </p>
           </a>
@@ -155,7 +155,7 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
   <!-- ================= FREE TOOL ================= -->
   <section class="mx-auto max-w-6xl px-5 sm:px-8">
     <div class="reveal border-b border-hair py-16 md:py-24 md:flex md:items-end md:justify-between gap-14">
-      <div class="max-w-[46ch]">
+      <div class="max-w-[34ch]">
         <p class="label mb-5">/ {HOME.featureLabel}</p>
         <h2 data-lines class="font-display font-semibold text-[1.9rem] sm:text-[2.5rem] leading-[1.08]">
           {HOME.featureHeading}

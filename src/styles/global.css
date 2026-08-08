@@ -287,9 +287,15 @@
 
 /* ============================================================
    Article typography — set for reading, not scanning.
-   Measure held near 68 characters; the serif carries the rest.
+
+   MEASURE: do NOT express this in `ch`. The `ch` unit is the advance of "0",
+   which in Newsreader is 0.550em, while the average character is 0.405em — so
+   `Nch` renders about 1.35x N real characters. The old `max-width: 40rem` was
+   commented as "near 68 characters" and actually rendered 90, measured live.
+   The column now inherits its width from the container, which is sized so the
+   text lands near 68 characters at the body size.
    ============================================================ */
-.prose-pj { max-width: 40rem; }
+.prose-pj { max-width: none; }   /* the container owns the measure */
 .prose-pj > * + * { margin-top: 1.35em; }
 .prose-pj h2 {
   font-size: clamp(1.5rem, 2.6vw, 1.95rem);
