@@ -2,7 +2,7 @@
 title: "Couple of learning about Brand Building"
 description: "1. In order to establish a successful business brand building should be carried out from day one as it gets difficult to work on it once the actual…"
 pubDate: "2021-02-28"
-cover: "/images/posts/60332e54e06dc67d.webp"
+cover: "/images/covers/couple-of-learning-about-brand-building.svg"
 coverW: 667
 coverH: 1000
 category: "Brand Building"

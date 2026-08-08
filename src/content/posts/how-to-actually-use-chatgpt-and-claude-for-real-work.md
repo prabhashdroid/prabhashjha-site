@@ -2,7 +2,7 @@
 title: "How to Actually Use ChatGPT and Claude for Real Work"
 description: "Stop using AI like a novelty. Here's how to actually use ChatGPT and Claude for real work — drafting, summarising and automating, with better prompts."
 pubDate: "2026-07-24"
-cover: "/images/posts/b8437c00f454024e.webp"
+cover: "/images/covers/how-to-actually-use-chatgpt-and-claude-for-real-work.svg"
 coverW: 1000
 coverH: 563
 category: "AI & Automation"

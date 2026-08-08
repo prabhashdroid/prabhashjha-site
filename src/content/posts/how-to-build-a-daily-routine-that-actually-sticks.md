@@ -2,7 +2,7 @@
 title: "How to Build a Daily Routine That Actually Sticks"
 description: "Most routines fail from bad design, not weak willpower. Here's how to build a daily routine that actually sticks — start tiny, anchor it, and never miss twice."
 pubDate: "2026-07-30"
-cover: "/images/posts/23854e19481e2123.webp"
+cover: "/images/covers/how-to-build-a-daily-routine-that-actually-sticks.svg"
 coverW: 1000
 coverH: 563
 category: "Founder Lessons"

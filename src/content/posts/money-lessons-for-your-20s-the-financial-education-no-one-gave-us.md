@@ -3,7 +3,7 @@ title: "Money Lessons for Your 20s: The Financial Education No One Gave Us"
 seoTitle: "Money Lessons for Your 20s: The Education No One Gave Us"
 description: "The financial education millennials and Gen Z never got — the money lessons for your 20s that actually matter, in plain, no-jargon language."
 pubDate: "2026-07-23"
-cover: "/images/posts/13f57f195bfaac00.webp"
+cover: "/images/covers/money-lessons-for-your-20s-the-financial-education-no-one-gave-us.svg"
 coverW: 1000
 coverH: 563
 category: "Business & Finance"

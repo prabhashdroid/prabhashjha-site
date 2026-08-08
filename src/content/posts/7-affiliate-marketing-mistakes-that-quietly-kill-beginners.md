@@ -2,7 +2,7 @@
 title: "7 Affiliate Marketing Mistakes That Quietly Kill Beginners"
 description: "The affiliate marketing mistakes that cost beginners their first year — and the simple fix for each, from someone who made them."
 pubDate: "2026-07-23"
-cover: "/images/posts/403031dd16d52db3.webp"
+cover: "/images/covers/7-affiliate-marketing-mistakes-that-quietly-kill-beginners.svg"
 coverW: 1000
 coverH: 563
 category: "Performance & Affiliate"

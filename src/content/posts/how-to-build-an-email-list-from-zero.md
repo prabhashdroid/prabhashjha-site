@@ -2,7 +2,7 @@
 title: "How to Build an Email List From Zero"
 description: "Your email list is the one audience you own. Here's how to build one from zero — the lead magnet, the signups, and what to send."
 pubDate: "2026-07-24"
-cover: "/images/posts/dfa98eb7c3876f1f.webp"
+cover: "/images/covers/how-to-build-an-email-list-from-zero.svg"
 coverW: 1000
 coverH: 563
 category: "Brand Building"

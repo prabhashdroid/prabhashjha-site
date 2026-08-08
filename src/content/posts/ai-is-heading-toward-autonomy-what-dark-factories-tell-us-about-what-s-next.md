@@ -3,7 +3,7 @@ title: "AI Is Heading Toward Autonomy: What ‘Dark Factories’ Tell Us About W
 seoTitle: "AI and Autonomy: What Dark Factories Tell Us"
 description: "Dark factories already run with the lights off. Here's what they reveal about where AI is heading — from tools we operate to systems that run themselves…"
 pubDate: "2026-07-23"
-cover: "/images/posts/f4e4b7a99656e2b8.webp"
+cover: "/images/covers/ai-is-heading-toward-autonomy-what-dark-factories-tell-us-about-what-s-next.svg"
 coverW: 1000
 coverH: 563
 category: "AI & Automation"

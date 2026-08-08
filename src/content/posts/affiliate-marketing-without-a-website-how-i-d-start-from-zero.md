@@ -3,7 +3,7 @@ title: "Affiliate Marketing Without a Website: How I'd Start From Zero"
 seoTitle: "Affiliate Marketing Without a Website"
 description: "You don't need a website to start affiliate marketing. Here's exactly how I'd do it today — the platforms, the approach, and the mistakes to skip."
 pubDate: "2026-07-23"
-cover: "/images/posts/efa877a158ddf536.webp"
+cover: "/images/covers/affiliate-marketing-without-a-website-how-i-d-start-from-zero.svg"
 coverW: 1000
 coverH: 563
 category: "Performance & Affiliate"

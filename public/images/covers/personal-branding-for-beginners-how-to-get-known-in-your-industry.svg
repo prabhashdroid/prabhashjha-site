@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img">
+<rect width="1200" height="750" fill="#F4F3EF"/>
+<rect x="505" y="306.6" width="190" height="136.79999999999998"
+fill="none" stroke="#8A5A12"
+stroke-width="22"
+transform="rotate(0 600 375)"/><rect x="414.17267977958545" y="241.20432944130152" width="371.6546404408291" height="267.59134111739695"
+fill="none" stroke="#17180F"
+stroke-width="11"
+transform="rotate(1.4941190797835588 600 375)"/><rect x="323.3453595591709" y="175.80865888260305" width="553.3092808816582" height="398.3826822347939"
+fill="none" stroke="#17180F"
+stroke-width="11"
+transform="rotate(2.9882381595671177 600 375)"/><rect x="232.51803933875635" y="110.41298832390459" width="734.9639213224873" height="529.1740233521908"
+fill="none" stroke="#17180F"
+stroke-width="11"
+transform="rotate(4.4823572393506765 600 375)"/>
+<line x1="0" y1="749" x2="1200" y2="749" stroke="#17180F" stroke-width="10"/>
+</svg>

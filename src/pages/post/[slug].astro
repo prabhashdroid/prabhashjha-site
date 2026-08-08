@@ -81,7 +81,9 @@ const articleSchema = {
   author: { "@id": "https://www.prabhashjha.com/#prabhash" },
   publisher: { "@id": "https://www.prabhashjha.com/#prabhash" },
   isPartOf: { "@id": "https://www.prabhashjha.com/#website" },
-  ...(post.data.cover ? { image: "https://www.prabhashjha.com" + post.data.cover } : {}),
+  ...(post.data.cover && !post.data.cover.endsWith(".svg")
+    ? { image: "https://www.prabhashjha.com" + post.data.cover }
+    : { image: "https://www.prabhashjha.com/og/default.png" }),
   breadcrumb: {
     "@type": "BreadcrumbList",
     itemListElement: [
@@ -100,7 +102,10 @@ const mins = Math.max(1, Math.round(words / 220));
   title={post.data.seoTitle ?? post.data.title}
   ogTitle={post.data.title}
   description={metaDescription(post.data.description, post.body)}
-  image={post.data.cover}
+  {/* The authored covers are SVG, which LinkedIn and Slack will not render in
+      a share card. Pass a raster only; an SVG cover falls through to the
+      generated default card in Base.astro. */}
+  image={post.data.cover && !post.data.cover.endsWith(".svg") ? post.data.cover : undefined}
   type="article"
   publishedTime={post.data.pubDate}
   article={faqSchema ? [articleSchema, faqSchema] : [articleSchema]}

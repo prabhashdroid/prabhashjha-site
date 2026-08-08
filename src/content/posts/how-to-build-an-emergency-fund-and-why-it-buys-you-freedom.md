@@ -2,7 +2,7 @@
 title: "How to Build an Emergency Fund (and Why It Buys You Freedom)"
 description: "An emergency fund isn't about growth — it's about freedom. Here's why a few months of cash changes every decision, and exactly how to build one."
 pubDate: "2026-07-24"
-cover: "/images/posts/6b03069dca75a5c3.webp"
+cover: "/images/covers/how-to-build-an-emergency-fund-and-why-it-buys-you-freedom.svg"
 coverW: 1000
 coverH: 563
 category: "Business & Finance"

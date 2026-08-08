@@ -2,7 +2,7 @@
 title: "How to Price Your Services as a Freelancer or Consultant"
 description: "Most freelancers underprice badly. Here's how to price your services with confidence — the models, how to set your rate, and why value beats hours."
 pubDate: "2026-07-24"
-cover: "/images/posts/623a38265cb2930c.webp"
+cover: "/images/covers/how-to-price-your-services-as-a-freelancer-or-consultant.svg"
 coverW: 1000
 coverH: 563
 category: "Business & Finance"

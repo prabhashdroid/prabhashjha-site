@@ -2,7 +2,7 @@
 title: "Good Debt vs Bad Debt: How to Tell the Difference"
 description: "Not all debt is the same. Here's the simple rule for telling good debt from bad — what builds your future, what eats it, and how to think about any loan."
 pubDate: "2026-07-30"
-cover: "/images/posts/57b014bd62d6f160.webp"
+cover: "/images/covers/good-debt-vs-bad-debt-how-to-tell-the-difference.svg"
 coverW: 1000
 coverH: 563
 category: "Business & Finance"

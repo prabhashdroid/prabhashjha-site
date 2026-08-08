@@ -3,7 +3,7 @@ title: "How do I grow my brand/company/shop using Digital Channels ?"
 description: "In the Internet Age, taking any object online whether living or non-living is quite easy. The bigger catch always is how to use internet/digital channels efficiently leveraging the most from the media and driving an actionable goal.  Primary Steps (Generic to all the business) 1. Define a Target Audience. 2. Locate your audience on any of the prominent channels (Google, Facebook, Linkedin, 
     Youtube, Twitter, pinterest, reddit, etc.)3. Advertise, and optimise. 4. Drive results (Online/Offline"
 pubDate: "2020-07-19"
-cover: "/images/posts/0830c112af68d20e.webp"
+cover: "/images/covers/how-to-grow-your-brand-using-digital-channels.svg"
 coverW: 1000
 coverH: 667
 category: "Business"

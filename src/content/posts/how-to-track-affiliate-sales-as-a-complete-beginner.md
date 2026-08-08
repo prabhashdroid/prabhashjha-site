@@ -2,7 +2,7 @@
 title: "How to Track Affiliate Sales as a Complete Beginner"
 description: "You can't grow what you can't measure. Here's how to track affiliate sales as a beginner — dashboards, per-channel links, sub-IDs, and what to do with the data."
 pubDate: "2026-07-24"
-cover: "/images/posts/32eea36a42fa59b6.webp"
+cover: "/images/covers/how-to-track-affiliate-sales-as-a-complete-beginner.svg"
 coverW: 1000
 coverH: 563
 category: "Performance & Affiliate"

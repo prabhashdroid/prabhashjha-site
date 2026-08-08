@@ -2,7 +2,7 @@
 title: "The Skills That Actually Matter in the Age of AI"
 description: "As AI gets better at tasks, which skills should you build? The human skills that get more valuable as execution gets cheap — judgment, communication and more."
 pubDate: "2026-07-24"
-cover: "/images/posts/dc125e79a216dd13.webp"
+cover: "/images/covers/the-skills-that-actually-matter-in-the-age-of-ai.svg"
 coverW: 1000
 coverH: 563
 category: "Founder Lessons"

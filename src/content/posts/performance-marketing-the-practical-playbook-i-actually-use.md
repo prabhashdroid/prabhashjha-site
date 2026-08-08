@@ -2,7 +2,7 @@
 title: "Performance Marketing: The Practical Playbook I Actually Use"
 description: "What performance marketing really is, the economics that decide whether it works, the metrics that matter, and the mistakes that cost me — a no-fluff playbook."
 pubDate: "2026-07-23"
-cover: "/images/posts/6d4f2203f136fc12.webp"
+cover: "/images/covers/performance-marketing-the-practical-playbook-i-actually-use.svg"
 coverW: 1000
 coverH: 563
 category: "Performance & Affiliate"

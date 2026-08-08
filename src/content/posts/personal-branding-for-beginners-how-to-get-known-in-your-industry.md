@@ -3,7 +3,7 @@ title: "Personal Branding for Beginners: How to Get Known in Your Industry"
 seoTitle: "Personal Branding for Beginners: How to Get Known"
 description: "A personal brand is what people say about you when you're not in the room."
 pubDate: "2026-07-23"
-cover: "/images/posts/d59b398c4e181abb.webp"
+cover: "/images/covers/personal-branding-for-beginners-how-to-get-known-in-your-industry.svg"
 coverW: 1000
 coverH: 563
 category: "Brand Building"

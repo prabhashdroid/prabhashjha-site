@@ -3,7 +3,7 @@ title: "What Is Marketing Automation? A Beginner's Guide to Doing More With Less
 seoTitle: "What Is Marketing Automation? A Beginner's Guide"
 description: "Marketing automation isn't scary enterprise software. It's setting up repetitive marketing once so it runs without you. Here's what to automate first and how."
 pubDate: "2026-07-24"
-cover: "/images/posts/609af0daa2706dc7.webp"
+cover: "/images/covers/what-is-marketing-automation-a-beginner-s-guide-to-doing-more-with-less.svg"
 coverW: 1000
 coverH: 563
 category: "AI & Automation"

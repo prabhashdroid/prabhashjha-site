@@ -5,7 +5,7 @@ slug: "affiliate-tracking-breaks-quietly-catch-it-before-payout-day"
 description: "Tracking rarely fails loudly — you find out at reconciliation. Where the click ID actually gets lost, and the ten-minute test to run before launch."
 pubDate: 2026-08-03
 category: "Performance & Affiliate"
-cover: "/images/posts/affiliate-tracking-cover.webp"
+cover: "/images/covers/affiliate-tracking-breaks-quietly-catch-it-before-payout-day.svg"
 ---
 
 Most tracking problems do not announce themselves. Nothing errors. No alert fires. The campaign runs, the dashboard fills with clicks, and everything looks normal — right up until the end of the month, when the network's conversion count and yours disagree and somebody has to decide who is right.

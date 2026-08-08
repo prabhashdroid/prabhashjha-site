@@ -64,7 +64,22 @@ export function imageDims(src?: string): { w: number; h: number } | null {
   let out: { w: number; h: number } | null = null;
   try {
     const file = path.join(process.cwd(), "public", decodeURIComponent(src).replace(/^\//, ""));
-    out = readDims(fs.readFileSync(file).subarray(0, 65536));
+    if (/\.svg$/i.test(src)) {
+      /* SVG has no binary header to sniff — read the viewBox. Without this the
+         generated covers fell through to a 1600x900 guess, which is 16:9 while
+         they are actually 16:10, so every cover shipped the wrong intrinsic
+         ratio and reserved the wrong space before CSS applied. */
+      const txt = fs.readFileSync(file, "utf8").slice(0, 2048);
+      const vb = txt.match(/viewBox\s*=\s*["']\s*[\d.-]+\s+[\d.-]+\s+([\d.]+)\s+([\d.]+)/i);
+      if (vb) out = { w: Math.round(+vb[1]), h: Math.round(+vb[2]) };
+      else {
+        const w = txt.match(/\bwidth\s*=\s*["'](\d+)/i);
+        const h = txt.match(/\bheight\s*=\s*["'](\d+)/i);
+        if (w && h) out = { w: +w[1], h: +h[1] };
+      }
+    } else {
+      out = readDims(fs.readFileSync(file).subarray(0, 65536));
+    }
   } catch {
     out = null;
   }

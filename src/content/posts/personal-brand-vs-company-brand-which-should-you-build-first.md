@@ -3,7 +3,7 @@ title: "Personal Brand vs Company Brand: Which Should You Build First?"
 seoTitle: "Personal Brand vs Company Brand: Which Comes First?"
 description: "Personal brand or company brand first? For most founders today, personal wins — it's faster, cheaper and feeds the company. Here's how to build both."
 pubDate: "2026-07-24"
-cover: "/images/posts/2c987d0eb12396d2.webp"
+cover: "/images/covers/personal-brand-vs-company-brand-which-should-you-build-first.svg"
 coverW: 1000
 coverH: 563
 category: "Brand Building"

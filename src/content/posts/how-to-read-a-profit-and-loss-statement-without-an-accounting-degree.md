@@ -3,7 +3,7 @@ title: "How to Read a Profit and Loss Statement (Without an Accounting Degree)"
 seoTitle: "How to Read a Profit and Loss Statement"
 description: "A P&L isn't just for accountants. Here's how to read a profit and loss statement in plain English — the key lines, the margins, and how it differs from cash flow."
 pubDate: "2026-07-24"
-cover: "/images/posts/1f9f361375bdd634.webp"
+cover: "/images/covers/how-to-read-a-profit-and-loss-statement-without-an-accounting-degree.svg"
 coverW: 1000
 coverH: 667
 category: "Business & Finance"

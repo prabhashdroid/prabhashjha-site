@@ -2,7 +2,7 @@
 title: "Google Ads vs Meta Ads: Which Should a Beginner Start With?"
 description: "Google Ads vs Meta Ads for beginners — the core difference, when to use each, and an honest answer on which to start with first."
 pubDate: "2026-07-24"
-cover: "/images/posts/f3d0df812bc326f4.webp"
+cover: "/images/covers/google-ads-vs-meta-ads-which-should-a-beginner-start-with.svg"
 coverW: 1000
 coverH: 563
 category: "Digital Marketing"

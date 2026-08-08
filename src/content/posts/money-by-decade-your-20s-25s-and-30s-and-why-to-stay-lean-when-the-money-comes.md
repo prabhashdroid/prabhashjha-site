@@ -3,7 +3,7 @@ title: "Money by Decade: Your 20s, 25s and 30s — and Why to Stay Lean When the
 seoTitle: "Money by Decade: Your 20s, 25s and 30s"
 description: "What to focus on financially in your 20s, at 25 and at 30 — and why the moment you start earning real money is exactly when you should stay lean."
 pubDate: "2026-07-23"
-cover: "/images/posts/89e5e70096a62f22.webp"
+cover: "/images/covers/money-by-decade-your-20s-25s-and-30s-and-why-to-stay-lean-when-the-money-comes.svg"
 coverW: 1000
 coverH: 563
 category: "Business & Finance"

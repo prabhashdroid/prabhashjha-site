@@ -2,7 +2,7 @@
 title: "How to Write a Personal Bio That Gets You Noticed"
 description: "Your bio is the most-read thing you'll write. Here's how to write one that earns trust fast — what to include, what to cut, and the versions to keep ready."
 pubDate: "2026-07-30"
-cover: "/images/posts/89b0a634b124b632.webp"
+cover: "/images/covers/how-to-write-a-personal-bio-that-gets-you-noticed.svg"
 coverW: 1000
 coverH: 667
 category: "Brand Building"

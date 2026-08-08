@@ -2,7 +2,7 @@
 title: "Will AI Take My Job? A Practical Way to Think About It"
 description: "“Will AI take my job?” has a more useful answer than yes or no. A practical way to think about AI and your career — what's exposed, and what to do now."
 pubDate: "2026-07-30"
-cover: "/images/posts/9d0e74e23c68ce15.webp"
+cover: "/images/covers/will-ai-take-my-job-a-practical-way-to-think-about-it.svg"
 coverW: 1000
 coverH: 667
 category: "AI & Automation"

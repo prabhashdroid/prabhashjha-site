@@ -2,7 +2,7 @@
 title: "What is Advertisement & why Digital Marketing ?"
 description: "Advertising is how a Brand/Political Party/Institutions persuade people to buy/engage with their product or services."
 pubDate: "2020-07-19"
-cover: "/images/posts/69c15a39b1dd4981.webp"
+cover: "/images/covers/what-is-advertising-and-why-digital-marketing.svg"
 coverW: 1000
 coverH: 563
 category: "Business"

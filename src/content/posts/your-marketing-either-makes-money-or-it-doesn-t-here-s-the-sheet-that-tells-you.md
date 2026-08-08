@@ -3,7 +3,7 @@ title: "Your Marketing Either Makes Money or It Doesn't — Here's the Sheet Tha
 seoTitle: "Does Your Marketing Make Money? The Sheet That Tells You"
 description: "Most marketing reports tell you everything except whether you're making money."
 pubDate: "2026-08-01"
-cover: "/images/posts/c727cc28026b84f0.webp"
+cover: "/images/covers/your-marketing-either-makes-money-or-it-doesn-t-here-s-the-sheet-that-tells-you.svg"
 coverW: 1000
 coverH: 667
 category: "Performance & Affiliate"

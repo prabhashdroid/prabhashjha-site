@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img">
+<rect width="1200" height="750" fill="#F4F3EF"/>
+<rect x="111.3393853714224" y="372.5073382833507" width="77.32122925715521" height="77.32122925715521"
+fill="none" stroke="#17180F" stroke-width="11"/><line x1="188.6606146285776" y1="411.1679529119283" x2="411.3393853714224" y2="411.1679529119283"
+stroke="#17180F" stroke-width="11" stroke-linecap="round"/><rect x="411.3393853714224" y="372.5073382833507" width="77.32122925715521" height="77.32122925715521"
+fill="none" stroke="#17180F" stroke-width="11"/><line x1="488.6606146285776" y1="411.1679529119283" x2="576" y2="411.1679529119283"
+stroke="#17180F" stroke-width="11" stroke-linecap="round"/><rect x="711.3393853714224" y="372.5073382833507" width="77.32122925715521" height="77.32122925715521"
+fill="#8A5A12" stroke="#8A5A12" stroke-width="11"/><line x1="788.6606146285776" y1="411.1679529119283" x2="1011.3393853714224" y2="411.1679529119283"
+stroke="#17180F" stroke-width="11" stroke-linecap="round"/><rect x="1011.3393853714224" y="372.5073382833507" width="77.32122925715521" height="77.32122925715521"
+fill="none" stroke="#17180F" stroke-width="11"/>
+<line x1="0" y1="749" x2="1200" y2="749" stroke="#17180F" stroke-width="10"/>
+</svg>

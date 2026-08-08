@@ -3,7 +3,7 @@ title: "Marketing Metrics Explained: CPC, CPM, CTR, CPA and ROAS in Plain Englis
 seoTitle: "Marketing Metrics Explained: CPC, CPM, CTR, CPA, ROAS"
 description: "CPC, CPM, CTR, CPA, ROAS — decoded in plain English. What each marketing metric means, which ones actually matter, and how they connect."
 pubDate: "2026-07-24"
-cover: "/images/posts/411a001895415e47.webp"
+cover: "/images/covers/marketing-metrics-explained-cpc-cpm-ctr-cpa-and-roas-in-plain-english.svg"
 coverW: 1000
 coverH: 563
 category: "Digital Marketing"

@@ -2,7 +2,7 @@
 title: "What is Programmatic Advertising ?"
 description: "In nutshell, Programmatic advertising is nothing but an automated program used to buy and sell media across multiple ad formats, media, and channels."
 pubDate: "2020-09-21"
-cover: "/images/posts/1b91fd4ed9bf4b62.webp"
+cover: "/images/covers/what-is-programmatic-advertising.svg"
 coverW: 768
 coverH: 511
 category: "Business"
