@@ -40,6 +40,23 @@
 
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ---------- TYPE SCALE ----------
+     Two registers with a deliberate hole between them. Text sizes cluster
+     tight (ratio ~1.15); display sizes spread wide (ratio ~1.4). That gap is
+     the exaggeration — it is what makes a page look authored rather than
+     assembled. Previously every heading on the homepage was 40px, so the
+     featured article carried the same weight as a shelf label.
+
+     Every clamp keeps a rem term in the middle expression so text still
+     responds to the reader's own font-size setting (WCAG 1.4.4). */
+  --fs-d1: clamp(3rem,    1.20rem + 7.2vw,  7rem);      /* masthead   48 → 112 */
+  --fs-d2: clamp(2.4rem,  1.55rem + 3.4vw,  4.25rem);   /* article h1 38 →  68 */
+  --fs-d3: clamp(1.9rem,  1.45rem + 1.8vw,  2.9rem);    /* featured   30 →  46 */
+  --fs-h1: clamp(1.55rem, 1.35rem + 0.8vw,  2rem);      /* section    25 →  32 */
+  --fs-h2: 1.22rem;                                     /* row title */
+  --fs-body: 1.075rem;
+  --fs-small: 0.94rem;
 }
 
 /* The light theme is a real design, not an inversion: warm paper,
@@ -174,6 +191,92 @@
   }
   html.motion-failed .reveal,
   html.motion-failed .reveal-scale { opacity: 1 !important; transform: none !important; }
+
+  /* ---------- type scale utilities ---------- */
+  .t-d1 { font-size: var(--fs-d1); line-height: .96; letter-spacing: -.028em; }
+  .t-d2 { font-size: var(--fs-d2); line-height: 1.02; letter-spacing: -.022em; }
+  .t-d3 { font-size: var(--fs-d3); line-height: 1.06; letter-spacing: -.016em; }
+  .t-h1 { font-size: var(--fs-h1); line-height: 1.12; letter-spacing: -.01em; }
+  .t-h2 { font-size: var(--fs-h2); line-height: 1.25; letter-spacing: -.008em; }
+
+  /* ============================================================
+     SCROLL-DRIVEN ANIMATION — the modern, free version.
+
+     `animation-timeline: view()` ties a keyframe to an element's passage
+     through the viewport. The browser runs it on the compositor, off the main
+     thread, with ZERO JavaScript. Where this is supported it replaces the
+     GSAP ScrollTrigger reveals entirely — motion.ts detects support and skips
+     its own reveal pass, so this is a net REDUCTION in work, not an addition.
+
+     Progressive enhancement: browsers without it keep the GSAP path.
+     ============================================================ */
+  @supports (animation-timeline: view()) {
+    /* TRANSFORM ONLY, and opacity forced back to 1.
+
+       A scroll-driven reveal that fades from opacity 0 fails automated
+       contrast checks — Lighthouse samples the text mid-fade and scores it
+       against the background it is blended into. It dropped accessibility
+       from 100 to 96 on two pages. That score is the messenger: text that is
+       invisible until you scroll is genuinely unreadable for anyone who lands
+       mid-page, on a slow device, or with a stalled timeline.
+
+       Moving to a pure translate keeps the motion and makes the whole class
+       of "stuck invisible" bug impossible. */
+    html.js .reveal { opacity: 1; }
+    html.js .reveal:not(.step-1):not(.step-2):not(.step-3):not(.step-4) {
+      /* Longhands, not the shorthand: `animation:` resets animation-timeline
+         to auto, and a progress-based timeline needs duration `auto` — an
+         explicit time makes the animation occupy a sliver of the range and
+         strand the element part-way. */
+      animation-name: rise-only;
+      animation-duration: auto;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: view();
+      /* ENTRY-based, finished before the element is fully in view. A `cover`
+         range is unreachable for anything in the last viewport of the page —
+         the scroll runs out first and the element never completes. */
+      animation-range: entry 0% entry 55%;
+    }
+    @keyframes rise-only {
+      from { transform: translate3d(0, 26px, 0); }
+      to   { transform: none; }
+    }
+
+    /* The masthead recedes as you scroll past it — scroll-linked, so it
+       tracks the finger exactly rather than easing on a timer. */
+    html.js [data-hero] .hero-recede {
+      animation: recede linear both;
+      animation-timeline: scroll();
+      animation-range: 0 70vh;
+    }
+    @keyframes recede {
+      to { opacity: .18; transform: translate3d(0, -8%, 0); filter: blur(1.5px); }
+    }
+
+    /* Images drift inside their frame, tied to scroll rather than to a
+       JS scrub loop. Replaces GSAP parallax on supporting browsers. */
+    html.js [data-parallax] > img {
+      animation-name: drift;
+      animation-duration: auto;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: view();
+      /* Scoped to [data-parallax] only. Applying this to every .frame gave
+         all 40 thumbnails on the blog index their own compositor layer and
+         cost 4 Lighthouse points and 0.6s of LCP. Drift is a deliberate
+         feature of two images, not a property of every image.
+
+         `contain` rather than `cover`: it resolves for frames that never
+         fully traverse the viewport, which is every frame in the last
+         screenful. */
+      animation-range: contain 0% contain 100%;
+    }
+    @keyframes drift {
+      from { transform: scale(1.12) translate3d(0, -2.2%, 0); }
+      to   { transform: scale(1.12) translate3d(0,  2.2%, 0); }
+    }
+  }
 
   .marquee { display: flex; gap: 3rem; width: max-content; animation: slide 64s linear infinite; }
   @keyframes slide { from { transform: translateX(0) } to { transform: translateX(-50%) } }

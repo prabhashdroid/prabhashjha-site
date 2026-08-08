@@ -35,12 +35,12 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
   <section class="relative" data-hero>
     <div class="absolute inset-0 grid-bg" aria-hidden="true"></div>
 
-    <div class="relative mx-auto max-w-6xl px-5 sm:px-8 pt-20 pb-16 md:pt-28 md:pb-20">
+    <div class="hero-recede relative mx-auto max-w-6xl px-5 sm:px-8 pt-20 pb-16 md:pt-28 md:pb-20">
       <p class="reveal step-1 label flex items-center gap-3 mb-8">
         <span class="w-8 h-px bg-accent" aria-hidden="true"></span>{HOME.badge}
       </p>
 
-      <h1 data-words class="font-display font-semibold text-[2.6rem] leading-[1.03] sm:text-6xl lg:text-[4.6rem] max-w-[12ch]">
+      <h1 data-words class="t-d1 font-display font-semibold max-w-[12ch]">
         {HOME.headline}
         <span class="grad-text">{HOME.headlineAccent}</span>.
       </h1>
@@ -72,7 +72,7 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
         ].map((s, i) => (
           <div class:list={["py-6 pr-4", i > 0 && "pl-4 sm:pl-8 border-l border-hair"]}>
             <dt class="label mb-2">{s.l}</dt>
-            <dd class="font-display font-semibold text-[2rem] sm:text-[2.6rem] leading-none tabular">
+            <dd class="t-d3 font-display font-semibold tabular">
               <span data-count={s.v}>0</span>{s.suffix}
             </dd>
           </div>
@@ -106,8 +106,7 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
         )}
         <div class="order-2 lg:order-1">
           <p class="label mb-4">Latest &nbsp;/&nbsp; {lead.data.category}</p>
-          <h2 data-lines class="shift font-display font-semibold text-[1.9rem] sm:text-[2.5rem] leading-[1.08] text-balance
-                     group-hover:text-accent">
+          <h2 data-lines class="shift t-d3 font-display font-semibold text-balance group-hover:text-accent">
             {lead.data.title}
           </h2>
           <p class="mt-5 text-[1.02rem] text-muted leading-relaxed max-w-[39ch]">{lead.data.description}</p>
@@ -126,7 +125,7 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
           On a contents page that is not decoration: it means you can always
           see which list you are inside. */}
       <div class="lg:sticky lg:top-28 lg:self-start">
-        <h2 data-lines class="font-display font-semibold text-[1.9rem] sm:text-[2.5rem] leading-[1.06]">
+        <h2 data-lines class="t-h1 font-display font-semibold">
           Pick a track and go deep.
         </h2>
         <p class="reveal label tabular mt-5 pt-4 border-t border-hair lg:border-t-0 lg:pt-0">
@@ -139,7 +138,7 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
           <a href={t.href}
             class="reveal rule-draw group grid grid-cols-[1fr_auto] items-baseline
                    gap-x-6 gap-y-1.5 border-b border-hair py-6 transition-colors duration-200 hover:bg-surface">
-            <h3 class="shift font-display font-semibold text-[1.22rem] leading-snug group-hover:text-accent">
+            <h3 class="shift t-h2 font-display font-semibold group-hover:text-accent">
               {t.name}
             </h3>
             <p class="label tabular self-baseline text-right">{t.count}</p>
@@ -157,7 +156,7 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
     <div class="reveal border-b border-hair py-16 md:py-24 md:flex md:items-end md:justify-between gap-14">
       <div class="max-w-[34ch]">
         <p class="label mb-5">/ {HOME.featureLabel}</p>
-        <h2 data-lines class="font-display font-semibold text-[1.9rem] sm:text-[2.5rem] leading-[1.08]">
+        <h2 data-lines class="t-h1 font-display font-semibold">
           {HOME.featureHeading}
         </h2>
         <p class="mt-5 text-muted leading-relaxed">
@@ -175,7 +174,7 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
   <!-- ================= LATEST ================= -->
   <section class="mx-auto max-w-6xl px-5 sm:px-8 py-20 md:py-28">
     <div class="reveal flex flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-6 mb-10 pb-5 border-b border-hair">
-      <h2 data-lines class="font-display font-semibold text-[1.9rem] sm:text-[2.5rem] leading-none">More from the desk</h2>
+      <h2 data-lines class="t-h1 font-display font-semibold">More from the desk</h2>
       <a href="/blog" class="shrink-0 label py-1.5 hover:text-accent transition-colors duration-200">All posts &rarr;</a>
     </div>
 

@@ -74,7 +74,6 @@ export function boot() {
        visibility at load meant a page opened in a background tab lost them
        permanently, because boot() only runs once. */
     const mm = gsap.matchMedia();
-    mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => initParallax());
     mm.add("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)", () => {
       initTilt();
       initMagnetic();
@@ -87,7 +86,15 @@ export function boot() {
       showEverything();
       return;
     }
-    initReveals();
+    /* Where the browser supports scroll-driven CSS animations, global.css
+       already runs the reveals and the image drift on the compositor, off the
+       main thread, with no JS at all. Running ScrollTrigger as well would mean
+       two systems writing the same properties. So this stands down — which
+       makes a modern browser do strictly LESS work than before, not more. */
+    if (!CSS.supports("animation-timeline", "view()")) {
+      initReveals();
+      initParallaxFallback();
+    }
     initLineReveals();
   });
 }
@@ -212,7 +219,7 @@ function initReveals() {
  * first so the drift can never expose an edge, and the frame's own box never
  * moves — so this adds exactly zero layout shift.
  */
-function initParallax() {
+function initParallaxFallback() {
   const frames = gsap.utils.toArray<HTMLElement>("[data-parallax]");
   frames.forEach((frame) => {
     const img = frame.querySelector<HTMLElement>("img");
