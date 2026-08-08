@@ -410,7 +410,7 @@
    The column now inherits its width from the container, which is sized so the
    text lands near 68 characters at the body size.
    ============================================================ */
-.prose-pj { max-width: none; }   /* the container owns the measure */
+.prose-pj { max-width: 30rem; }  /* 480px ≈ 68 characters in Newsreader */
 .prose-pj > * + * { margin-top: 1.35em; }
 .prose-pj h2 {
   font-size: clamp(1.5rem, 2.6vw, 1.95rem);

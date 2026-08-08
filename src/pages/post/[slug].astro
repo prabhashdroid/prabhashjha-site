@@ -107,7 +107,7 @@ const mins = Math.max(1, Math.round(words / 220));
   keywords={keywords}
 >
   <article data-pagefind-body>
-    <header class="mx-auto max-w-[34rem] px-5 sm:px-8 pt-16 md:pt-24" data-hero>
+    <header class="mx-auto max-w-[46rem] px-5 sm:px-8 pt-16 md:pt-24" data-hero>
       <nav data-pagefind-ignore aria-label="Breadcrumb" class="reveal step-1 label flex flex-wrap items-center gap-2 mb-7">
         <a href="/blog" class="hover:text-accent transition-colors duration-200">Topics</a>
         <span aria-hidden="true">/</span>
@@ -118,10 +118,10 @@ const mins = Math.max(1, Math.round(words / 220));
       <h1 data-words class="t-d2 font-display font-semibold text-balance">
         {post.data.title}
       </h1>
-      <p class="reveal step-2 mt-6 text-[1.08rem] leading-relaxed text-muted max-w-[39ch]">
+      <p class="reveal step-2 mt-6 text-[1.08rem] leading-relaxed text-muted max-w-[30rem]">
         {metaDescription(post.data.description, post.body)}
       </p>
-      <dl class="reveal step-3 mt-8 pt-4 border-t border-hair flex flex-wrap items-baseline gap-x-8 gap-y-2 label">
+      <dl class="reveal step-3 mt-8 pt-4 border-t border-hair max-w-[30rem] flex flex-wrap items-baseline gap-x-8 gap-y-2 label">
         <div class="flex items-baseline gap-2">
           <dt class="sr-only">Author</dt><dd class="text-muted">Prabhash Jha</dd>
         </div>
@@ -151,7 +151,7 @@ const mins = Math.max(1, Math.round(words / 220));
       </div>
     )}
 
-    <div class="mx-auto max-w-[34rem] px-5 sm:px-8 mt-14">
+    <div class="mx-auto max-w-[46rem] px-5 sm:px-8 mt-14">
       {post.data.affiliate && <Disclosure />}
       <div class="prose-pj reveal"><Content /></div>
     </div>
