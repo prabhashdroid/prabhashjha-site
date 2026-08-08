@@ -2,6 +2,7 @@
 import fs from "node:fs";
 import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
+import Mark from "../components/Mark.astro";
 import { PROFILE, ORG, SITE, FOOTER, socialLinks, sameAs } from "../siteData";
 
 /* Read at build time, inlined into <head> — see the note beside the <style>
@@ -156,7 +157,7 @@ const path = Astro.url.pathname;
     <header data-pagefind-ignore id="siteHeader" class="fixed top-0 inset-x-0 z-50" transition:persist>
       <div id="headerInner" class="mx-auto max-w-6xl px-5 sm:px-8 flex items-center justify-between">
         <a href="/" class="flex items-center gap-2.5 group shrink-0">
-          <span class="w-[20px] h-[20px] rounded-[6px] bg-accent transition-transform duration-200 group-hover:rotate-[135deg]"></span>
+          <Mark size={22} class="shrink-0 transition-colors duration-200 group-hover:text-accent" />
           <span class="font-display font-bold tracking-tight text-[1.02rem]" set:html={PROFILE.name.replace(" ", "&nbsp;")} />
         </a>
         <nav aria-label="Main" class="hidden md:flex items-center gap-8 text-[0.88rem]">
@@ -205,7 +206,7 @@ const path = Astro.url.pathname;
         <div class="flex flex-col md:flex-row justify-between gap-12">
           <div class="max-w-sm">
             <div class="flex items-center gap-2.5 mb-4">
-              <span class="w-[20px] h-[20px] rounded-[6px] bg-accent"></span>
+              <Mark size={22} class="shrink-0" />
               <span class="font-display font-bold tracking-tight">{PROFILE.name}</span>
             </div>
             <p class="text-[0.94rem] text-muted leading-relaxed">

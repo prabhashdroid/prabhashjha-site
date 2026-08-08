@@ -1,17 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img">
-<rect width="1200" height="750" fill="#F4F3EF"/>
+<rect width="1200" height="750" fill="#FBFAF9"/>
 <rect x="505" y="306.6" width="190" height="136.79999999999998"
-fill="none" stroke="#8A5A12"
+fill="none" stroke="#1A5FD0"
 stroke-width="22"
-transform="rotate(0 600 375)"/><rect x="419.03779992018826" y="244.70721594253556" width="361.9244001596235" height="260.5855681149289"
-fill="none" stroke="#17180F"
+transform="rotate(0 600 375)"/><rect x="398.40890630031936" y="229.85441253622994" width="403.1821873993613" height="290.2911749275401"
+fill="none" stroke="#14150E"
 stroke-width="11"
-transform="rotate(1.038982137106359 600 375)"/><rect x="333.0755998403765" y="182.81443188507112" width="533.848800319247" height="384.37113622985777"
-fill="none" stroke="#17180F"
+transform="rotate(-0.7830608710646629 600 375)"/><rect x="291.8178126006387" y="153.1088250724599" width="616.3643747987226" height="443.7823498550802"
+fill="none" stroke="#14150E"
 stroke-width="11"
-transform="rotate(2.077964274212718 600 375)"/><rect x="247.1133997605648" y="120.92164782760665" width="705.7732004788704" height="508.1567043447867"
-fill="none" stroke="#17180F"
-stroke-width="11"
-transform="rotate(3.116946411319077 600 375)"/>
-<line x1="0" y1="749" x2="1200" y2="749" stroke="#17180F" stroke-width="10"/>
+transform="rotate(-1.5661217421293259 600 375)"/>
+<line x1="0" y1="749" x2="1200" y2="749" stroke="#14150E" stroke-width="10"/>
 </svg>

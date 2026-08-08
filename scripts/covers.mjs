@@ -24,10 +24,11 @@ const POSTS = path.join(ROOT, "src", "content", "posts");
 const OUT = path.join(ROOT, "public", "images", "covers");
 
 const W = 1200, H = 750;               // 16:10, matches the listing aspect
-const PAPER = "#F4F3EF";
-const INK = "#17180F";
-const AMBER = "#8A5A12";
-const HAIR = "#D4D0C6";
+const PAPER = "#FBFAF9";
+const INK   = "#14150E";
+const AMBER = "#1A5FD0";   /* the blue lead */
+const WARM  = "#B23A08";   /* the second accent, used on one element */
+const HAIR  = "#D9D5CC";
 
 /* A small deterministic PRNG so a slug always yields the same composition. */
 function rng(seed) {
@@ -54,23 +55,26 @@ const between = (r, a, b) => a + r() * (b - a);
    posts in the same topic do not look like the same picture. */
 
 const S_MAIN = 11, S_HOT = 22;
+const pickHot = (r) => (r() > 0.5 ? AMBER : WARM);
 
 const M = {
   // signal fanning out from a source
   "Digital Marketing"(r) {
+    const HOT = pickHot(r);
     const cx = between(r, 120, 300), cy = H / 2;
     const n = 5 + Math.floor(r() * 3), hot = Math.floor(between(r, 1, n));
     const step = between(r, 95, 135);
     return Array.from({ length: n }, (_, i) => {
       const rad = 130 + i * step;
       return `<path d="M ${cx} ${cy - rad} A ${rad} ${rad} 0 0 1 ${cx} ${cy + rad}"
-        fill="none" stroke="${i === hot ? AMBER : INK}"
+        fill="none" stroke="${i === hot ? HOT : INK}"
         stroke-width="${i === hot ? S_HOT : S_MAIN}" stroke-linecap="round"/>`;
     }).join("");
   },
 
   // a value travelling a chain of nodes, broken at one of them
   "Performance & Affiliate"(r) {
+    const HOT = pickHot(r);
     const n = 4 + Math.floor(r() * 3);
     const box = between(r, 62, 104);
     const gap = (W - 300) / (n - 1);
@@ -80,7 +84,7 @@ const M = {
     for (let i = 0; i < n; i++) {
       const x = 150 + i * gap, on = i === brk;
       s += `<rect x="${x - box / 2}" y="${y - box / 2}" width="${box}" height="${box}"
-        fill="${on ? AMBER : "none"}" stroke="${on ? AMBER : INK}" stroke-width="${S_MAIN}"/>`;
+        fill="${on ? HOT : "none"}" stroke="${on ? HOT : INK}" stroke-width="${S_MAIN}"/>`;
       if (i < n - 1) {
         const x2 = i === brk - 1 ? x + gap * 0.42 : x + gap - box / 2;
         s += `<line x1="${x + box / 2}" y1="${y}" x2="${x2}" y2="${y}"
@@ -92,13 +96,14 @@ const M = {
 
   // concentric frames — something built outward from a centre
   "Brand Building"(r) {
+    const HOT = pickHot(r);
     const cx = W / 2, cy = H / 2;
     const n = 3 + Math.floor(r() * 3), hot = Math.floor(r() * n);
     const step = between(r, 80, 115), rot = between(r, -8, 8);
     return Array.from({ length: n }, (_, i) => {
       const d = 95 + i * step;
       return `<rect x="${cx - d}" y="${cy - d * 0.72}" width="${d * 2}" height="${d * 1.44}"
-        fill="none" stroke="${i === hot ? AMBER : INK}"
+        fill="none" stroke="${i === hot ? HOT : INK}"
         stroke-width="${i === hot ? S_HOT : S_MAIN}"
         transform="rotate(${rot * (i / n)} ${cx} ${cy})"/>`;
     }).join("");
@@ -106,6 +111,7 @@ const M = {
 
   // a ledger of columns, one carrying the weight
   "Business & Finance"(r) {
+    const HOT = pickHot(r);
     const base = H - 150, n = 4 + Math.floor(r() * 4);
     const gap = (W - 300) / n, bw = gap * between(r, 0.42, 0.62);
     const hot = Math.floor(between(r, 0, n));
@@ -113,13 +119,14 @@ const M = {
     for (let i = 0; i < n; i++) {
       const x = 175 + i * gap, h = between(r, 110, 430);
       s += `<rect x="${x - bw / 2}" y="${base - h}" width="${bw}" height="${h}"
-        fill="${i === hot ? AMBER : "none"}" stroke="${i === hot ? AMBER : INK}" stroke-width="${S_MAIN}"/>`;
+        fill="${i === hot ? AMBER : "none"}" stroke="${i === hot ? HOT : INK}" stroke-width="${S_MAIN}"/>`;
     }
     return s;
   },
 
   // a lattice with one live cell
   "AI & Automation"(r) {
+    const HOT = pickHot(r);
     const cols = 4 + Math.floor(r() * 4), rows = 3 + Math.floor(r() * 2);
     const gx = (W - 320) / (cols - 1), gy = (H - 260) / (rows - 1);
     const hx = Math.floor(r() * cols), hy = Math.floor(r() * rows);
@@ -128,7 +135,7 @@ const M = {
     for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
       const cx = 160 + x * gx, cy = 130 + y * gy, on = x === hx && y === hy;
       s += on
-        ? `<rect x="${cx - d / 2}" y="${cy - d / 2}" width="${d}" height="${d}" fill="${AMBER}"/>`
+        ? `<rect x="${cx - d / 2}" y="${cy - d / 2}" width="${d}" height="${d}" fill="${HOT}"/>`
         : `<rect x="${cx - d / 2}" y="${cy - d / 2}" width="${d}" height="${d}" fill="none" stroke="${INK}" stroke-width="${S_MAIN}"/>`;
     }
     return s;
@@ -136,6 +143,7 @@ const M = {
 
   // steps that do not rise evenly — the shape of learning something
   "Founder Lessons"(r) {
+    const HOT = pickHot(r);
     const n = 3 + Math.floor(r() * 3), w = (W - 260) / n;
     const base = H - 170, hot = Math.floor(between(r, 0, n));
     let s = "", y = base;
@@ -143,7 +151,7 @@ const M = {
       const rise = between(r, 70, 150) * (r() > 0.25 ? 1 : -0.6);
       const x = 130 + i * w, ny = Math.max(120, Math.min(H - 120, y - rise));
       s += `<line x1="${x}" y1="${y}" x2="${x + w}" y2="${y}"
-        stroke="${i === hot ? AMBER : INK}" stroke-width="${i === hot ? S_HOT : S_MAIN}" stroke-linecap="square"/>`;
+        stroke="${i === hot ? HOT : INK}" stroke-width="${i === hot ? S_HOT : S_MAIN}" stroke-linecap="square"/>`;
       if (i < n - 1)
         s += `<line x1="${x + w}" y1="${y}" x2="${x + w}" y2="${ny}" stroke="${INK}" stroke-width="${S_MAIN}"/>`;
       y = ny;
@@ -153,6 +161,7 @@ const M = {
 
   // rules crossing — where two things meet
   Business(r) {
+    const HOT = pickHot(r);
     const n = 2 + Math.floor(r() * 3);
     let s = "";
     for (let i = 0; i < n; i++) {
@@ -160,7 +169,7 @@ const M = {
       s += `<line x1="110" y1="${y}" x2="${W - 110}" y2="${y}" stroke="${INK}" stroke-width="${S_MAIN}"/>`;
     }
     const vx = between(r, 300, W - 300);
-    s += `<line x1="${vx}" y1="100" x2="${vx}" y2="${H - 100}" stroke="${AMBER}" stroke-width="${S_HOT}"/>`;
+    s += `<line x1="${vx}" y1="100" x2="${vx}" y2="${H - 100}" stroke="${HOT}" stroke-width="${S_HOT}"/>`;
     return s;
   },
 };

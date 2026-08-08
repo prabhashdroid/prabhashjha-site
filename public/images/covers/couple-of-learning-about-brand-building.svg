@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img">
-<rect width="1200" height="750" fill="#F4F3EF"/>
-<line x1="110" y1="256.86419570818543" x2="1090" y2="256.86419570818543" stroke="#17180F" stroke-width="11"/><line x1="110" y1="499.79652285575867" x2="1090" y2="499.79652285575867" stroke="#17180F" stroke-width="11"/><line x1="632.177208038047" y1="100" x2="632.177208038047" y2="650" stroke="#8A5A12" stroke-width="22"/>
-<line x1="0" y1="749" x2="1200" y2="749" stroke="#17180F" stroke-width="10"/>
+<rect width="1200" height="750" fill="#FBFAF9"/>
+<line x1="110" y1="237.29652285575867" x2="1090" y2="237.29652285575867" stroke="#14150E" stroke-width="11"/><line x1="110" y1="379.2902944050729" x2="1090" y2="379.2902944050729" stroke="#14150E" stroke-width="11"/><line x1="110" y1="547.4347268417478" x2="1090" y2="547.4347268417478" stroke="#14150E" stroke-width="11"/><line x1="584.7766304388642" y1="100" x2="584.7766304388642" y2="650" stroke="#B23A08" stroke-width="22"/>
+<line x1="0" y1="749" x2="1200" y2="749" stroke="#14150E" stroke-width="10"/>
 </svg>

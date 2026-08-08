@@ -4,6 +4,7 @@ import Base from "../layouts/Base.astro";
 import { getCollection } from "astro:content";
 import { catSlug, CATEGORY_BLURBS, CATEGORY_ORDER } from "../categories";
 import { HOME } from "../siteData";
+import HeroFigure from "../components/HeroFigure.astro";
 
 const posts = (await getCollection("posts"))
   .filter((p) => !p.data.draft && (p.data.slug ?? p.id) !== "privacy-policy")
@@ -35,12 +36,14 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
   <section class="relative" data-hero>
     <div class="absolute inset-0 grid-bg" aria-hidden="true"></div>
 
-    <div class="hero-recede relative mx-auto max-w-6xl px-5 sm:px-8 pt-20 pb-16 md:pt-28 md:pb-20">
+    <div class="hero-recede relative mx-auto max-w-6xl px-5 sm:px-8 pt-20 pb-16 md:pt-28 md:pb-20
+                lg:grid lg:grid-cols-[minmax(0,1fr)_19rem] lg:gap-14 lg:items-center">
+      <div>
       <p class="reveal step-1 label flex items-center gap-3 mb-8">
         <span class="w-8 h-px bg-accent" aria-hidden="true"></span>{HOME.badge}
       </p>
 
-      <h1 data-words class="t-d1 font-display font-semibold max-w-[12ch]">
+      <h1 data-words class="t-d1 font-display font-semibold">
         {HOME.headline}
         <span class="grad-text">{HOME.headlineAccent}</span>.
       </h1>
@@ -59,6 +62,13 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
           class="link-sweep text-[0.95rem] text-muted pb-0.5">
           {HOME.secondaryCtaLabel}
         </a>
+      </div>
+      </div>
+
+      {/* Spend in at the top, split across two channels, one path paying back
+          and one not. The subject of the site, not decoration. */}
+      <div class="hidden lg:block justify-self-end">
+        <HeroFigure />
       </div>
     </div>
 
@@ -141,7 +151,7 @@ const words = posts.reduce((s, p) => s + (p.body?.split(/\s+/).length ?? 0), 0);
             <h3 class="shift t-h2 font-display font-semibold group-hover:text-accent">
               {t.name}
             </h3>
-            <p class="label tabular self-baseline text-right">{t.count}</p>
+            <p class="label tabular self-baseline text-right text-[var(--color-accent-2)]">{t.count}</p>
             <p class="col-span-2 text-[0.95rem] text-muted leading-relaxed max-w-[46ch]">
               {t.blurb}
             </p>

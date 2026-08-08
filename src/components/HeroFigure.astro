@@ -1,0 +1,56 @@
+---
+/* The hero figure.
+ *
+ * The masthead was type on the left and nothing on the right — at 1440px the
+ * right half of the first screen was empty, which reads as unfinished rather
+ * than as negative space.
+ *
+ * This fills it with the site's actual subject rather than decoration: money
+ * going in at the top, passing through the chain that every performance
+ * marketer argues about, and one path that pays back while another does not.
+ * It is a picture of the thing the whole site is about.
+ *
+ * It draws itself on load with stroke-dashoffset — pure CSS, no JavaScript,
+ * ~2 KB, and it is aria-hidden because it repeats what the headline says.
+ */
+---
+<svg class="hero-fig" viewBox="0 0 420 460" fill="none" aria-hidden="true">
+  <!-- the ruled ground, echoing the paper texture -->
+  <g class="hf-rules" stroke="var(--color-hair)" stroke-width="1">
+    <line x1="0" y1="70" x2="420" y2="70" /><line x1="0" y1="170" x2="420" y2="170" />
+    <line x1="0" y1="270" x2="420" y2="270" /><line x1="0" y1="370" x2="420" y2="370" />
+  </g>
+
+  <!-- spend enters -->
+  <g class="hf-draw" stroke="var(--color-text)" stroke-width="2.4" stroke-linecap="square">
+    <path d="M60 24 L60 70" />
+    <rect x="24" y="70" width="72" height="46" />
+    <path d="M60 116 L60 170" />
+  </g>
+
+  <!-- it splits: two channels -->
+  <g class="hf-draw hf-d2" stroke="var(--color-text)" stroke-width="2.4" stroke-linecap="square">
+    <path d="M60 170 L60 196 L180 196 L180 224" />
+    <path d="M60 170 L60 196 L320 196 L320 224" />
+    <rect x="132" y="224" width="96" height="52" />
+    <rect x="272" y="224" width="96" height="52" />
+  </g>
+
+  <!-- one returns more than it cost; one does not -->
+  <g class="hf-draw hf-d3" stroke="var(--color-text)" stroke-width="2.4" stroke-linecap="square">
+    <path d="M320 276 L320 340" />
+    <rect x="284" y="340" width="72" height="40" />
+  </g>
+  <g class="hf-draw hf-d3" stroke="var(--color-accent)" stroke-width="3.4" stroke-linecap="square">
+    <path d="M180 276 L180 340" />
+  </g>
+  <rect class="hf-pop" x="144" y="340" width="72" height="40" fill="var(--color-accent)" />
+
+  <!-- the verdict line -->
+  <g class="hf-draw hf-d4" stroke="var(--color-text)" stroke-width="2.4" stroke-linecap="square">
+    <path d="M180 380 L180 420 L420 420" />
+  </g>
+  <g class="hf-rules hf-d4" stroke="var(--color-hair)" stroke-width="1">
+    <path d="M320 380 L320 420" stroke-dasharray="4 5" />
+  </g>
+</svg>

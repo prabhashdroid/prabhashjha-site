@@ -21,23 +21,31 @@
      Dark used to be the root default, which meant every visitor on a
      dark-mode device saw an all-black page whether that suited the writing
      or not. Dark is now an opt-in, either from the OS or the toggle. */
-  --color-void:     #F4F3EF;   /* warm paper  */
-  --color-surface:  #EDEBE5;
-  --color-raised:   #E6E3DB;
-  --color-hair:     #D4D0C6;
+  --color-void:     #FBFAF9;   /* bright paper */
+  --color-surface:  #F1EFEA;
+  --color-raised:   #E9E6DF;
+  --color-hair:     #D9D5CC;
 
-  --color-text:     #17180F;   /* ink */
-  --color-muted:    #55564C;
-  --color-dim:      #646559;
+  --color-text:     #14150E;   /* ink — 17.6:1 on the ground */
+  --color-muted:    #4F5046;
+  --color-dim:      #616256;
 
-  /* ONE accent. Deep ledger amber, dark enough to hold on paper. */
-  --color-accent:   #8A5A12;
+  /* TWO accents now, not one. A single muted accent on a single ground read
+     as bland, which was the actual complaint — restraint is not the same as
+     interest. Blue leads; the warm second colour supplies energy and is used
+     sparingly, for counts, marks and the one thing on a screen that should
+     be looked at first.
+
+     Both verified on the bright ground: blue 5.61:1, warm 5.75:1, and white
+     on either clears 4.5 so buttons are legible. */
+  --color-accent:   #1A5FD0;   /* vivid blue  */
+  --color-accent-2: #B23A08;   /* burnt orange */
 
   /* Aliases kept so existing markup keeps compiling. All three now
      resolve to the single accent, which is what kills the gradient. */
-  --color-blue:     #8A5A12;
-  --color-violet:   #8A5A12;
-  --color-cyan:     #8A5A12;
+  --color-blue:     #1A5FD0;
+  --color-violet:   #1A5FD0;
+  --color-cyan:     #1A5FD0;
 
   --font-display: "Newsreader", ui-serif, Georgia, serif;
   --font-sans:    "Newsreader", ui-serif, Georgia, serif;
@@ -55,8 +63,8 @@
 
      Every clamp keeps a rem term in the middle expression so text still
      responds to the reader's own font-size setting (WCAG 1.4.4). */
-  --fs-d1: clamp(3rem,    1.20rem + 7.2vw,  7rem);      /* masthead   48 → 112 */
-  --fs-d2: clamp(2.4rem,  1.55rem + 3.4vw,  4.25rem);   /* article h1 38 →  68 */
+  --fs-d1: clamp(2.5rem,  1.55rem + 3.8vw,  4.5rem);    /* masthead   40 →  72 */
+  --fs-d2: clamp(2.1rem,  1.55rem + 2.2vw,  3.25rem);   /* article h1 34 →  52 */
   --fs-d3: clamp(1.9rem,  1.45rem + 1.8vw,  2.9rem);    /* featured   30 →  46 */
   --fs-h1: clamp(1.55rem, 1.35rem + 0.8vw,  2rem);      /* section    25 →  32 */
   --fs-h2: 1.22rem;                                     /* row title */
@@ -75,8 +83,8 @@
 :root[data-theme="dark"] {
   --color-void: #0E0F0D; --color-surface: #141512; --color-raised: #1A1B17;
   --color-hair: #2A2C28; --color-text: #EDEDEA; --color-muted: #A6A79F;
-  --color-dim: #85867E;  --color-accent: #D9A441;
-  --color-blue: #D9A441; --color-violet: #D9A441; --color-cyan: #D9A441;
+  --color-dim: #85867E;  --color-accent: #7FB0F0; --color-accent-2: #E8935C;
+  --color-blue: #7FB0F0; --color-violet: #7FB0F0; --color-cyan: #7FB0F0;
 }
 
 @layer base {
@@ -458,7 +466,7 @@
   transition: color .2s ease;
 }
 .toc a:hover { color: var(--color-accent); }
-.toc-n { font-family: var(--font-mono); font-size: .68rem; color: var(--color-dim); }
+.toc-n { font-family: var(--font-mono); font-size: .68rem; color: var(--color-accent-2); }
 
 /* Below the rail breakpoint the index becomes a collapsed summary so it
    never pushes the article down on a phone. */
@@ -475,6 +483,39 @@
    In listings, where the mark actually does its job of telling posts apart, it
    is still shown full-bleed. */
 [data-parallax] { background: var(--color-void); }
+
+/* ============================================================
+   HERO FIGURE — the right half of the masthead was empty.
+   Draws itself once on load with stroke-dashoffset. No JavaScript.
+   ============================================================ */
+.hero-fig { width: 100%; max-width: 420px; height: auto; }
+
+/* Each group fades and rises in sequence. An earlier version drew the strokes
+   with stroke-dasharray + pathLength, which is unreliable: `pathLength` is not
+   honoured on <rect> in Chrome, so rectangles rendered as broken fragments
+   rather than whole shapes. Opacity and transform always work.
+
+   Fails visible — the resting state is fully drawn, and `backwards` only holds
+   the hidden state during each group's delay. */
+html.js .hero-fig :is(.hf-draw, .hf-rules, .hf-pop) {
+  animation: hf-in .7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+html.js .hero-fig .hf-rules { animation-delay: .2s; }
+html.js .hero-fig .hf-draw  { animation-delay: .5s; }
+html.js .hero-fig .hf-d2    { animation-delay: .8s; }
+html.js .hero-fig .hf-d3    { animation-delay: 1.1s; }
+html.js .hero-fig .hf-pop   { animation-delay: 1.3s; }
+html.js .hero-fig .hf-d4    { animation-delay: 1.5s; }
+
+@keyframes hf-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html.js .hero-fig :is(.hf-draw, .hf-rules, .hf-pop) {
+    animation: none !important; opacity: 1 !important; transform: none !important;
+  }
+}
+
+.site-mark { display: block; color: var(--color-text); }
 
 /* Anchors must clear the fixed header when a TOC link is followed. */
 .prose-pj :is(h2, h3) { scroll-margin-top: 6.5rem; }

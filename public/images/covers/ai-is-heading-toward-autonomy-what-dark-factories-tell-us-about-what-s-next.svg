@@ -1,9 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img">
-<rect width="1200" height="750" fill="#F4F3EF"/>
-<line x1="110" y1="600" x2="1090" y2="600" stroke="#17180F" stroke-width="11"/><rect x="116.19386877724901" y="330.0651801377535" width="117.61226244550197" height="269.9348198622465"
-fill="none" stroke="#17180F" stroke-width="11"/><rect x="341.193868777249" y="342.8644399344921" width="117.61226244550197" height="257.1355600655079"
-fill="none" stroke="#17180F" stroke-width="11"/><rect x="566.193868777249" y="404.6795094758272" width="117.61226244550197" height="195.32049052417278"
-fill="#8A5A12" stroke="#8A5A12" stroke-width="11"/><rect x="791.193868777249" y="253.52536380290985" width="117.61226244550197" height="346.47463619709015"
-fill="none" stroke="#17180F" stroke-width="11"/>
-<line x1="0" y1="749" x2="1200" y2="749" stroke="#17180F" stroke-width="10"/>
+<rect width="1200" height="750" fill="#FBFAF9"/>
+<line x1="110" y1="600" x2="1090" y2="600" stroke="#14150E" stroke-width="11"/><rect x="134.0984558572527" y="342.8644399344921" width="81.80308828549458" height="257.1355600655079"
+fill="none" stroke="#14150E" stroke-width="11"/><rect x="284.0984558572527" y="404.6795094758272" width="81.80308828549458" height="195.32049052417278"
+fill="none" stroke="#14150E" stroke-width="11"/><rect x="434.0984558572527" y="253.52536380290985" width="81.80308828549458" height="346.47463619709015"
+fill="#1A5FD0" stroke="#B23A08" stroke-width="11"/><rect x="584.0984558572527" y="180.7137592881918" width="81.80308828549458" height="419.2862407118082"
+fill="none" stroke="#14150E" stroke-width="11"/><rect x="734.0984558572527" y="222.2040268778801" width="81.80308828549458" height="377.7959731221199"
+fill="none" stroke="#14150E" stroke-width="11"/><rect x="884.0984558572527" y="250.36623358726501" width="81.80308828549458" height="349.633766412735"
+fill="none" stroke="#14150E" stroke-width="11"/>
+<line x1="0" y1="749" x2="1200" y2="749" stroke="#14150E" stroke-width="10"/>
 </svg>

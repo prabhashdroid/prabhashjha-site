@@ -1,17 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img">
-<rect width="1200" height="750" fill="#F4F3EF"/>
+<rect width="1200" height="750" fill="#FBFAF9"/>
 <rect x="505" y="306.6" width="190" height="136.79999999999998"
-fill="none" stroke="#17180F"
+fill="none" stroke="#14150E"
 stroke-width="11"
-transform="rotate(0 600 375)"/><rect x="413.2747329236008" y="240.5578077049926" width="373.45053415279835" height="268.8843845900148"
-fill="none" stroke="#8A5A12"
+transform="rotate(0 600 375)"/><rect x="419.5966393966228" y="245.1095803655684" width="360.80672120675445" height="259.7808392688632"
+fill="none" stroke="#1A5FD0"
 stroke-width="22"
-transform="rotate(-1.382473073899746 600 375)"/><rect x="321.54946584720165" y="174.5156154099852" width="556.9010683055967" height="400.9687691800296"
-fill="none" stroke="#17180F"
+transform="rotate(-2.2527150387565293 600 375)"/><rect x="334.19327879324555" y="183.61916073113682" width="531.6134424135089" height="382.76167853772637"
+fill="none" stroke="#14150E"
 stroke-width="11"
-transform="rotate(-2.764946147799492 600 375)"/><rect x="229.82419877080247" y="108.47342311497778" width="740.3516024583951" height="533.0531537700444"
-fill="none" stroke="#17180F"
-stroke-width="11"
-transform="rotate(-4.147419221699238 600 375)"/>
-<line x1="0" y1="749" x2="1200" y2="749" stroke="#17180F" stroke-width="10"/>
+transform="rotate(-4.505430077513059 600 375)"/>
+<line x1="0" y1="749" x2="1200" y2="749" stroke="#14150E" stroke-width="10"/>
 </svg>

@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img">
-<rect width="1200" height="750" fill="#F4F3EF"/>
+<rect width="1200" height="750" fill="#FBFAF9"/>
 <line x1="130" y1="580" x2="318" y2="580"
-stroke="#17180F" stroke-width="11" stroke-linecap="square"/><line x1="318" y1="580" x2="318" y2="630" stroke="#17180F" stroke-width="11"/><line x1="318" y1="630" x2="506" y2="630"
-stroke="#17180F" stroke-width="11" stroke-linecap="square"/><line x1="506" y1="630" x2="506" y2="540.2126902341843" stroke="#17180F" stroke-width="11"/><line x1="506" y1="540.2126902341843" x2="694" y2="540.2126902341843"
-stroke="#17180F" stroke-width="11" stroke-linecap="square"/><line x1="694" y1="540.2126902341843" x2="694" y2="424.0480065718293" stroke="#17180F" stroke-width="11"/><line x1="694" y1="424.0480065718293" x2="882" y2="424.0480065718293"
-stroke="#8A5A12" stroke-width="22" stroke-linecap="square"/><line x1="882" y1="424.0480065718293" x2="882" y2="488.53563299402595" stroke="#17180F" stroke-width="11"/><line x1="882" y1="488.53563299402595" x2="1070" y2="488.53563299402595"
-stroke="#17180F" stroke-width="11" stroke-linecap="square"/>
-<line x1="0" y1="749" x2="1200" y2="749" stroke="#17180F" stroke-width="10"/>
+stroke="#14150E" stroke-width="11" stroke-linecap="square"/><line x1="318" y1="580" x2="318" y2="622.87491511181" stroke="#14150E" stroke-width="11"/><line x1="318" y1="622.87491511181" x2="506" y2="622.87491511181"
+stroke="#1A5FD0" stroke-width="22" stroke-linecap="square"/><line x1="506" y1="622.87491511181" x2="506" y2="530.5032667666674" stroke="#14150E" stroke-width="11"/><line x1="506" y1="530.5032667666674" x2="694" y2="530.5032667666674"
+stroke="#14150E" stroke-width="11" stroke-linecap="square"/><line x1="694" y1="530.5032667666674" x2="694" y2="417.3295348286629" stroke="#14150E" stroke-width="11"/><line x1="694" y1="417.3295348286629" x2="882" y2="417.3295348286629"
+stroke="#14150E" stroke-width="11" stroke-linecap="square"/><line x1="882" y1="417.3295348286629" x2="882" y2="340.04863584041595" stroke="#14150E" stroke-width="11"/><line x1="882" y1="340.04863584041595" x2="1070" y2="340.04863584041595"
+stroke="#14150E" stroke-width="11" stroke-linecap="square"/>
+<line x1="0" y1="749" x2="1200" y2="749" stroke="#14150E" stroke-width="10"/>
 </svg>
