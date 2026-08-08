@@ -57,6 +57,7 @@ export function boot() {
   document.documentElement.dataset.motion = "on";
   initSmoothScroll();
   initNav();
+  initTheme();
   initCounters();
 
   ctx?.revert();
@@ -352,6 +353,38 @@ function initNav() {
   });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
   window.addEventListener("resize", () => { if (window.innerWidth >= 768) close(); });
+}
+
+/* ---------------------------------------------------------------- theme */
+
+/**
+ * The toggle flips between light and dark and remembers the choice. It reads
+ * the *rendered* background rather than assuming a starting theme, so it stays
+ * correct whether the current look came from the default, the OS preference,
+ * or a previous click.
+ */
+function initTheme() {
+  const btn = document.getElementById("themeToggle");
+  if (!btn) return;
+
+  // Paper is the site's default, so anything unset is light.
+  const current = () => document.documentElement.dataset.theme ?? "light";
+
+  const label = () =>
+    btn.setAttribute("aria-label", current() === "dark" ? "Switch to light theme" : "Switch to dark theme");
+  label();
+
+  // The header is transition:persist, so this button survives navigation and
+  // would otherwise accumulate a listener on every page load.
+  if (btn.dataset.wired) return;
+  btn.dataset.wired = "1";
+
+  btn.addEventListener("click", () => {
+    const next = current() === "dark" ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem("theme", next); } catch {}
+    label();
+  });
 }
 
 /* ------------------------------------------------------------- counters */

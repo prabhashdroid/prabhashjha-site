@@ -15,24 +15,29 @@
    guilty of all four.
    ============================================================ */
 @theme {
-  /* ground: near-black with a warm bias, not blue-black */
-  --color-void:     #0E0F0D;
-  --color-surface:  #141512;
-  --color-raised:   #1A1B17;
-  --color-hair:     #2A2C28;
+  /* DEFAULT = warm paper. This is the site's real identity: ink on stock,
+     the way the subject (ledgers, print, reconciliation) actually looks.
 
-  --color-text:     #EDEDEA;
-  --color-muted:    #A6A79F;
-  --color-dim:      #85867E;
+     Dark used to be the root default, which meant every visitor on a
+     dark-mode device saw an all-black page whether that suited the writing
+     or not. Dark is now an opt-in, either from the OS or the toggle. */
+  --color-void:     #F4F3EF;   /* warm paper  */
+  --color-surface:  #EDEBE5;
+  --color-raised:   #E6E3DB;
+  --color-hair:     #D4D0C6;
 
-  /* ONE accent. Ledger amber — the colour of a highlighted cell. */
-  --color-accent:   #D9A441;
+  --color-text:     #17180F;   /* ink */
+  --color-muted:    #55564C;
+  --color-dim:      #646559;
+
+  /* ONE accent. Deep ledger amber, dark enough to hold on paper. */
+  --color-accent:   #8A5A12;
 
   /* Aliases kept so existing markup keeps compiling. All three now
      resolve to the single accent, which is what kills the gradient. */
-  --color-blue:     #D9A441;
-  --color-violet:   #D9A441;
-  --color-cyan:     #D9A441;
+  --color-blue:     #8A5A12;
+  --color-violet:   #8A5A12;
+  --color-cyan:     #8A5A12;
 
   --font-display: "Newsreader", ui-serif, Georgia, serif;
   --font-sans:    "Newsreader", ui-serif, Georgia, serif;
@@ -59,21 +64,19 @@
   --fs-small: 0.94rem;
 }
 
-/* The light theme is a real design, not an inversion: warm paper,
-   ink text, and a darker amber that holds contrast on a light ground. */
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    --color-void: #F4F3EF; --color-surface: #EDEBE5; --color-raised: #E6E3DB;
-    --color-hair: #D4D0C6; --color-text: #17180F; --color-muted: #55564C;
-    --color-dim: #646559;  --color-accent: #8A5A12;
-    --color-blue: #8A5A12; --color-violet: #8A5A12; --color-cyan: #8A5A12;
-  }
-}
-:root[data-theme="light"] {
-  --color-void: #F4F3EF; --color-surface: #EDEBE5; --color-raised: #E6E3DB;
-  --color-hair: #D4D0C6; --color-text: #17180F; --color-muted: #55564C;
-  --color-dim: #646559;  --color-accent: #8A5A12;
-  --color-blue: #8A5A12; --color-violet: #8A5A12; --color-cyan: #8A5A12;
+/* The dark theme is a real design, not an inversion: warm near-black ink
+   ground (never blue-black) and a brighter amber that holds on it.
+
+   It is deliberately NOT applied from prefers-color-scheme. This site has a
+   chosen identity — ink on warm stock — and most devices now default to dark,
+   which meant nearly every visitor was served an all-black page the design
+   never intended. Dark is now something a reader opts into from the toggle,
+   and that choice is remembered. */
+:root[data-theme="dark"] {
+  --color-void: #0E0F0D; --color-surface: #141512; --color-raised: #1A1B17;
+  --color-hair: #2A2C28; --color-text: #EDEDEA; --color-muted: #A6A79F;
+  --color-dim: #85867E;  --color-accent: #D9A441;
+  --color-blue: #D9A441; --color-violet: #D9A441; --color-cyan: #D9A441;
 }
 
 @layer base {
@@ -102,7 +105,7 @@
   }
   /* figures line up wherever they are counted or compared */
   [data-count], time, .tabular { font-variant-numeric: tabular-nums lining-nums; }
-  ::selection { background: var(--color-accent); color: #17180F; }
+  ::selection { background: var(--color-accent); color: var(--color-void); }
   :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
   img { max-width: 100%; }
   /* Swiss: the grid and the rules carry the structure, so nothing is rounded */
@@ -330,6 +333,15 @@
     font-family: var(--font-mono); font-size: .68rem; letter-spacing: .14em;
     text-transform: uppercase; color: var(--color-dim);
   }
+
+  /* Theme toggle: show the icon for the theme you would switch TO, so the
+     control describes its action rather than the current state. */
+  .theme-moon { display: block; }
+  .theme-sun  { display: none; }
+  :root[data-theme="dark"] .theme-moon { display: none; }
+  :root[data-theme="dark"] .theme-sun  { display: block; }
+  :root[data-theme="light"] .theme-moon { display: block; }
+  :root[data-theme="light"] .theme-sun  { display: none; }
 
   /* Off-screen until focused, then a real, visible target in the top-left. */
   .skip-link {
